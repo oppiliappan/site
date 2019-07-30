@@ -76,7 +76,7 @@ hr {
   color: var(--white);
   text-align: center;
   font-size: 6rem;
-  font-family: 'Iosevka Term', mono;
+  font-family: 'Iosevka', monospace;
   text-shadow: 0.25rem 0rem var(--cyan), -0.25rem 0rem var(--pink);
   line-height: 8.5rem;
   font-style: italic;
@@ -114,7 +114,7 @@ a:hover, a:active {
 pre, code {
   background-color: var(--dark-white);
   color: var(--black);
-  font-family: 'Iosevka Term', mono;
+  font-family: 'Iosevka', monospace;
 }
 
 pre {
