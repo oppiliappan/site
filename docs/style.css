@@ -1,3 +1,5 @@
+@import url('https://rsms.me/inter/inter.css');
+
 :root {
   --cyan: #59d8a6;
   --pink: #e61d91;
@@ -8,7 +10,7 @@
 }
 
 body {
-  font-family: sans;
+  font-family: 'Inter', sans-serif;
   background-color: var(--white);
   color: var(--black);
   padding: 0;
@@ -74,7 +76,7 @@ hr {
   color: var(--white);
   text-align: center;
   font-size: 6rem;
-  font-family: 'Iosevka Term', sans-serif;
+  font-family: 'Iosevka Term', mono;
   text-shadow: 0.25rem 0rem var(--cyan), -0.25rem 0rem var(--pink);
   line-height: 8.5rem;
   font-style: italic;
@@ -91,7 +93,7 @@ a:hover, a:active {
 
 .post-link {
   color: var(--black);
-  font-family: sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 600;
   font-size: 1rem;
   text-decoration: none;
@@ -112,6 +114,7 @@ a:hover, a:active {
 pre, code {
   background-color: var(--dark-white);
   color: var(--black);
+  font-family: 'Iosevka Term', mono;
 }
 
 pre {
