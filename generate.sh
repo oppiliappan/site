@@ -29,7 +29,6 @@ echo "
 <html lang=\"en\">
 <head>
 <link rel=\"stylesheet\" href=\"./style.css\">
-<link rel=\"stylesheet\" href=\"https://files.nerdypepper.me/rW.woff\">
 <meta charset=\"UTF-8\">
 <title>n</title>
 " > ./docs/index.html
@@ -44,9 +43,7 @@ echo '</script> </head>' >> docs/index.html
 # body
 echo "
 <body>
-<div class=\"black-circle\">
-    <h1 class=\"heading\">n</h1>
-</div>
+<h1 class=\"heading\">n</h1>
 <div class=\"posts\">
 " >> docs/index.html
 
