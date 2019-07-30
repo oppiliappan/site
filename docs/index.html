@@ -3,7 +3,6 @@
 <html lang="en">
 <head>
 <link rel="stylesheet" href="./style.css">
-<link rel="stylesheet" href="https://files.nerdypepper.me/rW.woff">
 <meta charset="UTF-8">
 <title>n</title>
 
@@ -20,9 +19,7 @@ function showPost(id) {
 </script> </head>
 
 <body>
-<div class="black-circle">
-    <h1 class="heading">n</h1>
-</div>
+<h1 class="heading">n</h1>
 <div class="posts">
 
 
@@ -44,7 +41,7 @@ none of which concern us.</p>
 our view, and restore it once its done, with <code>winrestview</code>.</p>
 
 <pre><code>let view = winsaveview()
-s/\s\+$//gc              &quot; find and confirm replace trailing blanks
+s/\s\+$//gc              &quot; find and (confirm) replace trailing blanks
 winrestview(view)        &quot; restore our original view!
 </code></pre>
 

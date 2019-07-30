@@ -1,8 +1,14 @@
 @import url('https://rsms.me/inter/inter.css');
 
+@font-face {
+  font-family: "Iosevka";
+  src: url('https://cdn.rawgit.com/kaushalmodi/iosevka-mirror/v1.14.1/woff/iosevka-ss08-bolditalic.woff') format('woff');
+  font-style: bold-italic;
+}
+
 :root {
-  --cyan: #59d8a6;
-  --pink: #e61d91;
+  --cyan: #00ffff;
+  --pink: #ff00ff;
   --black: #212121;
   --light-black: #535353;
   --white: #ffffff;
@@ -73,13 +79,12 @@ hr {
 
 .heading {
   margin:0 auto;
-  color: var(--white);
+  color: var(--black);
   text-align: center;
   font-size: 6rem;
   font-family: 'Iosevka', monospace;
   text-shadow: 0.25rem 0rem var(--cyan), -0.25rem 0rem var(--pink);
   line-height: 8.5rem;
-  font-style: italic;
 }
 
 a, a:hover, a:visited, a:active {
@@ -114,7 +119,7 @@ a:hover, a:active {
 pre, code {
   background-color: var(--dark-white);
   color: var(--black);
-  font-family: 'Iosevka', monospace;
+  font-family: monospace;
 }
 
 pre {
