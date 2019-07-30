@@ -26,10 +26,10 @@ post_wrapper() {
 # meta
 echo "
 <!DOCTYPE html>
-<html lang="en">
+<html lang=\"en\">
 <head>
-<link rel="stylesheet" href="./style.css">
-<meta charset="UTF-8">
+<link rel=\"stylesheet\" href=\"./style.css\">
+<meta charset=\"UTF-8\">
 <title>n</title>
 " > ./docs/index.html
 
