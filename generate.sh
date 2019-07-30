@@ -43,10 +43,10 @@ echo '</script> </head>' >> docs/index.html
 # body
 echo "
 <body>
-<div class="black-circle">
-    <h1 class="heading">n</h1>
+<div class=\"black-circle\">
+    <h1 class=\"heading\">n</h1>
 </div>
-<div class="posts">
+<div class=\"posts\">
 " >> docs/index.html
 
 # posts
