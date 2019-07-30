@@ -18,17 +18,18 @@ body {
 }
 
 .posts {
-  text-align: left;
-  display: inline-block;
   width: 100%;
 }
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 1080px) {
   .posts {
-    text-align: left;
-    display: inline-block;
     width: 60%;
   }
+}
+
+.posts {
+  text-align: left;
+  display: inline-block;
 }
 
 
