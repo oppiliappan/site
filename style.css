@@ -1,0 +1,112 @@
+:root {
+  --cyan: #00FECA;
+  --pink: #FF2079;
+  --black: #212121;
+  --light-black: #535353;
+  --white: #ffffff;
+  --dark-white: #d4d4d4;
+}
+
+body {
+  font-family: sans;
+  background-color: var(--white);
+  color: var(--black);
+  font-size: 18px;
+  padding: 0;
+  padding-top: 2rem;
+  text-align: center;
+}
+
+.posts {
+  text-align: left;
+  display: inline-block;
+  width: 100%;
+}
+
+@media only screen and (min-width: 1000px) {
+  .posts {
+    text-align: left;
+    display: inline-block;
+    width: 60%;
+  }
+}
+
+
+.post {
+  margin: 2rem;
+}
+
+hr {
+  color: var(--light-black);
+}
+
+.date {
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: var(--light-black);
+}
+
+.separator {
+  margin: 0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-top: 1px solid var(--dark-white);
+}
+
+.black-circle {
+  margin:0 auto;
+  width: 10rem;
+  height: 10rem;
+  border: 0px solid transparent;
+  border-radius: 50%;
+  background-color: var(--black);
+}
+
+.heading {
+  margin:0 auto;
+  color: var(--white);
+  text-align: center;
+  font-size: 120px;
+  font-family: 'Iosevka Term', sans-serif;
+  text-shadow: 0.25rem 0rem var(--cyan), -0.25rem 0rem var(--pink);
+  line-height: 8.5rem;
+  font-style: italic;
+}
+
+a, a:hover, a:visited, a:active {
+  text-decoration: none;
+  transition: ease 0.2s;
+}
+
+a:hover, a:active {
+  background-color: var(--dark-white);
+}
+
+.post-link {
+  color: var(--black);
+  font-family: sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  text-decoration-skip: objects edges box-decoration;
+}
+
+.post-end-link, .post-end-link:hover, .post-end-link:visited, .post-end-link:active {
+  text-decoration: none;
+  color: var(--light-black);
+  text-shadow: none;
+}
+
+.post-text {
+  font-size: 14px;
+}
+
+pre, code {
+  background-color: var(--dark-white);
+  color: var(--black);
+}
+
+pre {
+  padding: 1rem;
+  overflow: auto;
+}
