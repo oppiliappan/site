@@ -28,6 +28,36 @@ function showPost(id) {
 
     <div class="post">
         <div class="date">30/07 2019</div>
+        <a href="#hold_position!.md" class="post-link" onClick="showPost('hold_position!.md')">Hold Position!</a>
+        <div id="hold_position!.md" class="post-text" style="display: none">
+            <p>Often times, when I run a vim command that makes &#8220;big&#8221; changes to a file (a
+macro or a <code>:vimgrep</code> command) I lose my original position and feel disoriented.</p>
+
+<p><em>Save position with <code>winsaveview()</code>!</em></p>
+
+<p>The <code>winsaveview()</code> command returns a <code>Dictionary</code> that contains information
+about the view of the current window. This includes the cursor line number,
+cursor coloumn, the top most line in the window and a couple of other values,
+none of which concern us.</p>
+
+<p>Before running our command (one that jumps around the buffer, a lot), we save
+our view, and restore it once its done, with <code>winrestview</code>.</p>
+
+<pre><code>let view = winsaveview()
+s/\s\+$//gc              &quot; find and confirm replace trailing blanks
+winrestview(view)        &quot; restore our original view!
+</code></pre>
+
+<p>It might seem a little overkill in the above example, just use &#8220; (double
+backticks) instead, but it comes in handy when you run your file through
+heavier filtering.</p>
+            <a href="#hold_position!.md" class="post-end-link" onClick="showPost('hold_position!.md')">↑ Collapse</a>
+            <div class=separator></div>
+        </div>
+    </div>
+    
+    <div class="post">
+        <div class="date">30/07 2019</div>
         <a href="#get_better_at_yanking_and_putting_in_vim.md" class="post-link" onClick="showPost('get_better_at_yanking_and_putting_in_vim.md')">Get Better At Yanking And Putting In Vim</a>
         <div id="get_better_at_yanking_and_putting_in_vim.md" class="post-text" style="display: none">
             <ol>
