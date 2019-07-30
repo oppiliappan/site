@@ -11,10 +11,13 @@ body {
   font-family: sans;
   background-color: var(--white);
   color: var(--black);
-  font-size: 18px;
   padding: 0;
   padding-top: 2rem;
   text-align: center;
+}
+
+html {
+  font-size: 38px;
 }
 
 .posts {
@@ -24,6 +27,9 @@ body {
 @media only screen and (min-width: 1080px) {
   .posts {
     width: 60%;
+  }
+  html {
+    font-size: 18px;
   }
 }
 
@@ -67,7 +73,7 @@ hr {
   margin:0 auto;
   color: var(--white);
   text-align: center;
-  font-size: 120px;
+  font-size: 6rem;
   font-family: 'Iosevka Term', sans-serif;
   text-shadow: 0.25rem 0rem var(--cyan), -0.25rem 0rem var(--pink);
   line-height: 8.5rem;
@@ -96,10 +102,11 @@ a:hover, a:active {
   text-decoration: none;
   color: var(--light-black);
   text-shadow: none;
+  font-size: 0.8rem;
 }
 
 .post-text {
-  font-size: 14px;
+  font-size: 0.8rem;
 }
 
 pre, code {
