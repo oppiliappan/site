@@ -13,7 +13,7 @@ our view, and restore it once its done, with `winrestview`.
 
 ```
 let view = winsaveview()
-s/\s\+$//gc              " find and confirm replace trailing blanks
+s/\s\+$//gc              " find and (confirm) replace trailing blanks
 winrestview(view)        " restore our original view!
 ```
 
