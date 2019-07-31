@@ -105,7 +105,8 @@ a:hover, a:active {
   text-decoration-skip: objects edges box-decoration;
 }
 
-.post-end-link, .post-end-link:hover, .post-end-link:visited, .post-end-link:active {
+.post-end-link, .post-end-link:hover, .post-end-link:visited, .post-end-link:active
+{
   text-decoration: none;
   color: var(--light-black);
   text-shadow: none;

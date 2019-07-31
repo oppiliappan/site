@@ -11,11 +11,15 @@ post_wrapper() {
     # 1 - post id
     # 2 - post content
     title="$( post_title $1 )"
+    d="none";
+    if [ "$4" = "1" ]; then
+        d="block"
+    fi
     echo -ne "
     <div class=\"post\">
         <div class=\"date\">$3</div>
         <a href=\"#$1\" class=\"post-link\" onClick=\"showPost('$1')\">$title</a>
-        <div id=\"$1\" class=\"post-text\" style=\"display: none\">
+        <div id=\"$1\" class=\"post-text\" style=\"display: $d\">
             $2
             <a href=\"#$1\" class=\"post-end-link\" onClick=\"showPost('$1')\">↑ Collapse</a>
             <div class="separator"></div>
@@ -44,19 +48,26 @@ echo '</script> </head>' >> docs/index.html
 echo "
 <body>
 <h1 class=\"heading\">n</h1>
+" >> docs/index.html
+
+
+# begin posts
+echo "
 <div class=\"posts\">
 " >> docs/index.html
 
 # posts
 posts=$(ls -t ./posts);
+first_visible="1"
 for f in $posts; do
     file="./posts/"$f
     echo "generating post $file"
     id="${file##*/}"    # ill name my posts just fine
     html=$(lowdown "$file")
     post_date=$(date -r "$file" "+%d/%m %Y")
-    post_div=$(post_wrapper "$id" "$html" "$post_date")
+    post_div=$(post_wrapper "$id" "$html" "$post_date" "$first_visible")
     echo -ne "$post_div" >> docs/index.html
+    first_visible="0"
 done
 
 echo "
