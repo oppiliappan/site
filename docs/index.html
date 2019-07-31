@@ -26,9 +26,67 @@ function showPost(id) {
 
 
     <div class="post">
+        <div class="date">31/07 2019</div>
+        <a href="#bash_harder_with_vim.md" class="post-link" onClick="showPost('bash_harder_with_vim.md')">Bash Harder With Vim</a>
+        <div id="bash_harder_with_vim.md" class="post-text" style="display: block">
+            <p>Bash is tricky, dont let your editor get in your way. Here&#8217;s a couple of neat
+addtions you could make to your <code>vimrc</code> for a better shell programming
+experience.</p>
+
+<p><strong>Man pages inside vim</strong>. Source this script to get started:  </p>
+
+<pre><code>runtime ftplugin/man.vim
+</code></pre>
+
+<p>Now, you can open manpages inside vim with <code>:Man</code>! It adds nicer syntax highlighting
+and the ability to jump around with <code>Ctrl-]</code> and <code>Ctrl-T</code>.</p>
+
+<p>By default, the manpage is opened in a horizontal split, I prefer using a new tab:</p>
+
+<pre><code>let g:ft_man_open_mode = &#39;tab&#39;
+</code></pre>
+
+<p><strong>Scratchpad to test your commands</strong>. I often test my <code>sed</code> substitutions, here is
+a sample from the script used to generate this site:  </p>
+
+<pre><code># a substitution to convert snake_case to Title Case With Spaces
+echo &quot;$1&quot; | sed -E -e &quot;s/\..+$//g&quot;  -e &quot;s/_(.)/ \u\1/g&quot; -e &quot;s/^(.)/\u\1/g&quot;
+</code></pre>
+
+<p>Instead of dropping into a new shell, just test it out directly from vim!</p>
+
+<ul>
+<li><p>Yank the link into a register:</p>
+
+<pre><code>yy
+</code></pre></li>
+<li><p>Paste it into the command-line window:</p>
+
+<pre><code>q:p
+</code></pre></li>
+<li><p>Make edits as required:</p>
+
+<pre><code>syntax off            # previously run commands
+edit index.html       # in a buffer!
+w | so %
+echo &quot;new_post.md&quot; | sed -E -e &quot;s/\..+$//g&quot;  -e &quot;s/_(.)/ \u\1/g&quot; -e &quot;s/^(.)/\u\1/g&quot;
+</code></pre></li>
+<li><p>Hit enter!</p>
+
+<pre><code>$ vim
+New Post         # output
+Press ENTER or type command to continue
+</code></pre></li>
+</ul>
+            <a href="#bash_harder_with_vim.md" class="post-end-link" onClick="showPost('bash_harder_with_vim.md')">↑ Collapse</a>
+            <div class=separator></div>
+        </div>
+    </div>
+    
+    <div class="post">
         <div class="date">30/07 2019</div>
         <a href="#hold_position!.md" class="post-link" onClick="showPost('hold_position!.md')">Hold Position!</a>
-        <div id="hold_position!.md" class="post-text" style="display: block">
+        <div id="hold_position!.md" class="post-text" style="display: none">
             <p>Often times, when I run a vim command that makes &#8220;big&#8221; changes to a file (a
 macro or a <code>:vimgrep</code> command) I lose my original position and feel disoriented.</p>
 
