@@ -32,9 +32,20 @@ html {
   width: 100%;
 }
 
+/* tablets */
+@media only screen and (min-width: 720px) {
+  .posts {
+    width: 80%;
+  }
+  html {
+    font-size: 18px;
+  }
+}
+
+/* laptops */
 @media only screen and (min-width: 1080px) {
   .posts {
-    width: 60%;
+    width: 50%;
   }
   html {
     font-size: 18px;

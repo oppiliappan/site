@@ -1,4 +1,4 @@
-Bash is tricky, dont let your editor get in your way. Here's a couple of neat
+Bash is tricky, don't let your editor get in your way. Here's a couple of neat
 addtions you could make to your `vimrc` for a better shell programming
 experience.
 
