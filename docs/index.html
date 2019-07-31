@@ -69,7 +69,8 @@ echo &quot;$1&quot; | sed -E -e &quot;s/\..+$//g&quot;  -e &quot;s/_(.)/ \u\1/g&
 <pre><code>syntax off            # previously run commands
 edit index.html       # in a buffer!
 w | so %
-echo &quot;new_post.md&quot; | sed -E -e &quot;s/\..+$//g&quot;  -e &quot;s/_(.)/ \u\1/g&quot; -e &quot;s/^(.)/\u\1/g&quot;
+!echo &quot;new_post.md&quot; | sed -E -e &quot;s/\..+$//g&quot;  --snip--
+^--- note the use of &#39;!&#39;
 </code></pre></li>
 <li><p>Hit enter with the cursor on the line containing your command!</p>
 

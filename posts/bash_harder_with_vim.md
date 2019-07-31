@@ -44,7 +44,8 @@ q:p
 syntax off            # previously run commands
 edit index.html       # in a buffer!
 w | so %
-echo "new_post.md" | sed -E -e "s/\..+$//g"  -e "s/_(.)/ \u\1/g" -e "s/^(.)/\u\1/g"
+!echo "new_post.md" | sed -E -e "s/\..+$//g"  --snip--
+^--- note the use of '!'
  ```
 
  - Hit enter with the cursor on the line containing your command!
