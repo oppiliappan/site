@@ -25,30 +25,17 @@ body {
 }
 
 html {
-  font-size: 38px;
+  font-size: 18px;
 }
 
 .posts {
-  width: 100%;
+  width: 50%;
 }
 
-/* tablets */
-@media only screen and (min-width: 720px) {
+/* mobile devices */
+@media only screen and (max-width: 70em) {
   .posts {
-    width: 80%;
-  }
-  html {
-    font-size: 18px;
-  }
-}
-
-/* laptops */
-@media only screen and (min-width: 1080px) {
-  .posts {
-    width: 50%;
-  }
-  html {
-    font-size: 18px;
+    width: 92%;
   }
 }
 
