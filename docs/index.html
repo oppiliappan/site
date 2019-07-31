@@ -28,12 +28,16 @@ function showPost(id) {
     <div class="post">
         <div class="date">31/07 2019</div>
         <a href="#bash_harder_with_vim.md" class="post-link" onClick="showPost('bash_harder_with_vim.md')">Bash Harder With Vim</a>
-        <div id="bash_harder_with_vim.md" class="post-text" style="display: block">
+        <div id="bash_harder_with_vim.md" class="post-text" style="display: none">
             <p>Bash is tricky, don&#8217;t let your editor get in your way. Here&#8217;s a couple of neat
-addtions you could make to your <code>vimrc</code> for a better shell programming
+additions you could make to your <code>vimrc</code> for a better shell programming
 experience.</p>
 
-<p><strong>Man pages inside vim</strong>. Source this script to get started:  </p>
+<hr/>
+
+<h4 id="Man%20pages%20inside%20vim">Man pages inside vim</h4>
+
+<p>Source this script to get started:  </p>
 
 <pre><code>runtime ftplugin/man.vim
 </code></pre>
@@ -46,7 +50,11 @@ and the ability to jump around with <code>Ctrl-]</code> and <code>Ctrl-T</code>.
 <pre><code>let g:ft_man_open_mode = &#39;tab&#39;
 </code></pre>
 
-<p><strong>Scratchpad to test your commands</strong>. I often test my <code>sed</code> substitutions, here is
+<hr/>
+
+<h4 id="Scratchpad%20to%20test%20your%20commands">Scratchpad to test your commands</h4>
+
+<p>I often test my <code>sed</code> substitutions, here is
 a sample from the script used to generate this site:  </p>
 
 <pre><code># a substitution to convert snake_case to Title Case With Spaces

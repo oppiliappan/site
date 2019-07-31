@@ -1,8 +1,9 @@
 Bash is tricky, don't let your editor get in your way. Here's a couple of neat
-addtions you could make to your `vimrc` for a better shell programming
+additions you could make to your `vimrc` for a better shell programming
 experience.
-
-**Man pages inside vim**. Source this script to get started:  
+* * *
+#### Man pages inside vim
+ Source this script to get started:  
 
 ```
 runtime ftplugin/man.vim
@@ -15,9 +16,10 @@ By default, the manpage is opened in a horizontal split, I prefer using a new ta
 ```
 let g:ft_man_open_mode = 'tab'
 ```
+* * *
 
-
-**Scratchpad to test your commands**. I often test my `sed` substitutions, here is
+#### Scratchpad to test your commands
+I often test my `sed` substitutions, here is
 a sample from the script used to generate this site:  
 
 ```
