@@ -56,7 +56,7 @@ echo &quot;$1&quot; | sed -E -e &quot;s/\..+$//g&quot;  -e &quot;s/_(.)/ \u\1/g&
 <p>Instead of dropping into a new shell, just test it out directly from vim!</p>
 
 <ul>
-<li><p>Yank the link into a register:</p>
+<li><p>Yank the line into a register:</p>
 
 <pre><code>yy
 </code></pre></li>
@@ -71,7 +71,7 @@ edit index.html       # in a buffer!
 w | so %
 echo &quot;new_post.md&quot; | sed -E -e &quot;s/\..+$//g&quot;  -e &quot;s/_(.)/ \u\1/g&quot; -e &quot;s/^(.)/\u\1/g&quot;
 </code></pre></li>
-<li><p>Hit enter!</p>
+<li><p>Hit enter with the cursor on the line containing your command!</p>
 
 <pre><code>$ vim
 New Post         # output

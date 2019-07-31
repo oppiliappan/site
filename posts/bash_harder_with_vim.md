@@ -26,7 +26,7 @@ echo "$1" | sed -E -e "s/\..+$//g"  -e "s/_(.)/ \u\1/g" -e "s/^(.)/\u\1/g"
 ```  
 Instead of dropping into a new shell, just test it out directly from vim!
 
- - Yank the link into a register:
+ - Yank the line into a register:
 
  ```
 yy
