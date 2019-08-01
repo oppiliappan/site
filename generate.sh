@@ -14,7 +14,7 @@ post_wrapper() {
     echo -ne "
     <div class=\"post\">
         <div class=\"date\">$3</div>
-        <a href=\"#$1\" class=\"post-link\" onClick=\"showPost('$1')\">$title</a>
+        <a id=\"post-$1\" href=\"#post-$1\" class=\"post-link\" onClick=\"showPost('$1')\">$title</a>
         <div id=\"$1\" class=\"post-text\" style=\"display: none\">
             $2
             <a href=\"#$1\" class=\"post-end-link\" onClick=\"showPost('$1')\">↑ Collapse</a>
@@ -31,6 +31,12 @@ echo "
 <link rel=\"stylesheet\" href=\"./style.css\">
 <meta charset=\"UTF-8\">
 <meta name=\"viewport\" content=\"initial-scale=1\">
+<meta content=\"#ffffff\" name=\"theme-color\">
+<meta name=\"HandheldFriendly\" content=\"true\">
+<meta property=\"og:title\" content=\"nerdypepper\">
+<meta property=\"og:type\" content=\"website\">
+<meta property=\"og:description\" content=\"a static site {for, by, about} me \">
+<meta property=\"og:url\" content=\"https://nerdypepper.me\">
 <title>n</title>
 " > ./docs/index.html
 
