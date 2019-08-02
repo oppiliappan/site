@@ -11,7 +11,7 @@ which prohibits redistribution in both object code and source code formats.
 
 Onivim's source code is availabe on [GitHub](https://github.com/onivim/oni2),
 but its licences make it fall under the 'source availabe' catagory and not
-'open source'. They do mention that the source code trickes down to the
+'open source'. They do mention that the source code trickles down to the
 [oni2-mit](https://github.com/onivim/oni2-mit) repo, which contains (not yet)
 MIT-licenced code, **18 months** after each commit to the original repo.
 
