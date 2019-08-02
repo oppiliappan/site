@@ -6,4 +6,3 @@ function showPost(id) {
     post.style.display = "none";
   }
 }
-

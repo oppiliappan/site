@@ -14,6 +14,12 @@
 <title>n</title>
 
 <script>
+function gotoId() {
+  if ( window.location.hash ) {
+    let hash = window.location.hash.substring(1);
+    showPost(hash);
+  }
+}
 function showPost(id) {
   let post = document.getElementById(id);
   if (post.style.display == "none") {
@@ -22,10 +28,9 @@ function showPost(id) {
     post.style.display = "none";
   }
 }
-
 </script> </head>
 
-<body>
+<body onload="gotoId()">
 <h1 class="heading">n</h1>
 
 
@@ -34,7 +39,7 @@ function showPost(id) {
 
     <div class="post">
         <div class="date">02/08 2019</div>
-        <a id="post-onivim_sucks.md" href="#post-onivim_sucks.md" class="post-link" onClick="showPost('onivim_sucks.md')">Onivim Sucks</a>
+        <a id="post-onivim_sucks.md" href="#onivim_sucks.md" class="post-link" onClick="showPost('onivim_sucks.md')" >Onivim Sucks</a>
         <div id="onivim_sucks.md" class="post-text" style="display: none">
             <p><a href="https://v2.onivim.io">Onivim</a> is a &#8216;modern modal editor&#8217;, combining fancy
 interface and language features with vim-style modal editing. What&#8217;s wrong you
@@ -64,7 +69,7 @@ final price! If you are on the lookout for an editor, I would suggest using
     
     <div class="post">
         <div class="date">31/07 2019</div>
-        <a id="post-bash_harder_with_vim.md" href="#post-bash_harder_with_vim.md" class="post-link" onClick="showPost('bash_harder_with_vim.md')">Bash Harder With Vim</a>
+        <a id="post-bash_harder_with_vim.md" href="#bash_harder_with_vim.md" class="post-link" onClick="showPost('bash_harder_with_vim.md')" >Bash Harder With Vim</a>
         <div id="bash_harder_with_vim.md" class="post-text" style="display: none">
             <p>Bash is tricky, don&#8217;t let your editor get in your way. Here&#8217;s a couple of neat
 additions you could make to your <code>vimrc</code> for a better shell programming
@@ -131,7 +136,7 @@ Press ENTER or type command to continue
     
     <div class="post">
         <div class="date">30/07 2019</div>
-        <a id="post-hold_position!.md" href="#post-hold_position!.md" class="post-link" onClick="showPost('hold_position!.md')">Hold Position!</a>
+        <a id="post-hold_position!.md" href="#hold_position!.md" class="post-link" onClick="showPost('hold_position!.md')" >Hold Position!</a>
         <div id="hold_position!.md" class="post-text" style="display: none">
             <p>Often times, when I run a vim command that makes &#8220;big&#8221; changes to a file (a
 macro or a <code>:vimgrep</code> command) I lose my original position and feel disoriented.</p>
@@ -161,7 +166,7 @@ heavier filtering.</p>
     
     <div class="post">
         <div class="date">30/07 2019</div>
-        <a id="post-get_better_at_yanking_and_putting_in_vim.md" href="#post-get_better_at_yanking_and_putting_in_vim.md" class="post-link" onClick="showPost('get_better_at_yanking_and_putting_in_vim.md')">Get Better At Yanking And Putting In Vim</a>
+        <a id="post-get_better_at_yanking_and_putting_in_vim.md" href="#get_better_at_yanking_and_putting_in_vim.md" class="post-link" onClick="showPost('get_better_at_yanking_and_putting_in_vim.md')" >Get Better At Yanking And Putting In Vim</a>
         <div id="get_better_at_yanking_and_putting_in_vim.md" class="post-text" style="display: none">
             <ol>
 <li><p>reselecting previously selected text (i use this to fix botched selections):</p>
