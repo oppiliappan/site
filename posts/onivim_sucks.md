@@ -4,7 +4,7 @@ ask?
 
 Apart from [buggy syntax highlighting](https://github.com/onivim/oni2/issues/550), 
 [broken scrolling](https://github.com/onivim/oni2/issues/519) and
-[others](https://github.com/onivim/oni2/issues?q=is%3Aissue+is%3Aclosed+label%3A%22daily+editor+blocker%22),
+[others](https://github.com/onivim/oni2/issues?q=is%3Aissue+label%3A%22daily+editor+blocker%22+is%3Aopen),
 Onivim is **proprietary** software. It is licensed under a commercial 
 [end user agreement license](https://github.com/onivim/oni1/blob/master/Outrun-Labs-EULA-v1.1.md),
 which prohibits redistribution in both object code and source code formats.
