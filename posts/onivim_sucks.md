@@ -10,7 +10,7 @@ Onivim is **proprietary** software. It is licensed under a commercial
 which prohibits redistribution in both object code and source code formats.
 
 Onivim's source code is available on [GitHub](https://github.com/onivim/oni2),
-but its licences make it fall under the 'source availabe' category and not
+but its licences make it fall under the 'source available' category and not
 'open source'. They do mention that the source code trickles down to the
 [oni2-mit](https://github.com/onivim/oni2-mit) repo, which contains (not yet)
 MIT-licensed code, **18 months** after each commit to the original repo.
