@@ -86,21 +86,20 @@ hr {
 }
 
 a, a:hover, a:visited, a:active {
-  text-decoration: none;
   transition: ease 0.2s;
+  color: var(--light-black);
 }
 
 a:hover, a:active {
   background-color: var(--dark-white);
 }
 
-.post-link {
-  color: var(--black);
+.post-link, .post-link:hover, .post-link:visited, .post-link:active {
+  color: var(--black); !important
   font-family: 'Inter', sans-serif;
   font-weight: 600;
   font-size: 1rem;
   text-decoration: none;
-  text-decoration-skip: objects edges box-decoration;
 }
 
 .post-end-link, .post-end-link:hover, .post-end-link:visited, .post-end-link:active
