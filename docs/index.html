@@ -42,9 +42,10 @@ function showPost(id) {
         <a id="post-bye_bye_BDFs.md" href="#bye_bye_BDFs.md" class="post-link" onClick="showPost('bye_bye_BDFs.md')" >Bye Bye BDFs</a>
         <div id="bye_bye_BDFs.md" class="post-text" style="display: none">
             <p>Glyph Bitmap Distribution Format is no more, as the creators of
-<a href="https://pango.org">Pango</a>, one of the largest text rendering libraries,
+<a href="https://pango.org">Pango</a>, one of the most widely used text rendering
+libraries,
 <a href="https://blogs.gnome.org/mclasen/2019/05/25/pango-future-directions/">announced</a>
-a few months back.</p>
+their plans for Pango 1.44.</p>
 
 <p>Until recently, Pango used FreeType to draw fonts. They will be moving over
 to <a href="https://harfbuzz.org">Harfbuzz</a>, an evolution of FreeType.</p>
@@ -56,8 +57,8 @@ provided no advantage over Harfbuzz (other than being able to fetch
 opentype metrics with ease).</p>
 
 <p>Upgrading to Pango v1.44 will break your GTK applications (if you use a
-<code>bdf</code>/<code>pcf</code> bitmap font). Harfbuzz <em>does</em> support bitmap-only OpenType fonts
-though, <code>otb</code>s. Convert your existing fonts over to <code>otb</code>s using
+<code>bdf</code>/<code>pcf</code> bitmap font). Harfbuzz <em>does</em> support bitmap-only OpenType fonts,
+<code>otb</code>s. Convert your existing fonts over to <code>otb</code>s using
 <a href="https://fontforge.github.io">FontForge</a>. It is to be noted that applications
 such as <code>xterm</code> and <code>rxvt</code> use <code>xft</code> (X FreeType) to render fonts, and will
 remain unaffected by the update.</p>
