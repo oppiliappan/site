@@ -38,6 +38,39 @@ function showPost(id) {
 
 
     <div class="post">
+        <div class="date">07/08 2019</div>
+        <a id="post-bye_bye_BDFs.md" href="#bye_bye_BDFs.md" class="post-link" onClick="showPost('bye_bye_BDFs.md')" >Bye Bye BDFs</a>
+        <div id="bye_bye_BDFs.md" class="post-text" style="display: none">
+            <p>Glyph Bitmap Distribution Format is no more, as the creators of
+<a href="https://pango.org">Pango</a>, one of the largest text rendering libraries,
+<a href="https://blogs.gnome.org/mclasen/2019/05/25/pango-future-directions/">announced</a>
+a few months back.</p>
+
+<p>Until recently, Pango used FreeType to draw fonts. They will be moving over
+to <a href="https://harfbuzz.org">Harfbuzz</a>, an evolution of FreeType.</p>
+
+<p><em>Why?</em></p>
+
+<p>In short, FreeType was hard to work with. It required complex logic, and 
+provided no advantage over Harfbuzz (other than being able to fetch
+opentype metrics with ease).</p>
+
+<p>Upgrading to Pango v1.44 will break your GTK applications (if you use a
+<code>bdf</code>/<code>pcf</code> bitmap font). Harfbuzz <em>does</em> support bitmap-only OpenType fonts
+though, <code>otb</code>s. Convert your existing fonts over to <code>otb</code>s using
+<a href="https://fontforge.github.io">FontForge</a>. It is to be noted that applications
+such as <code>xterm</code> and <code>rxvt</code> use <code>xft</code> (X FreeType) to render fonts, and will
+remain unaffected by the update.</p>
+
+<p>Both <a href="https://github.com/nerdypepper/scientifica">scientifica</a> and
+<a href="https://github.com/nerdypepper/curie">curie</a> will soon ship with bitmap-only
+OpenType font formats.</p>
+            <a href="#bye_bye_BDFs.md" class="post-end-link" onClick="showPost('bye_bye_BDFs.md')">↑ Collapse</a>
+            <div class=separator></div>
+        </div>
+    </div>
+    
+    <div class="post">
         <div class="date">02/08 2019</div>
         <a id="post-onivim_sucks.md" href="#onivim_sucks.md" class="post-link" onClick="showPost('onivim_sucks.md')" >Onivim Sucks</a>
         <div id="onivim_sucks.md" class="post-text" style="display: none">
