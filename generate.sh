@@ -14,7 +14,7 @@ post_wrapper() {
     echo -ne "
     <div class=\"post\">
         <div class=\"date\">$3</div>
-        <a id=\"post-$1\" href=\"#$1\" class=\"post-link\" onClick=\"showPost('$1')\" >$title</a>
+        <a id=\"post-$1\" class=\"post-link\" onClick=\"showPost('$1')\" >$title</a>
         <div id=\"$1\" class=\"post-text\" style=\"display: none\">
             $2
             <a href=\"#$1\" class=\"post-end-link\" onClick=\"showPost('$1')\">↑ Collapse</a>
