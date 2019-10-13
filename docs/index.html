@@ -38,6 +38,57 @@ function showPost(id) {
 
 
     <div class="post">
+        <div class="date">12/10 2019</div>
+        <a id="post-WPA_woes.md" class="post-link" onClick="showPost('WPA_woes.md')" >WPA Woes</a>
+        <div id="WPA_woes.md" class="post-text" style="display: none">
+            <p>I finally got around to installing Void GNU/Linux on my main
+computer. Rolling release, non-systemd, need I say more?</p>
+
+<p>As with all GNU/Linux distributions, wireless networks had
+me in a fix. If you can see this post, it means I&#8217;ve managed
+to get online. It turns out, <code>wpa_supplicant</code> was detecting the
+wrong interface by default (does it ever select the right
+one?). Let us fix that:</p>
+
+<pre><code>$ sudo rm -r /var/service/wpa_supplicant
+$ sudo killall dhcpcd
+</code></pre>
+
+<p>What is the right interface though?</p>
+
+<pre><code>$ iw dev
+   ...
+   Interface wlp2s0
+   ...
+</code></pre>
+
+<p>Aha! Let us run <code>wpa_supplicant</code> on that interface, as a
+background process:</p>
+
+<pre><code>$ sudo wpa_supplicant -B -i wlp2s0 -c /etc/wpa_supplicant/wpa_supplicant.conf
+$ sudo dhcpcd -B wlp2s0
+$ ping google.com
+PING ...
+</code></pre>
+
+<p>Yay! Make those changes perpetual by enabling the service:</p>
+
+<pre><code>------------------------------------------------------
+# Add these to /etc/wpa_supplicant/wpa_supplicant.conf
+OPTS=&quot;-B&quot;
+WPA_INTERFACE=&quot;wlp2s0&quot;
+------------------------------------------------------
+$ sudo ln -s /etc/sv/wpa_supplicant /var/service/
+$ sudo ln -s /etc/sv/dhcpcd /var/service/
+$ sudo sv restart wpa_supplicant
+$ sudo sv restart dhcpcd
+</code></pre>
+            <a href="#WPA_woes.md" class="post-end-link" onClick="showPost('WPA_woes.md')">↑ Collapse</a>
+            <div class=separator></div>
+        </div>
+    </div>
+    
+    <div class="post">
         <div class="date">07/08 2019</div>
         <a id="post-bye_bye_BDFs.md" class="post-link" onClick="showPost('bye_bye_BDFs.md')" >Bye Bye BDFs</a>
         <div id="bye_bye_BDFs.md" class="post-text" style="display: none">
@@ -176,6 +227,36 @@ Press ENTER or type command to continue
     
     <div class="post">
         <div class="date">30/07 2019</div>
+        <a id="post-hold_position!.md" class="post-link" onClick="showPost('hold_position!.md')" >Hold Position!</a>
+        <div id="hold_position!.md" class="post-text" style="display: none">
+            <p>Often times, when I run a vim command that makes &#8220;big&#8221; changes to a file (a
+macro or a <code>:vimgrep</code> command) I lose my original position and feel disoriented.</p>
+
+<p><em>Save position with <code>winsaveview()</code>!</em></p>
+
+<p>The <code>winsaveview()</code> command returns a <code>Dictionary</code> that contains information
+about the view of the current window. This includes the cursor line number,
+cursor coloumn, the top most line in the window and a couple of other values,
+none of which concern us.</p>
+
+<p>Before running our command (one that jumps around the buffer, a lot), we save
+our view, and restore it once its done, with <code>winrestview</code>.</p>
+
+<pre><code>let view = winsaveview()
+s/\s\+$//gc              &quot; find and (confirm) replace trailing blanks
+winrestview(view)        &quot; restore our original view!
+</code></pre>
+
+<p>It might seem a little overkill in the above example, just use &#8220; (double
+backticks) instead, but it comes in handy when you run your file through
+heavier filtering.</p>
+            <a href="#hold_position!.md" class="post-end-link" onClick="showPost('hold_position!.md')">↑ Collapse</a>
+            <div class=separator></div>
+        </div>
+    </div>
+    
+    <div class="post">
+        <div class="date">29/07 2019</div>
         <a id="post-get_better_at_yanking_and_putting_in_vim.md" class="post-link" onClick="showPost('get_better_at_yanking_and_putting_in_vim.md')" >Get Better At Yanking And Putting In Vim</a>
         <div id="get_better_at_yanking_and_putting_in_vim.md" class="post-text" style="display: none">
             <ol start="1">
@@ -201,36 +282,6 @@ nnoremap gb `[v`]    &quot; &quot;a quick map to perform the above
 </code></pre></li>
 </ol>
             <a href="#get_better_at_yanking_and_putting_in_vim.md" class="post-end-link" onClick="showPost('get_better_at_yanking_and_putting_in_vim.md')">↑ Collapse</a>
-            <div class=separator></div>
-        </div>
-    </div>
-    
-    <div class="post">
-        <div class="date">30/07 2019</div>
-        <a id="post-hold_position!.md" class="post-link" onClick="showPost('hold_position!.md')" >Hold Position!</a>
-        <div id="hold_position!.md" class="post-text" style="display: none">
-            <p>Often times, when I run a vim command that makes &#8220;big&#8221; changes to a file (a
-macro or a <code>:vimgrep</code> command) I lose my original position and feel disoriented.</p>
-
-<p><em>Save position with <code>winsaveview()</code>!</em></p>
-
-<p>The <code>winsaveview()</code> command returns a <code>Dictionary</code> that contains information
-about the view of the current window. This includes the cursor line number,
-cursor coloumn, the top most line in the window and a couple of other values,
-none of which concern us.</p>
-
-<p>Before running our command (one that jumps around the buffer, a lot), we save
-our view, and restore it once its done, with <code>winrestview</code>.</p>
-
-<pre><code>let view = winsaveview()
-s/\s\+$//gc              &quot; find and (confirm) replace trailing blanks
-winrestview(view)        &quot; restore our original view!
-</code></pre>
-
-<p>It might seem a little overkill in the above example, just use &#8220; (double
-backticks) instead, but it comes in handy when you run your file through
-heavier filtering.</p>
-            <a href="#hold_position!.md" class="post-end-link" onClick="showPost('hold_position!.md')">↑ Collapse</a>
             <div class=separator></div>
         </div>
     </div>
