@@ -10,19 +10,22 @@ post_title() {
 post_wrapper() {
     # 1 - post id
     # 2 - post content
+    # 3 - date
     title="$( post_title $1 )"
     echo -ne "
-    <div class=\"post\">
-        <div class=\"date\">$3</div>
-        <a id=\"post-$1\" class=\"post-link\" onClick=\"showPost('$1')\" >$title</a>
-        <div id=\"$1\" class=\"post-text\" style=\"display: none\">
+    <details class=\"post\">
+        <summary>
+            <div class=\"date\">$3</div>
+            <span class=\"post-link\">$title</span>
+        </summary>
+        <div class=\"post-text\">
             $2
-            <a href=\"#$1\" class=\"post-end-link\" onClick=\"showPost('$1')\">↑ Collapse</a>
             <div class="separator"></div>
         </div>
-    </div>
+    </details>
     "
 }
+
 # meta
 echo "
 <!DOCTYPE html>
@@ -39,13 +42,6 @@ echo "
 <meta property=\"og:url\" content=\"https://nerdypepper.me\">
 <title>n</title>
 " > ./docs/index.html
-
-# script
-echo '<script>' >> docs/index.html
-for s in ./script/*; do
-    cat "$s" >> docs/index.html
-done
-echo '</script> </head>' >> docs/index.html
 
 # body
 echo "
@@ -65,7 +61,10 @@ for f in $posts; do
     file="./posts/"$f
     echo "generating post $file"
     id="${file##*/}"    # ill name my posts just fine
+
     html=$(lowdown "$file")
+
+    # generate posts
     post_date=$(date -r "$file" "+%d/%m %Y")
     post_div=$(post_wrapper "$id" "$html" "$post_date")
     echo -ne "$post_div" >> docs/index.html

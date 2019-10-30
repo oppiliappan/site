@@ -13,22 +13,6 @@
 <meta property="og:url" content="https://nerdypepper.me">
 <title>n</title>
 
-<script>
-function gotoId() {
-  if ( window.location.hash ) {
-    let hash = window.location.hash.substring(1);
-    showPost(hash);
-  }
-}
-function showPost(id) {
-  let post = document.getElementById(id);
-  if (post.style.display == "none") {
-    post.style.display = "block";
-  } else {
-    post.style.display = "none";
-  }
-}
-</script> </head>
 
 <body onload="gotoId()">
 <h1 class="heading">n</h1>
@@ -37,10 +21,12 @@ function showPost(id) {
 <div class="posts">
 
 
-    <div class="post">
-        <div class="date">12/10 2019</div>
-        <a id="post-WPA_woes.md" class="post-link" onClick="showPost('WPA_woes.md')" >WPA Woes</a>
-        <div id="WPA_woes.md" class="post-text" style="display: none">
+    <details class="post">
+        <summary>
+            <div class="date">12/10 2019</div>
+            <span class="post-link">WPA Woes</span>
+        </summary>
+        <div class="post-text">
             <p>I finally got around to installing Void GNU/Linux on my main
 computer. Rolling release, non-systemd, need I say more?</p>
 
@@ -83,15 +69,16 @@ $ sudo ln -s /etc/sv/dhcpcd /var/service/
 $ sudo sv restart wpa_supplicant
 $ sudo sv restart dhcpcd
 </code></pre>
-            <a href="#WPA_woes.md" class="post-end-link" onClick="showPost('WPA_woes.md')">↑ Collapse</a>
             <div class=separator></div>
         </div>
-    </div>
+    </details>
     
-    <div class="post">
-        <div class="date">07/08 2019</div>
-        <a id="post-bye_bye_BDFs.md" class="post-link" onClick="showPost('bye_bye_BDFs.md')" >Bye Bye BDFs</a>
-        <div id="bye_bye_BDFs.md" class="post-text" style="display: none">
+    <details class="post">
+        <summary>
+            <div class="date">07/08 2019</div>
+            <span class="post-link">Bye Bye BDFs</span>
+        </summary>
+        <div class="post-text">
             <p>Glyph Bitmap Distribution Format is no more, as the creators of
 <a href="https://pango.org">Pango</a>, one of the most widely used text rendering
 libraries,
@@ -117,15 +104,16 @@ remain unaffected by the update.</p>
 <p>Both <a href="https://github.com/nerdypepper/scientifica">scientifica</a> and
 <a href="https://github.com/nerdypepper/curie">curie</a> will soon ship with bitmap-only
 OpenType font formats.</p>
-            <a href="#bye_bye_BDFs.md" class="post-end-link" onClick="showPost('bye_bye_BDFs.md')">↑ Collapse</a>
             <div class=separator></div>
         </div>
-    </div>
+    </details>
     
-    <div class="post">
-        <div class="date">02/08 2019</div>
-        <a id="post-onivim_sucks.md" class="post-link" onClick="showPost('onivim_sucks.md')" >Onivim Sucks</a>
-        <div id="onivim_sucks.md" class="post-text" style="display: none">
+    <details class="post">
+        <summary>
+            <div class="date">02/08 2019</div>
+            <span class="post-link">Onivim Sucks</span>
+        </summary>
+        <div class="post-text">
             <p><a href="https://v2.onivim.io">Onivim</a> is a &#8216;modern modal editor&#8217;, combining fancy
 interface and language features with vim-style modal editing. What&#8217;s wrong you
 ask?</p>
@@ -153,15 +141,16 @@ MIT-licensed code, <strong>18 months</strong> after each commit to the original 
 Currently, Onivim is priced at $19.99, &#8216;pre-alpha&#8217; pricing which is 80% off the
 final price! If you are on the lookout for an editor, I would suggest using
 <a href="https://vim.org">Vim</a>, charity ware that actually works, and costs $100 lesser.</p>
-            <a href="#onivim_sucks.md" class="post-end-link" onClick="showPost('onivim_sucks.md')">↑ Collapse</a>
             <div class=separator></div>
         </div>
-    </div>
+    </details>
     
-    <div class="post">
-        <div class="date">31/07 2019</div>
-        <a id="post-bash_harder_with_vim.md" class="post-link" onClick="showPost('bash_harder_with_vim.md')" >Bash Harder With Vim</a>
-        <div id="bash_harder_with_vim.md" class="post-text" style="display: none">
+    <details class="post">
+        <summary>
+            <div class="date">31/07 2019</div>
+            <span class="post-link">Bash Harder With Vim</span>
+        </summary>
+        <div class="post-text">
             <p>Bash is tricky, don&#8217;t let your editor get in your way. Here&#8217;s a couple of neat
 additions you could make to your <code>vimrc</code> for a better shell programming
 experience.</p>
@@ -220,15 +209,16 @@ New Post         # output
 Press ENTER or type command to continue
 </code></pre></li>
 </ul>
-            <a href="#bash_harder_with_vim.md" class="post-end-link" onClick="showPost('bash_harder_with_vim.md')">↑ Collapse</a>
             <div class=separator></div>
         </div>
-    </div>
+    </details>
     
-    <div class="post">
-        <div class="date">30/07 2019</div>
-        <a id="post-hold_position!.md" class="post-link" onClick="showPost('hold_position!.md')" >Hold Position!</a>
-        <div id="hold_position!.md" class="post-text" style="display: none">
+    <details class="post">
+        <summary>
+            <div class="date">30/07 2019</div>
+            <span class="post-link">Hold Position!</span>
+        </summary>
+        <div class="post-text">
             <p>Often times, when I run a vim command that makes &#8220;big&#8221; changes to a file (a
 macro or a <code>:vimgrep</code> command) I lose my original position and feel disoriented.</p>
 
@@ -250,15 +240,16 @@ winrestview(view)        &quot; restore our original view!
 <p>It might seem a little overkill in the above example, just use &#8220; (double
 backticks) instead, but it comes in handy when you run your file through
 heavier filtering.</p>
-            <a href="#hold_position!.md" class="post-end-link" onClick="showPost('hold_position!.md')">↑ Collapse</a>
             <div class=separator></div>
         </div>
-    </div>
+    </details>
     
-    <div class="post">
-        <div class="date">29/07 2019</div>
-        <a id="post-get_better_at_yanking_and_putting_in_vim.md" class="post-link" onClick="showPost('get_better_at_yanking_and_putting_in_vim.md')" >Get Better At Yanking And Putting In Vim</a>
-        <div id="get_better_at_yanking_and_putting_in_vim.md" class="post-text" style="display: none">
+    <details class="post">
+        <summary>
+            <div class="date">29/07 2019</div>
+            <span class="post-link">Get Better At Yanking And Putting In Vim</span>
+        </summary>
+        <div class="post-text">
             <ol start="1">
 <li><p>reselecting previously selected text (i use this to fix botched selections):</p>
 
@@ -281,10 +272,9 @@ nnoremap gb `[v`]    &quot; &quot;a quick map to perform the above
 ]P   &quot; put the text before the cursor (P) and adjust indent to current line
 </code></pre></li>
 </ol>
-            <a href="#get_better_at_yanking_and_putting_in_vim.md" class="post-end-link" onClick="showPost('get_better_at_yanking_and_putting_in_vim.md')">↑ Collapse</a>
             <div class=separator></div>
         </div>
-    </div>
+    </details>
     
 </div>
 </body>
