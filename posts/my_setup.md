@@ -18,7 +18,7 @@ I am a fan of GNU tools, so I use `bash` as my shell, and
 `coreutils` to manage files, archives, strings, paths etc. I
 edit files with `vim`, chat with `weechat`, listen to music
 with `cmus`, monitor processes with `htop`, manage sessions
-with `tmux`, read `pdfs` in `zathura`. I rarely ever leave
+with `tmux`, read pdfs in `zathura`. I rarely ever leave
 the comfort of my terminal emulator, `urxvt`.
 
 Most of my academic typesetting is done with TeX, and
