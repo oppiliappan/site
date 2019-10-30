@@ -49,6 +49,12 @@ html {
   margin: 2rem;
 }
 
+img {
+  max-width: 100%;
+  border: 0px solid transparent;
+  border-radius: 4px;
+}
+
 details > summary {
   list-style: none;
 }
@@ -98,9 +104,6 @@ a, a:hover, a:visited, a:active {
   color: var(--light-black);
 }
 
-a:hover, a:active {
-  background-color: var(--dark-white);
-}
 
 .post-link, .post-link:hover, .post-link:visited, .post-link:active {
   color: var(--black); !important
