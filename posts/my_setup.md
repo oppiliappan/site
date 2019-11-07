@@ -1,7 +1,7 @@
 Decided to do one of these because everyone does one of
 these.
 
-![scrot](https://files.nerdypepper.me/Hb.png)
+![scrot](https://files.nerdypepper.tech/Hb.png)
 
 My entire setup is managed with GNU `stow`, making it easier
 to replicate on fresh installations. You can find my

@@ -39,7 +39,7 @@ echo "
 <meta property=\"og:title\" content=\"nerdypepper\">
 <meta property=\"og:type\" content=\"website\">
 <meta property=\"og:description\" content=\"a static site {for, by, about} me \">
-<meta property=\"og:url\" content=\"https://nerdypepper.me\">
+<meta property=\"og:url\" content=\"https://nerdypepper.tech\">
 <title>n</title>
 " > ./docs/index.html
 
