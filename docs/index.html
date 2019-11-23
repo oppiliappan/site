@@ -23,6 +23,64 @@
 
     <details class="post">
         <summary>
+            <div class="date">23/11 2019</div>
+            <span class="post-link">Static Sites With Bash</span>
+        </summary>
+        <div class="post-text">
+            <p>After going through a bunch of static site generators
+(<a href="https://blog.getpelican.com/">pelican</a>,
+<a href="https://gohugo.io">hugo</a>,
+<a href="https://github.com/icyphox/vite">vite</a>), I decided to roll
+my own. If you are more of the &#8216;show me the code&#8217; kinda guy,
+<a href="https://github.com/nerdypepper/site">here</a> you go.</p>
+
+<p><strong>Text formatting</strong>: I chose to write in markdown, and convert
+to html with <a href="https://kristaps.bsd.lv/lowdown/">lowdown</a>.</p>
+
+<p><strong>Directory structure</strong>: I host my site on GitHub pages, so
+<code>docs/</code> has to be the entry point. Markdown formatted posts
+go into <code>posts/</code>, get converted into html, and end up in
+<code>docs/index.html</code>, something like this:</p>
+
+<pre><code>posts=$(ls -t ./posts)     # chronological order!
+for f in $posts; do
+    file=&quot;./posts/&quot;$f      # `ls` mangled our file paths
+    echo &quot;generating post $file&quot;
+
+    html=$(lowdown &quot;$file&quot;)
+    echo -e &quot;html&quot; &gt;&gt; docs/index.html
+done
+</code></pre>
+
+<p><strong>Assets</strong>: Most static site generators recommend dropping image
+assets into the site source itself. That does have it&#8217;s
+merits, but I prefer hosting images separately:</p>
+
+<pre><code># strip file extension
+ext=&quot;${1##*.}&quot;
+
+# generate a random file name
+id=$( cat /dev/urandom | tr -dc &#39;a-zA-Z0-9&#39; | fold -w 2 | head -n 1 )
+id=&quot;$id.$ext&quot;
+
+# copy to my file host
+scp -P 443 &quot;$1&quot; emerald:files/&quot;$id&quot; 
+echo &quot;https://files.nerdypepper.tech/$id&quot;
+</code></pre>
+
+<p><strong>Templating</strong>:
+<a href="https://github.com/NerdyPepper/site/blob/master/generate.sh"><code>generate.sh</code></a>
+brings the above bits and pieces together (with some extra
+cruft to avoid javascript).  It uses <code>sed</code> to produce nice
+titles from the file names (removes underscores,
+title-case), and <code>date(1)</code> to add the date to each post
+listing!</p>
+            <div class=separator></div>
+        </div>
+    </details>
+    
+    <details class="post">
+        <summary>
             <div class="date">07/11 2019</div>
             <span class="post-link">My Setup</span>
         </summary>
