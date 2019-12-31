@@ -8,7 +8,7 @@ does. It is difficult for the human eye to filter out noise
 in rainbow barf. Use color to draw attention, not diverge
 it.
 
-At the same time, a book devoid of color is *boring!*. What
+At the same time, a book devoid of color is *boring!* What
 is the takeaway from this 10 line paragraph? What are the
 technical terms used?
 

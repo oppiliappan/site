@@ -46,7 +46,7 @@ html {
 
 
 .post {
-  margin: 2rem;
+  margin: 1rem;
 }
 
 img {
@@ -61,6 +61,10 @@ details > summary {
 
 details > summary::-webkit-details-marker {
   display: none;
+}
+
+summary: hover {
+  cursor: pointer;
 }
 
 hr {
