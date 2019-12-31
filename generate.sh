@@ -45,7 +45,7 @@ echo "
 
 # body
 echo "
-<body onload=\"gotoId()\">
+<body>
 <h1 class=\"heading\">n</h1>
 " >> docs/index.html
 
