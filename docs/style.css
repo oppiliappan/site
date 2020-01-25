@@ -84,7 +84,7 @@ hr {
   margin: 0;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  border-top: 1px solid var(--dark-white);
+  border-top: 2px solid var(--dark-white);
 }
 
 .black-circle {
@@ -167,6 +167,12 @@ pre > code {
 
 .commit-hash {
   float: right;
+  font-size: 0.8rem;
   text-decoration: none;
   font-family: Monospace;
+}
+
+.footer {
+  font-size: 0.7rem;
+  text-align: center;
 }
