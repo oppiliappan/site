@@ -15,8 +15,15 @@
   --dark-white: #eeeeee;
 }
 
+body { font-family: 'Inter', sans-serif; }
+@supports (font-variation-settings: normal) {
+  body {
+    font-family: 'Inter var', sans-serif; 
+    font-feature-settings: 'ss01' 1, 'ss02' 1, 'kern' 1, 'liga' 1;
+  }
+}
+
 body {
-  font-family: 'Inter', sans-serif;
   background-color: var(--white);
   color: var(--black);
   padding: 0;
@@ -75,6 +82,7 @@ hr {
 }
 
 .date {
+  font-feature-settings: 'ss01' 1, 'zero' 1;
   font-weight: 400;
   font-size: 0.8rem;
   color: var(--light-black);
@@ -112,9 +120,8 @@ a, a:hover, a:visited, a:active {
 }
 
 .post-link, .post-link:hover, .post-link:visited, .post-link:active {
-  color: var(--black); !important
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
+  color: var(--black);
+  font-weight: 650;
   font-size: 1.1rem;
   text-decoration: none;
 }
@@ -122,7 +129,7 @@ a, a:hover, a:visited, a:active {
 .post-end-link, .post-end-link:hover, .post-end-link:visited, .post-end-link:active
 {
   text-decoration: none;
-  color: var(--light-black);
+  color: var(--black);
   text-shadow: none;
   font-size: 0.8rem;
 }
