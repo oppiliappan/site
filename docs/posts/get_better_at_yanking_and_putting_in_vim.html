@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1">
+    <meta content="#ffffff" name="theme-color">
+    <meta name="HandheldFriendly" content="true">
+    <meta property="og:title" content="nerdypepper">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="a static site {for, by, about} me ">
+    <meta property="og:url" content="https://nerdypepper.tech">
+    <body>
+      <div class="post posts">
+        <div class="date">29/07 2019</div>
+        <span style="font-size: 2rem; font-weight: 600">
+          Get Better At Yanking And Putting In Vim
+        </span>
+        <div class="post-text">
+          <ol start="1">
+<li><p>reselecting previously selected text (i use this to fix botched selections):</p>
+
+<pre><code>gv  &quot; :h gv for more
+    &quot; you can use `o` in visual mode to go to the `Other` end of the selection
+    &quot; use a motion to fix the selection
+</code></pre></li>
+<li><p>reselecting previously yanked text:</p>
+
+<pre><code>`[v`]
+`[         &quot; marks the beginning of the previously yanked text   :h `[
+`]         &quot; marks the end                                       :h `]
+ v         &quot; visual select everything in between
+
+nnoremap gb `[v`]    &quot; &quot;a quick map to perform the above
+</code></pre></li>
+<li><p>pasting and indenting text (in one go):</p>
+
+<pre><code>]p   &quot; put (p) and adjust indent to current line
+]P   &quot; put the text before the cursor (P) and adjust indent to current line
+</code></pre></li>
+</ol>
+
+        </div>
+        <a href="/index.html" class="post-end-link">‹ Back</a>
+        <div class="separator"></div>
+      </div>
+    </body>
+</html>

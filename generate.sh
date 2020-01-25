@@ -1,28 +1,23 @@
 #! /usr/bin/env bash
 
 
-post_title() {
+title_wrapper() {
     # remove extension
     # snake to title case
     echo "$1" | sed -E -e "s/\..+$//g"  -e "s/_(.)/ \u\1/g" -e "s/^(.)/\u\1/g"
 }
 
-post_wrapper() {
-    # 1 - post id
-    # 2 - post content
-    # 3 - date
-    title="$( post_title $1 )"
+link_wrapper() {
+    # 1 - id
+    # 2 - title
+    # 2 - date
     echo -ne "
-    <details class=\"post\">
-        <summary>
-            <div class=\"date\">$3</div>
-            <span class=\"post-link\">$title</span>
-        </summary>
-        <div class=\"post-text\">
-            $2
-            <div class="separator"></div>
-        </div>
-    </details>
+    <div class=\"post\">
+        <div class=\"date\">$3</div>
+        <a href=\"/posts/$1.html\" class=\"post-link\">
+            <span class=\"post-link\">$2</span>
+        </a>
+    </div>
     "
 }
 
@@ -57,17 +52,22 @@ echo "
 
 # posts
 posts=$(ls -t ./posts);
+mkdir -p docs/posts
+
 for f in $posts; do
     file="./posts/"$f
     echo "generating post $file"
     id="${file##*/}"    # ill name my posts just fine
 
-    html=$(lowdown "$file")
 
     # generate posts
+    html=$(lowdown "$file")
+    post_title=$(title_wrapper "$id")
     post_date=$(date -r "$file" "+%d/%m %Y")
-    post_div=$(post_wrapper "$id" "$html" "$post_date")
-    echo -ne "$post_div" >> docs/index.html
+    post_link=$(link_wrapper "${id%.*}" "$post_title" "$post_date")
+
+    echo -ne "$post_link" >> docs/index.html
+    esh -s /bin/bash -o "docs/posts/${id%.*}.html" "./post.esh" file="$file" date="$post_date" title="$post_title"
     first_visible="0"
 done
 
