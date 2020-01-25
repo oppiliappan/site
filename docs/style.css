@@ -12,7 +12,7 @@
   --black: #212121;
   --light-black: #535353;
   --white: #ffffff;
-  --dark-white: #d4d4d4;
+  --dark-white: #eeeeee;
 }
 
 body {
@@ -114,8 +114,8 @@ a, a:hover, a:visited, a:active {
 .post-link, .post-link:hover, .post-link:visited, .post-link:active {
   color: var(--black); !important
   font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 1rem;
+  font-weight: 700;
+  font-size: 1.1rem;
   text-decoration: none;
 }
 
@@ -125,6 +125,14 @@ a, a:hover, a:visited, a:active {
   color: var(--light-black);
   text-shadow: none;
   font-size: 0.8rem;
+}
+
+.post-title {
+  text-decoration: none;
+  color: var(--light-black);
+  text-shadow: none;
+  font-weight: 800;
+  font-size: 1.5rem;
 }
 
 .post-text {
@@ -155,4 +163,10 @@ pre > code {
 
 ::-moz-selection, ::selection {
   background: var(--cyan);
+}
+
+.commit-hash {
+  float: right;
+  text-decoration: none;
+  font-family: Monospace;
 }

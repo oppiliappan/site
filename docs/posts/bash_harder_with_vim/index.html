@@ -13,8 +13,16 @@
     <body>
       <div class="posts">
         <div class="post">
-          <div class="date">31/07 2019</div>
-          <span style="font-size: 2rem; font-weight: 600">
+          <div class="date">
+            31/07 2019
+            <span class="commit-hash">
+              <a href="https://github.com/nerdypepper/site/blob/master/posts/bash_harder_with_vim.md
+" style="text-decoration: none">
+                05bdbd0
+              </a>
+            </span>
+          </div>
+          <span class="post-title">
             Bash Harder With Vim
           </span>
           <div class="post-text">
@@ -22,9 +30,7 @@
 additions you could make to your <code>vimrc</code> for a better shell programming
 experience.</p>
 
-<hr/>
-
-<h4 id="Man%20pages%20inside%20vim">Man pages inside vim</h4>
+<h3 id="Man%20pages%20inside%20vim">Man pages inside vim</h3>
 
 <p>Source this script to get started:  </p>
 
@@ -39,9 +45,7 @@ and the ability to jump around with <code>Ctrl-]</code> and <code>Ctrl-T</code>.
 <pre><code>let g:ft_man_open_mode = &#39;tab&#39;
 </code></pre>
 
-<hr/>
-
-<h4 id="Scratchpad%20to%20test%20your%20commands">Scratchpad to test your commands</h4>
+<h3 id="Scratchpad%20to%20test%20your%20commands">Scratchpad to test your commands</h3>
 
 <p>I often test my <code>sed</code> substitutions, here is
 a sample from the script used to generate this site:  </p>
@@ -78,7 +82,7 @@ Press ENTER or type command to continue
 </ul>
 
           </div>
-          <a href="/index.html" class="post-end-link">← Back</a>
+          <a href="/" class="post-end-link">⟵ Back</a>
           <div class="separator"></div>
         </div>
       </div>
