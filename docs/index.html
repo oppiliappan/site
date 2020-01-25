@@ -21,400 +21,68 @@
 <div class="posts">
 
 
-    <details class="post">
-        <summary>
-            <div class="date">31/12 2019</div>
+    <div class="post">
+        <div class="date">31/12 2019</div>
+        <a href="/posts/color_conundrum.html" class="post-link">
             <span class="post-link">Color Conundrum</span>
-        </summary>
-        <div class="post-text">
-            <p>This piece aims to highlight (pun intended) some of the
-reasons behind my <a href="https://files.nerdypepper.tech/bF.png">color
-free</a> editor setup.</p>
-
-<p>Imagine highlighting an entire book because <em>all</em> of it is
-important. That is exactly what (most) syntax highlighting
-does. It is difficult for the human eye to filter out noise
-in rainbow barf. Use color to draw attention, not diverge
-it.</p>
-
-<p>At the same time, a book devoid of color is <em>boring!</em> What
-is the takeaway from this 10 line paragraph? What are the
-technical terms used?</p>
-
-<p>Prose and code are certainly different, but the fickle
-minded human eye is the same. The eye constantly looks for a
-frame of reference, a focal point. It grows tired when it
-can&#8217;t find one.</p>
-
-<p>The following comparison does a better job of explaining
-(none, ample and over-the-top highlighting, from left to
-right):</p>
-
-<p><a href="https://files.nerdypepper.tech/lt.png"><img src="https://files.nerdypepper.tech/lt.png" alt="hi.png" /></a></p>
-
-<p>Without highlighting (far left), it is hard to differentiate
-between comments and code! The florid color scheme (far
-right) is no good either, it contains too many attention
-grabbers. The center sample is a healthy balance of both.
-Function calls and constants stand out, and repetitive
-keywords and other noise (<code>let</code>, <code>as</code>) are mildly dimmed
-out. Comments and non-code text (sign column, status text)
-are dimmed further.</p>
-
-<p>I&#8217;ll stop myself before I rant about color contrast and
-combinations.</p>
-            <div class=separator></div>
-        </div>
-    </details>
+        </a>
+    </div>
     
-    <details class="post">
-        <summary>
-            <div class="date">23/11 2019</div>
+    <div class="post">
+        <div class="date">23/11 2019</div>
+        <a href="/posts/static_sites_with_bash.html" class="post-link">
             <span class="post-link">Static Sites With Bash</span>
-        </summary>
-        <div class="post-text">
-            <p>After going through a bunch of static site generators
-(<a href="https://blog.getpelican.com/">pelican</a>,
-<a href="https://gohugo.io">hugo</a>,
-<a href="https://github.com/icyphox/vite">vite</a>), I decided to roll
-my own. If you are more of the &#8216;show me the code&#8217; kinda guy,
-<a href="https://github.com/nerdypepper/site">here</a> you go.</p>
-
-<p><strong>Text formatting</strong>: I chose to write in markdown, and convert
-to html with <a href="https://kristaps.bsd.lv/lowdown/">lowdown</a>.</p>
-
-<p><strong>Directory structure</strong>: I host my site on GitHub pages, so
-<code>docs/</code> has to be the entry point. Markdown formatted posts
-go into <code>posts/</code>, get converted into html, and end up in
-<code>docs/index.html</code>, something like this:</p>
-
-<pre><code>posts=$(ls -t ./posts)     # chronological order!
-for f in $posts; do
-    file=&quot;./posts/&quot;$f      # `ls` mangled our file paths
-    echo &quot;generating post $file&quot;
-
-    html=$(lowdown &quot;$file&quot;)
-    echo -e &quot;html&quot; &gt;&gt; docs/index.html
-done
-</code></pre>
-
-<p><strong>Assets</strong>: Most static site generators recommend dropping image
-assets into the site source itself. That does have it&#8217;s
-merits, but I prefer hosting images separately:</p>
-
-<pre><code># strip file extension
-ext=&quot;${1##*.}&quot;
-
-# generate a random file name
-id=$( cat /dev/urandom | tr -dc &#39;a-zA-Z0-9&#39; | fold -w 2 | head -n 1 )
-id=&quot;$id.$ext&quot;
-
-# copy to my file host
-scp -P 443 &quot;$1&quot; emerald:files/&quot;$id&quot; 
-echo &quot;https://files.nerdypepper.tech/$id&quot;
-</code></pre>
-
-<p><strong>Templating</strong>:
-<a href="https://github.com/NerdyPepper/site/blob/master/generate.sh"><code>generate.sh</code></a>
-brings the above bits and pieces together (with some extra
-cruft to avoid javascript).  It uses <code>sed</code> to produce nice
-titles from the file names (removes underscores,
-title-case), and <code>date(1)</code> to add the date to each post
-listing!</p>
-            <div class=separator></div>
-        </div>
-    </details>
+        </a>
+    </div>
     
-    <details class="post">
-        <summary>
-            <div class="date">07/11 2019</div>
+    <div class="post">
+        <div class="date">07/11 2019</div>
+        <a href="/posts/my_setup.html" class="post-link">
             <span class="post-link">My Setup</span>
-        </summary>
-        <div class="post-text">
-            <p>Decided to do one of these because everyone does one of
-these.</p>
-
-<p><img src="https://files.nerdypepper.tech/Hb.png" alt="scrot" /></p>
-
-<p>My entire setup is managed with GNU <code>stow</code>, making it easier
-to replicate on fresh installations. You can find my
-configuration files on <a href="https://github.com/nerdypepper">GitHub</a>.</p>
-
-<p>I run Void Linux (glibc) on my
-<a href="https://store.hp.com/us/en/mdp/laptops/envy-13">HP Envy 13&quot; (2018)</a>.
-To keep things simple, I run a raw X session with <code>2bwm</code> as my
-window manager, along with <code>dunst</code> (notification daemon) and
-Sam&#8217;s <a href="https://github.com/sdhand/compton"><code>compton</code></a>
-(compositor) fork.</p>
-
-<p>I am a fan of GNU tools, so I use <code>bash</code> as my shell, and
-<code>coreutils</code> to manage files, archives, strings, paths etc. I
-edit files with <code>vim</code>, chat with <code>weechat</code>, listen to music
-with <code>cmus</code>, monitor processes with <code>htop</code>, manage sessions
-with <code>tmux</code>, read pdfs in <code>zathura</code>. I rarely ever leave
-the comfort of my terminal emulator, <code>urxvt</code>.</p>
-
-<p>Most of my academic typesetting is done with TeX, and
-compiled with <code>xelatex</code>. Other <em>fun</em> documents are made with
-GIMP :).</p>
-            <div class=separator></div>
-        </div>
-    </details>
+        </a>
+    </div>
     
-    <details class="post">
-        <summary>
-            <div class="date">12/10 2019</div>
+    <div class="post">
+        <div class="date">12/10 2019</div>
+        <a href="/posts/WPA_woes.html" class="post-link">
             <span class="post-link">WPA Woes</span>
-        </summary>
-        <div class="post-text">
-            <p>I finally got around to installing Void GNU/Linux on my main
-computer. Rolling release, non-systemd, need I say more?</p>
-
-<p>As with all GNU/Linux distributions, wireless networks had
-me in a fix. If you can see this post, it means I&#8217;ve managed
-to get online. It turns out, <code>wpa_supplicant</code> was detecting the
-wrong interface by default (does it ever select the right
-one?). Let us fix that:</p>
-
-<pre><code>$ sudo rm -r /var/service/wpa_supplicant
-$ sudo killall dhcpcd
-</code></pre>
-
-<p>What is the right interface though?</p>
-
-<pre><code>$ iw dev
-   ...
-   Interface wlp2s0
-   ...
-</code></pre>
-
-<p>Aha! Let us run <code>wpa_supplicant</code> on that interface, as a
-background process:</p>
-
-<pre><code>$ sudo wpa_supplicant -B -i wlp2s0 -c /etc/wpa_supplicant/wpa_supplicant.conf
-$ sudo dhcpcd -B wlp2s0
-$ ping google.com
-PING ...
-</code></pre>
-
-<p>Yay! Make those changes perpetual by enabling the service:</p>
-
-<pre><code>------------------------------------------------------
-# Add these to /etc/wpa_supplicant/wpa_supplicant.conf
-OPTS=&quot;-B&quot;
-WPA_INTERFACE=&quot;wlp2s0&quot;
-------------------------------------------------------
-$ sudo ln -s /etc/sv/wpa_supplicant /var/service/
-$ sudo ln -s /etc/sv/dhcpcd /var/service/
-$ sudo sv restart wpa_supplicant
-$ sudo sv restart dhcpcd
-</code></pre>
-            <div class=separator></div>
-        </div>
-    </details>
+        </a>
+    </div>
     
-    <details class="post">
-        <summary>
-            <div class="date">07/08 2019</div>
+    <div class="post">
+        <div class="date">07/08 2019</div>
+        <a href="/posts/bye_bye_BDFs.html" class="post-link">
             <span class="post-link">Bye Bye BDFs</span>
-        </summary>
-        <div class="post-text">
-            <p>Glyph Bitmap Distribution Format is no more, as the creators of
-<a href="https://pango.org">Pango</a>, one of the most widely used text rendering
-libraries,
-<a href="https://blogs.gnome.org/mclasen/2019/05/25/pango-future-directions/">announced</a>
-their plans for Pango 1.44.</p>
-
-<p>Until recently, Pango used FreeType to draw fonts. They will be moving over
-to <a href="https://harfbuzz.org">Harfbuzz</a>, an evolution of FreeType.</p>
-
-<p><em>Why?</em></p>
-
-<p>In short, FreeType was hard to work with. It required complex logic, and 
-provided no advantage over Harfbuzz (other than being able to fetch
-opentype metrics with ease).</p>
-
-<p>Upgrading to Pango v1.44 will break your GTK applications (if you use a
-<code>bdf</code>/<code>pcf</code> bitmap font). Harfbuzz <em>does</em> support bitmap-only OpenType fonts,
-<code>otb</code>s. Convert your existing fonts over to <code>otb</code>s using
-<a href="https://fontforge.github.io">FontForge</a>. It is to be noted that applications
-such as <code>xterm</code> and <code>rxvt</code> use <code>xft</code> (X FreeType) to render fonts, and will
-remain unaffected by the update.</p>
-
-<p>Both <a href="https://github.com/nerdypepper/scientifica">scientifica</a> and
-<a href="https://github.com/nerdypepper/curie">curie</a> will soon ship with bitmap-only
-OpenType font formats.</p>
-            <div class=separator></div>
-        </div>
-    </details>
+        </a>
+    </div>
     
-    <details class="post">
-        <summary>
-            <div class="date">02/08 2019</div>
+    <div class="post">
+        <div class="date">02/08 2019</div>
+        <a href="/posts/onivim_sucks.html" class="post-link">
             <span class="post-link">Onivim Sucks</span>
-        </summary>
-        <div class="post-text">
-            <p><a href="https://v2.onivim.io">Onivim</a> is a &#8216;modern modal editor&#8217;, combining fancy
-interface and language features with vim-style modal editing. What&#8217;s wrong you
-ask?</p>
-
-<p>Apart from <a href="https://github.com/onivim/oni2/issues/550">buggy syntax highlighting</a>, 
-<a href="https://github.com/onivim/oni2/issues/519">broken scrolling</a> and
-<a href="https://github.com/onivim/oni2/issues?q=is%3Aissue+label%3A%22daily+editor+blocker%22+is%3Aopen">others</a>,
-Onivim is <strong>proprietary</strong> software. It is licensed under a commercial 
-<a href="https://github.com/onivim/oni1/blob/master/Outrun-Labs-EULA-v1.1.md">end user agreement license</a>,
-which prohibits redistribution in both object code and source code formats.</p>
-
-<p>Onivim&#8217;s core editor logic (bits that belong to vim), have been separated from
-the interface, into <a href="https://github.com/onivim/libvim">libvim</a>. libvim is
-licensed under MIT, which means, this &#8216;extension&#8217; of vim is perfectly in
-adherence to <a href="http://vimdoc.sourceforge.net/htmldoc/uganda.html#license">vim&#8217;s license text</a>! 
-Outrun Labs are exploiting this loophole (distributing vim as a library) to
-commercialize Onivim.</p>
-
-<p>Onivim&#8217;s source code is available on <a href="https://github.com/onivim/oni2">GitHub</a>.
-They do mention that the source code trickles down to the
-<a href="https://github.com/onivim/oni2-mit">oni2-mit</a> repository, which (not yet) contains
-MIT-licensed code, <strong>18 months</strong> after each commit to the original repository.</p>
-
-<p>Want to contribute to Onivim? Don&#8217;t. They make a profit out of your contributions.
-Currently, Onivim is priced at $19.99, &#8216;pre-alpha&#8217; pricing which is 80% off the
-final price! If you are on the lookout for an editor, I would suggest using
-<a href="https://vim.org">Vim</a>, charity ware that actually works, and costs $100 lesser.</p>
-            <div class=separator></div>
-        </div>
-    </details>
+        </a>
+    </div>
     
-    <details class="post">
-        <summary>
-            <div class="date">31/07 2019</div>
+    <div class="post">
+        <div class="date">31/07 2019</div>
+        <a href="/posts/bash_harder_with_vim.html" class="post-link">
             <span class="post-link">Bash Harder With Vim</span>
-        </summary>
-        <div class="post-text">
-            <p>Bash is tricky, don&#8217;t let your editor get in your way. Here&#8217;s a couple of neat
-additions you could make to your <code>vimrc</code> for a better shell programming
-experience.</p>
-
-<hr/>
-
-<h4 id="Man%20pages%20inside%20vim">Man pages inside vim</h4>
-
-<p>Source this script to get started:  </p>
-
-<pre><code>runtime ftplugin/man.vim
-</code></pre>
-
-<p>Now, you can open manpages inside vim with <code>:Man</code>! It adds nicer syntax highlighting
-and the ability to jump around with <code>Ctrl-]</code> and <code>Ctrl-T</code>.</p>
-
-<p>By default, the manpage is opened in a horizontal split, I prefer using a new tab:</p>
-
-<pre><code>let g:ft_man_open_mode = &#39;tab&#39;
-</code></pre>
-
-<hr/>
-
-<h4 id="Scratchpad%20to%20test%20your%20commands">Scratchpad to test your commands</h4>
-
-<p>I often test my <code>sed</code> substitutions, here is
-a sample from the script used to generate this site:  </p>
-
-<pre><code># a substitution to convert snake_case to Title Case With Spaces
-echo &quot;$1&quot; | sed -E -e &quot;s/\..+$//g&quot;  -e &quot;s/_(.)/ \u\1/g&quot; -e &quot;s/^(.)/\u\1/g&quot;
-</code></pre>
-
-<p>Instead of dropping into a new shell, just test it out directly from vim!</p>
-
-<ul>
-<li><p>Yank the line into a register:</p>
-
-<pre><code>yy
-</code></pre></li>
-<li><p>Paste it into the command-line window:</p>
-
-<pre><code>q:p
-</code></pre></li>
-<li><p>Make edits as required:</p>
-
-<pre><code>syntax off            # previously run commands
-edit index.html       # in a buffer!
-w | so %
-!echo &quot;new_post.md&quot; | sed -E -e &quot;s/\..+$//g&quot;  --snip--
-^--- note the use of &#39;!&#39;
-</code></pre></li>
-<li><p>Hit enter with the cursor on the line containing your command!</p>
-
-<pre><code>$ vim
-New Post         # output
-Press ENTER or type command to continue
-</code></pre></li>
-</ul>
-            <div class=separator></div>
-        </div>
-    </details>
+        </a>
+    </div>
     
-    <details class="post">
-        <summary>
-            <div class="date">30/07 2019</div>
+    <div class="post">
+        <div class="date">30/07 2019</div>
+        <a href="/posts/hold_position!.html" class="post-link">
             <span class="post-link">Hold Position!</span>
-        </summary>
-        <div class="post-text">
-            <p>Often times, when I run a vim command that makes &#8220;big&#8221; changes to a file (a
-macro or a <code>:vimgrep</code> command) I lose my original position and feel disoriented.</p>
-
-<p><em>Save position with <code>winsaveview()</code>!</em></p>
-
-<p>The <code>winsaveview()</code> command returns a <code>Dictionary</code> that contains information
-about the view of the current window. This includes the cursor line number,
-cursor coloumn, the top most line in the window and a couple of other values,
-none of which concern us.</p>
-
-<p>Before running our command (one that jumps around the buffer, a lot), we save
-our view, and restore it once its done, with <code>winrestview</code>.</p>
-
-<pre><code>let view = winsaveview()
-s/\s\+$//gc              &quot; find and (confirm) replace trailing blanks
-winrestview(view)        &quot; restore our original view!
-</code></pre>
-
-<p>It might seem a little overkill in the above example, just use &#8220; (double
-backticks) instead, but it comes in handy when you run your file through
-heavier filtering.</p>
-            <div class=separator></div>
-        </div>
-    </details>
+        </a>
+    </div>
     
-    <details class="post">
-        <summary>
-            <div class="date">29/07 2019</div>
+    <div class="post">
+        <div class="date">29/07 2019</div>
+        <a href="/posts/get_better_at_yanking_and_putting_in_vim.html" class="post-link">
             <span class="post-link">Get Better At Yanking And Putting In Vim</span>
-        </summary>
-        <div class="post-text">
-            <ol start="1">
-<li><p>reselecting previously selected text (i use this to fix botched selections):</p>
-
-<pre><code>gv  &quot; :h gv for more
-    &quot; you can use `o` in visual mode to go to the `Other` end of the selection
-    &quot; use a motion to fix the selection
-</code></pre></li>
-<li><p>reselecting previously yanked text:</p>
-
-<pre><code>`[v`]
-`[         &quot; marks the beginning of the previously yanked text   :h `[
-`]         &quot; marks the end                                       :h `]
- v         &quot; visual select everything in between
-
-nnoremap gb `[v`]    &quot; &quot;a quick map to perform the above
-</code></pre></li>
-<li><p>pasting and indenting text (in one go):</p>
-
-<pre><code>]p   &quot; put (p) and adjust indent to current line
-]P   &quot; put the text before the cursor (P) and adjust indent to current line
-</code></pre></li>
-</ol>
-            <div class=separator></div>
-        </div>
-    </details>
+        </a>
+    </div>
     
 </div>
 </body>

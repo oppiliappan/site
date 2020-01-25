@@ -68,7 +68,7 @@ summary: hover {
 }
 
 hr {
-  color: var(--light-black);
+  color: var(--dark-white);
 }
 
 .date {
@@ -108,7 +108,6 @@ a, a:hover, a:visited, a:active {
   color: var(--light-black);
 }
 
-
 .post-link, .post-link:hover, .post-link:visited, .post-link:active {
   color: var(--black); !important
   font-family: 'Inter', sans-serif;
@@ -135,7 +134,7 @@ pre, code {
 }
 
 pre {
-  background-color: var(--white);
+  background-color: var(--dark-white);
   overflow: auto;
   padding: 0.8rem;
   border: 1px solid var(--dark-white);
