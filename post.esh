@@ -14,15 +14,15 @@
       <div class="posts">
         <div class="post">
           <div class="date">
-            <%= "$date"%>
+            <%="$date"%>
             <span class="commit-hash">
               <a href="https://github.com/nerdypepper/site/blob/master/posts/<%basename "$file"%>" style="text-decoration: none">
-                <%= "$commit"%>
+                <%="$commit"%>
               </a>
             </span>
           </div>
           <span class="post-title">
-            <%= $title%>
+            <%=$title%>
           </span>
           <div class="post-text">
             <% lowdown "$file"%>

@@ -16,11 +16,15 @@ link_wrapper() {
     <div class=\"post\">
         <div class=\"date\">
             $3
-            <span class=\"commit-hash\">$4</span>
         </div>
         <a href=\"/posts/$1\" class=\"post-link\">
             <span class=\"post-link\">$2</span>
         </a>
+        <span class=\"commit-hash\">
+            <a href=\"https://github.com/nerdypepper/site/blob/master/posts/$1.md\" style=\"text-decoration: none\">
+                $4
+            </a>
+        </span>
     </div>
     "
 }
@@ -52,6 +56,7 @@ echo "
 # begin posts
 echo "
 <div class=\"posts\">
+<div class="separator"></div>
 " >> docs/index.html
 
 # posts
@@ -62,7 +67,6 @@ for f in $posts; do
     file="./posts/"$f
     echo "generating post $file"
     id="${file##*/}"    # ill name my posts just fine
-
 
     # generate posts
     html=$(lowdown "$file")
@@ -83,10 +87,19 @@ for f in $posts; do
         commit="$commit" \
         title="$post_title"
 
-    first_visible="0"
 done
 
 echo "
+<div class="separator"></div>
+<div class="footer">
+    <a href="https://github.com/nerdypepper"> Github </a>
+    · 
+    <a href="https://twitter.com/N3rdyP3pp3r"> Twitter </a>
+    · 
+    <a href="mailto:nerdypepper@tuta.io"> Mail </a>
+    · 
+    <a href="https://linkedin.com/in/nerdypepper"> LinkedIn </a>
+</div>
 </div>
 </body>
 </html>
