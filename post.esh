@@ -20,7 +20,7 @@
           <div class="post-text">
             <% lowdown "$file"%>
           </div>
-          <a href="/index.html" class="post-end-link">← Back</a>
+          <a href="/" class="post-end-link">← Back</a>
           <div class="separator"></div>
         </div>
       </div>
