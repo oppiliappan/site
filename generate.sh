@@ -10,11 +10,15 @@ title_wrapper() {
 link_wrapper() {
     # 1 - id
     # 2 - title
-    # 2 - date
+    # 3 - date
+    # 4 - commit hash
     echo -ne "
     <div class=\"post\">
-        <div class=\"date\">$3</div>
-        <a href=\"/posts/$1.html\" class=\"post-link\">
+        <div class=\"date\">
+            $3
+            <span class=\"commit-hash\">$4</span>
+        </div>
+        <a href=\"/posts/$1\" class=\"post-link\">
             <span class=\"post-link\">$2</span>
         </a>
     </div>
@@ -65,12 +69,14 @@ for f in $posts; do
     commit="$(git log -n1 --oneline "$file" | sed -e 's/\s.*$//g')"
     post_title=$(title_wrapper "$id")
     post_date=$(date -r "$file" "+%d/%m %Y")
-    post_link=$(link_wrapper "${id%.*}" "$post_title" "$post_date")
+    post_link=$(link_wrapper "${id%.*}" "$post_title" "$post_date" "$commit")
 
     echo -ne "$post_link" >> docs/index.html
 
+    id="${id%.*}"
+    mkdir -p "docs/posts/$id"
     esh -s /bin/bash \
-        -o "docs/posts/${id%.*}.html" \
+        -o "docs/posts/$id/index.html" \
         "./post.esh" \
         file="$file" \
         date="$post_date" \

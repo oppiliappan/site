@@ -13,14 +13,21 @@
     <body>
       <div class="posts">
         <div class="post">
-          <div class="date"><%= $date%></div>
-          <span style="font-size: 2rem; font-weight: 600">
+          <div class="date">
+            <%= "$date"%>
+            <span class="commit-hash">
+              <a href="https://github.com/nerdypepper/site/blob/master/posts/<%basename "$file"%>" style="text-decoration: none">
+                <%= "$commit"%>
+              </a>
+            </span>
+          </div>
+          <span class="post-title">
             <%= $title%>
           </span>
           <div class="post-text">
             <% lowdown "$file"%>
           </div>
-          <a href="/" class="post-end-link">← Back</a>
+          <a href="/" class="post-end-link">⟵ Back</a>
           <div class="separator"></div>
         </div>
       </div>
