@@ -62,12 +62,21 @@ for f in $posts; do
 
     # generate posts
     html=$(lowdown "$file")
+    commit="$(git log -n1 --oneline "$file" | sed -e 's/\s.*$//g')"
     post_title=$(title_wrapper "$id")
     post_date=$(date -r "$file" "+%d/%m %Y")
     post_link=$(link_wrapper "${id%.*}" "$post_title" "$post_date")
 
     echo -ne "$post_link" >> docs/index.html
-    esh -s /bin/bash -o "docs/posts/${id%.*}.html" "./post.esh" file="$file" date="$post_date" title="$post_title"
+
+    esh -s /bin/bash \
+        -o "docs/posts/${id%.*}.html" \
+        "./post.esh" \
+        file="$file" \
+        date="$post_date" \
+        commit="$commit" \
+        title="$post_title"
+
     first_visible="0"
 done
 
