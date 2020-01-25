@@ -37,6 +37,9 @@ html {
   .posts {
     width: 100%;
   }
+  html {
+    font-size: 18px;
+  }
 }
 
 .posts {

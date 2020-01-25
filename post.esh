@@ -11,16 +11,18 @@
     <meta property="og:description" content="a static site {for, by, about} me ">
     <meta property="og:url" content="https://nerdypepper.tech">
     <body>
-      <div class="post posts">
-        <div class="date"><%= $date%></div>
-        <span style="font-size: 2rem; font-weight: 600">
-          <%= $title%>
-        </span>
-        <div class="post-text">
-          <% lowdown "$file"%>
+      <div class="posts">
+        <div class="post">
+          <div class="date"><%= $date%></div>
+          <span style="font-size: 2rem; font-weight: 600">
+            <%= $title%>
+          </span>
+          <div class="post-text">
+            <% lowdown "$file"%>
+          </div>
+          <a href="/index.html" class="post-end-link">← Back</a>
+          <div class="separator"></div>
         </div>
-        <a href="/index.html" class="post-end-link">‹ Back</a>
-        <div class="separator"></div>
       </div>
     </body>
 </html>
