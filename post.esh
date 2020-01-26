@@ -13,13 +13,20 @@
     <body>
       <div class="posts">
         <div class="post">
+          <a href="/" class="post-end-link">⟵ Back</a>
+          <div class="separator"></div>
           <div class="date">
             <%="$date"%>
-            <span class="commit-hash">
-              <a href="https://github.com/nerdypepper/site/blob/master/posts/<%basename "$file"%>" style="text-decoration: none">
-                <%="$commit"%>
-              </a>
-            </span>
+            <div class="stats">
+              <span class="stats-number">
+                <%="$height"%>
+              </span>
+              <span class="stats-unit">cm</span>
+              <span class="stats-number">
+                <%="$read_time"%>
+              </span>
+              <span class="stats-unit">min</span>
+            </div>
           </div>
           <span class="post-title">
             <%=$title%>
@@ -27,8 +34,8 @@
           <div class="post-text">
             <% lowdown "$file"%>
           </div>
-          <a href="/" class="post-end-link">⟵ Back</a>
           <div class="separator"></div>
+          <a href="/" class="post-end-link">⟵ Back</a>
         </div>
       </div>
     </body>
