@@ -13,14 +13,20 @@
     <body>
       <div class="posts">
         <div class="post">
+          <a href="/" class="post-end-link">⟵ Back</a>
+          <div class="separator"></div>
           <div class="date">
             23/11 2019
-            <span class="commit-hash">
-              <a href="https://github.com/nerdypepper/site/blob/master/posts/static_sites_with_bash.md
-" style="text-decoration: none">
-                d1faa7e
-              </a>
-            </span>
+            <div class="stats">
+              <span class="stats-number">
+                21.17
+              </span>
+              <span class="stats-unit">cm</span>
+              <span class="stats-number">
+                1.5
+              </span>
+              <span class="stats-unit">min</span>
+            </div>
           </div>
           <span class="post-title">
             Static Sites With Bash
@@ -33,10 +39,14 @@
 my own. If you are more of the &#8216;show me the code&#8217; kinda guy,
 <a href="https://github.com/nerdypepper/site">here</a> you go.</p>
 
-<p><strong>Text formatting</strong>: I chose to write in markdown, and convert
+<h3 id="Text%20formatting">Text formatting</h3>
+
+<p>I chose to write in markdown, and convert
 to html with <a href="https://kristaps.bsd.lv/lowdown/">lowdown</a>.</p>
 
-<p><strong>Directory structure</strong>: I host my site on GitHub pages, so
+<h3 id="Directory%20structure">Directory structure</h3>
+
+<p>I host my site on GitHub pages, so
 <code>docs/</code> has to be the entry point. Markdown formatted posts
 go into <code>posts/</code>, get converted into html, and end up in
 <code>docs/index.html</code>, something like this:</p>
@@ -51,7 +61,9 @@ for f in $posts; do
 done
 </code></pre>
 
-<p><strong>Assets</strong>: Most static site generators recommend dropping image
+<h3 id="Assets">Assets</h3>
+
+<p>Most static site generators recommend dropping image
 assets into the site source itself. That does have it&#8217;s
 merits, but I prefer hosting images separately:</p>
 
@@ -67,8 +79,9 @@ scp -P 443 &quot;$1&quot; emerald:files/&quot;$id&quot;
 echo &quot;https://files.nerdypepper.tech/$id&quot;
 </code></pre>
 
-<p><strong>Templating</strong>:
-<a href="https://github.com/NerdyPepper/site/blob/master/generate.sh"><code>generate.sh</code></a>
+<h3 id="Templating">Templating</h3>
+
+<p><a href="https://github.com/NerdyPepper/site/blob/master/generate.sh"><code>generate.sh</code></a>
 brings the above bits and pieces together (with some extra
 cruft to avoid javascript).  It uses <code>sed</code> to produce nice
 titles from the file names (removes underscores,
@@ -76,8 +89,8 @@ title-case), and <code>date(1)</code> to add the date to each post
 listing!</p>
 
           </div>
-          <a href="/" class="post-end-link">⟵ Back</a>
           <div class="separator"></div>
+          <a href="/" class="post-end-link">⟵ Back</a>
         </div>
       </div>
     </body>
