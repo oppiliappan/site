@@ -139,6 +139,7 @@ a, a:hover, a:visited, a:active {
   text-decoration: none;
   color: var(--black);
   text-shadow: none;
+  text-align: center;
   font-weight: 800;
   font-size: 1.5rem;
 }
@@ -196,4 +197,12 @@ pre > code {
 .footer {
   font-size: 0.7rem;
   text-align: center;
+}
+
+.footimgs {
+  max-height: 0.7rem;
+  display: inline-block;
+  vertical-align: middle;
+  image-orientation: from-image;
+  cursor: pointer;
 }
