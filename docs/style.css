@@ -10,7 +10,7 @@
   --cyan: #79ffe1;
   --pink: #d344e2;
   --black: #212121;
-  --light-black: #535353;
+  --light-black: #666666;
   --white: #ffffff;
   --dark-white: #eeeeee;
 }
@@ -19,7 +19,7 @@ body { font-family: 'Inter', sans-serif; }
 @supports (font-variation-settings: normal) {
   body {
     font-family: 'Inter var', sans-serif; 
-    font-feature-settings: 'ss01' 1, 'ss02' 1, 'kern' 1, 'liga' 1;
+    font-feature-settings: 'ss01' 1, 'kern' 1, 'liga' 1, 'cv05' 1;
   }
 }
 
@@ -28,6 +28,7 @@ body {
   color: var(--black);
   padding: 0;
   padding-top: 2rem;
+  padding-bottom: 2rem;
   text-align: center;
 }
 
@@ -82,7 +83,7 @@ hr {
 }
 
 .date {
-  font-feature-settings: 'ss01' 1, 'zero' 1;
+  font-feature-settings: 'ss01' 1, 'kern' 1;
   font-weight: 400;
   font-size: 0.8rem;
   color: var(--light-black);
@@ -105,13 +106,13 @@ hr {
 }
 
 .heading {
-  margin:0 auto;
+  margin: 0 auto;
   color: var(--black);
   text-align: center;
   font-size: 6rem;
   font-family: 'Iosevka', monospace;
   text-shadow: 0.25rem 0rem var(--cyan), -0.25rem 0rem var(--pink);
-  line-height: 8.5rem;
+  line-height: 7rem;
 }
 
 a, a:hover, a:visited, a:active {
@@ -129,14 +130,14 @@ a, a:hover, a:visited, a:active {
 .post-end-link, .post-end-link:hover, .post-end-link:visited, .post-end-link:active
 {
   text-decoration: none;
-  color: var(--black);
+  color: var(--light-black);
   text-shadow: none;
   font-size: 0.8rem;
 }
 
 .post-title {
   text-decoration: none;
-  color: var(--light-black);
+  color: var(--black);
   text-shadow: none;
   font-weight: 800;
   font-size: 1.5rem;
@@ -153,10 +154,14 @@ pre, code {
 
 pre {
   background-color: var(--dark-white);
-  overflow: auto;
+  overflow: hidden;
   padding: 0.8rem;
   border: 1px solid var(--dark-white);
   border-radius: 0.2px;
+}
+
+pre:hover {
+  overflow-x: scroll;
 }
 
 code {
@@ -172,11 +177,20 @@ pre > code {
   background: var(--cyan);
 }
 
-.commit-hash {
+.stats {
   float: right;
+  color: var(--light-black);
+}
+
+.stats-number {
   font-size: 0.8rem;
-  text-decoration: none;
-  font-family: Monospace;
+  font-family: 'Inter var', Monospace;
+  font-feature-settings: 'ss01' 1, 'kern' 1;
+}
+
+.stats-unit {
+  font-size: 0.5rem;
+  font-family: 'Inter var';
 }
 
 .footer {

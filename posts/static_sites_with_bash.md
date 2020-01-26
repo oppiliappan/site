@@ -5,10 +5,12 @@ After going through a bunch of static site generators
 my own. If you are more of the 'show me the code' kinda guy,
 [here](https://github.com/nerdypepper/site) you go.
 
-**Text formatting**: I chose to write in markdown, and convert
+### Text formatting
+I chose to write in markdown, and convert
 to html with [lowdown](https://kristaps.bsd.lv/lowdown/).
 
-**Directory structure**: I host my site on GitHub pages, so
+### Directory structure
+I host my site on GitHub pages, so
 `docs/` has to be the entry point. Markdown formatted posts
 go into `posts/`, get converted into html, and end up in
 `docs/index.html`, something like this:
@@ -24,7 +26,8 @@ for f in $posts; do
 done
 ```
 
-**Assets**: Most static site generators recommend dropping image
+### Assets
+Most static site generators recommend dropping image
 assets into the site source itself. That does have it's
 merits, but I prefer hosting images separately:
 
@@ -41,7 +44,7 @@ scp -P 443 "$1" emerald:files/"$id"
 echo "https://files.nerdypepper.tech/$id"
 ```
 
-**Templating**:
+### Templating
 [`generate.sh`](https://github.com/NerdyPepper/site/blob/master/generate.sh)
 brings the above bits and pieces together (with some extra
 cruft to avoid javascript).  It uses `sed` to produce nice
