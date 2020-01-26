@@ -109,6 +109,13 @@ hr {
   line-height: 5rem;
   font-weight: 800;
   font-style: italic;
+
+  display:inline-block;
+    -webkit-transform:scale(1,1.2);
+    -moz-transform:scale(1,1.2);
+    -ms-transform:scale(1,1.2);
+    -o-transform:scale(1,1.2);
+    transform:scale(1,1.2);
 }
 
 a, a:hover, a:visited, a:active {
