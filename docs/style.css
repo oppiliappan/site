@@ -1,11 +1,5 @@
 @import url('https://rsms.me/inter/inter.css');
 
-@font-face {
-  font-family: "Iosevka";
-  src: url('https://cdn.rawgit.com/kaushalmodi/iosevka-mirror/v1.14.1/woff/iosevka-ss08-bolditalic.woff') format('woff');
-  font-style: bold-italic;
-}
-
 :root {
   --cyan: #79ffe1;
   --pink: #d344e2;
@@ -110,9 +104,11 @@ hr {
   color: var(--black);
   text-align: center;
   font-size: 6rem;
-  font-family: 'Iosevka', monospace;
-  text-shadow: 0.25rem 0rem var(--cyan), -0.25rem 0rem var(--pink);
-  line-height: 7rem;
+  font-family: 'Inter var';
+  text-shadow: 0.25rem 0rem var(--pink), -0.25rem 0rem var(--cyan);
+  line-height: 5rem;
+  font-weight: 800;
+  font-style: italic;
 }
 
 a, a:hover, a:visited, a:active {
