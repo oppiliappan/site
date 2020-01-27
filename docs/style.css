@@ -70,21 +70,21 @@ td {
   }
 }
 
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1080px) {
   .posts {
     width: 70%;
   }
   html {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1300px) {
   .posts {
-    width: 50%;
+    width: 40%;
   }
   html {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 
@@ -179,14 +179,10 @@ pre, code {
 
 pre {
   background-color: var(--dark-white);
-  overflow: hidden;
+  overflow: auto;
   padding: 0.8rem;
   border: 1px solid var(--dark-white);
   border-radius: 0.2px;
-}
-
-pre:hover {
-  overflow-x: scroll;
 }
 
 code {
