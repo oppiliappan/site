@@ -30,10 +30,6 @@ html {
   font-size: 20px;
 }
 
-.posts {
-  width: 40%;
-}
-
 table {
   width: 100%;
   border-collapse: collapse;
@@ -52,13 +48,43 @@ td {
   padding: 0.5rem 0;
 }
 
-/* mobile devices */
-@media only screen and (max-width: 70em) {
+.posts {
+  width: 100%;
+}
+
+@media only screen and (min-width: 600px) {
   .posts {
     width: 100%;
   }
   html {
     font-size: 18px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .posts {
+    width: 80%;
+  }
+  html {
+    font-size: 18px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .posts {
+    width: 70%;
+  }
+  html {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .posts {
+    width: 50%;
+  }
+  html {
+    font-size: 20px;
   }
 }
 

@@ -70,6 +70,7 @@ echo "
 # begin posts
 echo "
 <div class=\"posts\">
+<div class=\"post\">
 <div class="separator"></div>
 <table>
 " >> docs/index.html
@@ -93,7 +94,7 @@ for f in $posts; do
     height="$(height $lines)"
 
     post_title=$(title_wrapper "$id")
-    post_date=$(date -r "$file" "+%d/%m/%y")
+    post_date=$(date -r "$file" "+%d/%m — %Y")
     post_link=$(link_wrapper "${id%.*}" "$post_title" "$post_date" "$r_time" "$height")
     echo -ne "$post_link" >> docs/index.html
 
@@ -121,6 +122,7 @@ echo "
     <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
         <img class="footimgs" src="https://d33wubrfki0l68.cloudfront.net/94387e9d77fbc8b4360db81e72603ecba3df94a7/632bc/static/cc.svg">
     </a>
+</div>
 </div>
 </div>
 </body>
