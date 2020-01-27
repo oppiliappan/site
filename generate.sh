@@ -24,7 +24,7 @@ link_wrapper() {
     # 4 - read time
     echo -ne "
     <tr>
-        <td>
+        <td class="table-post">
             <div class=\"date\">
                 $3
             </div>
@@ -32,7 +32,7 @@ link_wrapper() {
                 <span class=\"post-link\">$2</span>
             </a>
         </td>
-        <td>
+        <td class="table-stats">
             <span class=\"stats-number\">
                 $4
             </span>
@@ -95,7 +95,6 @@ for f in $posts; do
     post_title=$(title_wrapper "$id")
     post_date=$(date -r "$file" "+%d/%m/%y")
     post_link=$(link_wrapper "${id%.*}" "$post_title" "$post_date" "$r_time" "$height")
-
     echo -ne "$post_link" >> docs/index.html
 
     id="${id%.*}"

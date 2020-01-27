@@ -39,8 +39,17 @@ table {
   border-collapse: collapse;
 }
 
+.table-post {
+  width: 70%;
+}
+
+.table-stats {
+  width: 30%;
+  text-align: right;
+}
+
 td {
-  padding: 0.7rem 0;
+  padding: 0.5rem 0;
 }
 
 /* mobile devices */
