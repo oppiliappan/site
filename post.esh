@@ -23,7 +23,6 @@
               </span>
               <span class="stats-unit">cm</span>
               &nbsp
-              &nbsp
               <span class="stats-number">
                 <%="$read_time"%>
               </span>

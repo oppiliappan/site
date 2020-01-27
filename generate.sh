@@ -23,20 +23,22 @@ link_wrapper() {
     # 3 - date
     # 4 - read time
     echo -ne "
-    <div class=\"post\">
-        <div class=\"date\">
-            $3
-        </div>
-        <a href=\"/posts/$1\" class=\"post-link\">
-            <span class=\"post-link\">$2</span>
-        </a>
-        <div class="stats">
+    <tr>
+        <td>
+            <div class=\"date\">
+                $3
+            </div>
+            <a href=\"/posts/$1\" class=\"post-link\">
+                <span class=\"post-link\">$2</span>
+            </a>
+        </td>
+        <td>
             <span class=\"stats-number\">
                 $4
             </span>
             <span class="stats-unit">min</span>
-        </div>
-    </div>
+        </td>
+    </tr>
     "
 }
 
@@ -69,6 +71,7 @@ echo "
 echo "
 <div class=\"posts\">
 <div class="separator"></div>
+<table>
 " >> docs/index.html
 
 # posts
@@ -90,7 +93,7 @@ for f in $posts; do
     height="$(height $lines)"
 
     post_title=$(title_wrapper "$id")
-    post_date=$(date -r "$file" "+%d/%m %Y")
+    post_date=$(date -r "$file" "+%d/%m/%y")
     post_link=$(link_wrapper "${id%.*}" "$post_title" "$post_date" "$r_time" "$height")
 
     echo -ne "$post_link" >> docs/index.html
@@ -109,6 +112,7 @@ for f in $posts; do
 done
 
 echo "
+</table>
 <div class="separator"></div>
 <div class="footer">
     <a href="https://github.com/nerdypepper">Github</a> · 

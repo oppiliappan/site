@@ -13,7 +13,7 @@ body { font-family: 'Inter', sans-serif; }
 @supports (font-variation-settings: normal) {
   body {
     font-family: 'Inter var', sans-serif; 
-    font-feature-settings: 'ss01' 1, 'kern' 1, 'liga' 1, 'cv05' 1;
+    font-feature-settings: 'ss01' 1, 'kern' 1, 'liga' 1, 'cv05' 1, 'tnum' 1;
   }
 }
 
@@ -32,6 +32,15 @@ html {
 
 .posts {
   width: 40%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 0.7rem 0;
 }
 
 /* mobile devices */
@@ -60,24 +69,11 @@ img {
   border-radius: 4px;
 }
 
-details > summary {
-  list-style: none;
-}
-
-details > summary::-webkit-details-marker {
-  display: none;
-}
-
-summary: hover {
-  cursor: pointer;
-}
-
 hr {
   color: var(--dark-white);
 }
 
 .date {
-  font-feature-settings: 'ss01' 1, 'kern' 1;
   font-weight: 400;
   font-size: 0.8rem;
   color: var(--light-black);
@@ -90,21 +86,11 @@ hr {
   border-top: 2px solid var(--dark-white);
 }
 
-.black-circle {
-  margin:0 auto;
-  width: 10rem;
-  height: 10rem;
-  border: 0px solid transparent;
-  border-radius: 50%;
-  background-color: var(--black);
-}
-
 .heading {
   margin: 0 auto;
   color: var(--black);
   text-align: center;
   font-size: 6rem;
-  font-family: 'Inter var';
   text-shadow: 0.25rem 0rem var(--pink), -0.25rem 0rem var(--cyan);
   line-height: 5rem;
   font-weight: 800;
@@ -125,7 +111,7 @@ a, a:hover, a:visited, a:active {
 
 .post-link, .post-link:hover, .post-link:visited, .post-link:active {
   color: var(--black);
-  font-weight: 650;
+  font-weight: 600;
   font-size: 1.1rem;
   text-decoration: none;
 }
@@ -183,18 +169,16 @@ pre > code {
 
 .stats {
   float: right;
+  text-align: right;
   color: var(--light-black);
 }
 
 .stats-number {
   font-size: 0.8rem;
-  font-family: 'Inter var', Monospace;
-  font-feature-settings: 'ss01' 1, 'kern' 1;
 }
 
 .stats-unit {
   font-size: 0.6rem;
-  font-family: 'Inter var';
 }
 
 .footer {
