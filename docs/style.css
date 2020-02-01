@@ -224,4 +224,5 @@ pre > code {
   vertical-align: middle;
   image-orientation: from-image;
   cursor: pointer;
+  box-shadow: none;
 }

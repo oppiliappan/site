@@ -42,41 +42,32 @@ link_wrapper() {
     "
 }
 
-# meta
-echo "
+cat > ./docs/index.html << EOF
 <!DOCTYPE html>
-<html lang=\"en\">
+<html lang="en">
 <head>
-<link rel=\"stylesheet\" href=\"./style.css\">
-<meta charset=\"UTF-8\">
-<meta name=\"viewport\" content=\"initial-scale=1\">
-<meta content=\"#ffffff\" name=\"theme-color\">
-<meta name=\"HandheldFriendly\" content=\"true\">
-<meta property=\"og:title\" content=\"nerdypepper\">
-<meta property=\"og:type\" content=\"website\">
-<meta property=\"og:description\" content=\"a static site {for, by, about} me \">
-<meta property=\"og:url\" content=\"https://nerdypepper.tech\">
+<link rel="stylesheet" href="./style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1">
+<meta content="#ffffff" name="theme-color">
+<meta name="HandheldFriendly" content="true">
+<meta property="og:title" content="nerdypepper">
+<meta property="og:type" content="website">
+<meta property="og:description" content="a static site {for, by, about} me ">
+<meta property="og:url" content="https://nerdypepper.tech">
 <title>n</title>
-" > ./docs/index.html
-
-# body
-echo "
 <body>
-<h1 class=\"heading\">n</h1>
-<h4 class=\"date\">nerdypepper's μblog</h4>
-" >> docs/index.html
+    <h1 class="heading">n</h1>
+    <h4 class="date">nerdypepper's μblog</h4>
+    <div class="posts">
+    <div class="post">
+    <div class="separator"></div>
+    <table>
+EOF
 
-
-# begin posts
-echo "
-<div class=\"posts\">
-<div class=\"post\">
-<div class="separator"></div>
-<table>
-" >> docs/index.html
 
 # posts
-posts=$(ls -t ./posts);
+posts=$(ls -t ./posts)
 mkdir -p docs/posts
 
 for f in $posts; do
@@ -111,20 +102,20 @@ for f in $posts; do
 
 done
 
-echo "
-</table>
-<div class="separator"></div>
-<div class="footer">
-    <a href="https://github.com/nerdypepper">Github</a> · 
-    <a href="https://twitter.com/N3rdyP3pp3r">Twitter</a> · 
-    <a href="mailto:nerdypepper@tuta.io">Mail</a> · 
-    <a href="https://linkedin.com/in/nerdypepper">LinkedIn</a> · 
-    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
-        <img class="footimgs" src="https://d33wubrfki0l68.cloudfront.net/94387e9d77fbc8b4360db81e72603ecba3df94a7/632bc/static/cc.svg">
-    </a>
-</div>
-</div>
-</div>
+cat >> ./docs/index.html << EOF
+    </table>
+    <div class="separator"></div>
+        <div class="footer">
+            <a href="https://github.com/nerdypepper">Github</a> · 
+            <a href="https://twitter.com/N3rdyP3pp3r">Twitter</a> · 
+            <a href="mailto:nerdypepper@tuta.io">Mail</a> · 
+            <a href="https://linkedin.com/in/nerdypepper">LinkedIn</a> · 
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                <img class="footimgs" src="https://d33wubrfki0l68.cloudfront.net/94387e9d77fbc8b4360db81e72603ecba3df94a7/632bc/static/cc.svg">
+            </a>
+        </div>
+    </div>
+    </div>
 </body>
 </html>
-" >> docs/index.html
+EOF
