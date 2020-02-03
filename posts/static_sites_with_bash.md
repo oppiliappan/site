@@ -41,7 +41,7 @@ id="$id.$ext"
 
 # copy to my file host
 scp -P 443 "$1" emerald:files/"$id" 
-echo "https://files.nerdypepper.tech/$id"
+echo "https://u.peppe.rs/$id"
 ```
 
 ### Templating

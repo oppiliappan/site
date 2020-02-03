@@ -1,6 +1,6 @@
 This piece aims to highlight (pun intended) some of the
 reasons behind my [color
-free](https://files.nerdypepper.tech/bF.png) editor setup.
+free](https://u.peppe.rs/bF.png) editor setup.
 
 Imagine highlighting an entire book because *all* of it is
 important. That is exactly what (most) syntax highlighting
@@ -21,7 +21,7 @@ The following comparison does a better job of explaining
 (none, ample and over-the-top highlighting, from left to
 right):
 
-[![hi.png](https://files.nerdypepper.tech/lt.png)](https://files.nerdypepper.tech/lt.png)
+[![hi.png](https://u.peppe.rs/lt.png)](https://u.peppe.rs/lt.png)
 
 Without highlighting (far left), it is hard to differentiate
 between comments and code! The florid color scheme (far
