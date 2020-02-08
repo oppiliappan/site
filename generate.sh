@@ -55,7 +55,8 @@ cat > ./docs/index.html << EOF
 <meta property="og:type" content="website">
 <meta property="og:description" content="a static site {for, by, about} me ">
 <meta property="og:url" content="https://peppe.rs">
-<title>n</title>
+<link rel="icon" type="image/x-icon" href="/favicon.png">
+<title>peppe.rs</title>
 <body>
     <h1 class="heading">n</h1>
     <h4 class="date">nerdypepper's μblog</h4>
