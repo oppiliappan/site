@@ -27,7 +27,7 @@ body {
 }
 
 html {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 table {
@@ -50,38 +50,21 @@ td {
 
 .posts {
   width: 100%;
-}
-
-@media only screen and (min-width: 600px) {
-  .posts {
-    width: 100%;
-  }
-  html {
-    font-size: 18px;
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  .posts {
-    width: 80%;
-  }
-  html {
-    font-size: 18px;
-  }
+  max-width: 100%;
 }
 
 @media only screen and (min-width: 1080px) {
   .posts {
-    width: 70%;
+    max-width: 800px;
   }
   html {
-    font-size: 18px;
+    font-size: 20px;
   }
 }
 
 @media only screen and (min-width: 1400px) {
   .posts {
-    width: 40%;
+    max-width: 720px;
   }
   html {
     font-size: 18px;
