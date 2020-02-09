@@ -10,6 +10,7 @@
     <meta property="og:type" content="website">
     <meta property="og:description" content="a static site {for, by, about} me ">
     <meta property="og:url" content="https://peppe.rs">
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
     <title>Hold Position! - peppe.rs</title>
     <body>
       <div class="posts">
@@ -50,11 +51,11 @@ none of which concern us.</p>
 our view, and restore it once its done, with <code>winrestview</code>.</p>
 
 <pre><code>let view = winsaveview()
-s/\s\+$//gc              &quot; find and (confirm) replace trailing blanks
-winrestview(view)        &quot; restore our original view!
+s&#47;\s\+$&#47;&#47;gc              &#34; find and (confirm) replace trailing blanks
+winrestview(view)        &#34; restore our original view!
 </code></pre>
 
-<p>It might seem a little overkill in the above example, just use &#8220; (double
+<p>It might seem a little overkill in the above example, just use `` (double
 backticks) instead, but it comes in handy when you run your file through
 heavier filtering.</p>
 

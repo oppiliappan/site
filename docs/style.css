@@ -173,6 +173,10 @@ a, a:hover, a:visited, a:active {
   font-size: 0.9rem;
 }
 
+ul {
+  list-style: lower-greek inside none;
+}
+
 pre, code {
   color: var(--black);
   font-family: monospace;

@@ -10,6 +10,7 @@
     <meta property="og:type" content="website">
     <meta property="og:description" content="a static site {for, by, about} me ">
     <meta property="og:url" content="https://peppe.rs">
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
     <title>Static Sites With Bash - peppe.rs</title>
     <body>
       <div class="posts">
@@ -51,17 +52,17 @@ to html with <a href="https://kristaps.bsd.lv/lowdown/">lowdown</a>.</p>
 <h3 id="Directory%20structure">Directory structure</h3>
 
 <p>I host my site on GitHub pages, so
-<code>docs/</code> has to be the entry point. Markdown formatted posts
-go into <code>posts/</code>, get converted into html, and end up in
-<code>docs/index.html</code>, something like this:</p>
+<code>docs&#47;</code> has to be the entry point. Markdown formatted posts
+go into <code>posts&#47;</code>, get converted into html, and end up in
+<code>docs&#47;index.html</code>, something like this:</p>
 
-<pre><code>posts=$(ls -t ./posts)     # chronological order!
+<pre><code>posts=$(ls -t .&#47;posts)     # chronological order!
 for f in $posts; do
-    file=&quot;./posts/&quot;$f      # `ls` mangled our file paths
-    echo &quot;generating post $file&quot;
+    file=&#34;.&#47;posts&#47;&#34;$f      # `ls` mangled our file paths
+    echo &#34;generating post $file&#34;
 
-    html=$(lowdown &quot;$file&quot;)
-    echo -e &quot;html&quot; &gt;&gt; docs/index.html
+    html=$(lowdown &#34;$file&#34;)
+    echo -e &#34;html&#34; &#62;&#62; docs&#47;index.html
 done
 </code></pre>
 
@@ -72,15 +73,15 @@ assets into the site source itself. That does have it&#8217;s
 merits, but I prefer hosting images separately:</p>
 
 <pre><code># strip file extension
-ext=&quot;${1##*.}&quot;
+ext=&#34;${1##*.}&#34;
 
 # generate a random file name
-id=$( cat /dev/urandom | tr -dc &#39;a-zA-Z0-9&#39; | fold -w 2 | head -n 1 )
-id=&quot;$id.$ext&quot;
+id=$( cat &#47;dev&#47;urandom | tr -dc &#39;a-zA-Z0-9&#39; | fold -w 2 | head -n 1 )
+id=&#34;$id.$ext&#34;
 
 # copy to my file host
-scp -P 443 &quot;$1&quot; emerald:files/&quot;$id&quot; 
-echo &quot;https://u.peppe.rs/$id&quot;
+scp -P 443 &#34;$1&#34; emerald:files&#47;&#34;$id&#34; 
+echo &#34;https:&#47;&#47;u.peppe.rs&#47;$id&#34;
 </code></pre>
 
 <h3 id="Templating">Templating</h3>

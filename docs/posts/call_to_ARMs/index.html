@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1">
+    <meta content="#ffffff" name="theme-color">
+    <meta name="HandheldFriendly" content="true">
+    <meta property="og:title" content="nerdypepper">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="a static site {for, by, about} me ">
+    <meta property="og:url" content="https://peppe.rs">
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
+    <title>Call To ARMs - peppe.rs</title>
+    <body>
+      <div class="posts">
+        <div class="post">
+          <a href="/" class="post-end-link">⟵ Back</a>
+          <a class="stats post-end-link" href="https://raw.githubusercontent.com/nerdypepper/site/master/posts/call_to_ARMs.md
+">View Raw</a>
+          <div class="separator"></div>
+          <div class="date">
+            09/02 — 2020
+            <div class="stats">
+              <span class="stats-number">
+                33.57
+              </span>
+              <span class="stats-unit">cm</span>
+              &nbsp
+              <span class="stats-number">
+                2.2
+              </span>
+              <span class="stats-unit">min</span>
+            </div>
+          </div>
+          <span class="post-title">
+            Call To ARMs
+          </span>
+          <div class="post-text">
+            <p>My 4th semester involves ARM programming. And proprietary
+tooling (Keil C). But we don&#39;t do that here.</p>
+
+<h3 id="Building">Building</h3>
+
+<p>Assembling and linking ARM binaries on non-ARM architecture
+devices is fairly trivial. I went along with the GNU cross
+bare metal toolchain binutils, which provides <code>arm-as</code> and
+<code>arm-ld</code> (among a bunch of other utils that I don&#39;t care
+about for now). </p>
+
+<p>Assemble <code>.s</code> files with:</p>
+
+<pre><code class="language-shell">arm-none-eabi-as main.s -g -march=armv8.1-a -o main.out
+</code></pre>
+
+<p>The <code>-g</code> flag generates extra debugging information that
+<code>gdb</code> picks up. The <code>-march</code> option establishes target
+architecture.</p>
+
+<p>Link <code>.o</code> files with:</p>
+
+<pre><code class="language-shell">arm-none-eabi-ld main.out -o main
+</code></pre>
+
+<h3 id="Running%20(and%20Debugging)">Running (and Debugging)</h3>
+
+<p>Things get interesting here. <code>gdb</code> on your x86 machine
+cannot read nor execute binaries compiled for ARM. So, we
+simulate an ARM processor using <code>qemu</code>. Now qemu allows you
+to run <code>gdbserver</code> on startup. Connecting our local <code>gdb</code>
+instance to <code>gdbserver</code> gives us a view into the program&#8217;s
+execution. Easy!</p>
+
+<p>Run <code>qemu</code>, with <code>gdbserver</code> on port <code>1234</code>, with our ARM
+binary, <code>main</code>:</p>
+
+<pre><code class="language-shell">qemu-arm -singlestep -g 1234 main
+</code></pre>
+
+<p>Start up <code>gdb</code> on your machine, and connect to <code>qemu</code>&#8217;s
+<code>gdbserver</code>:</p>
+
+<pre><code>(gdb) set architecture armv8-a
+(gdb) target remote localhost:1234
+(gdb) file main
+Reading symbols from main...  # yay!
+</code></pre>
+
+<h3 id="GDB%20Enhanced">GDB Enhanced</h3>
+
+<p><code>gdb</code> is cool, but it&#39;s not nearly as comfortable as well
+fleshed out emulators&#47;IDEs like Keil. Watching registers,
+CPSR and memory chunks update <em>is</em> pretty fun. </p>
+
+<p>I came across <code>gdb</code>&#39;s TUI mode (hit <code>C-x C-a</code> or type <code>tui
+enable</code> at the prompt). TUI mode is a godsend. It highlights
+the current line of execution, shows you disassembly
+outputs, updated registers, active breakpoints and more.</p>
+
+<p><em>But</em>, it is an absolute eyesore.</p>
+
+<p>Say hello to <a href="https://github.com/hugsy/gef">GEF</a>! &#8220;GDB
+Enhanced Features&#8221; teaches our old dog some cool new tricks.
+Here are some additions that made my ARM debugging
+experience loads better:</p>
+
+<ul>
+<li>Memory watches</li>
+<li>Register watches, with up to 7 levels of deref (overkill,
+I agree)</li>
+<li>Stack tracing</li>
+</ul>
+
+<p>And its pretty! See for yourself:</p>
+
+<p><img src="https://u.peppe.rs/wq.png" alt="gef.png" /></p>
+
+<h3 id="Editing">Editing</h3>
+
+<p>Vim, with <code>syntax off</code> because it
+dosen&#39;t handle GNU ARM syntax too well.</p>
+
+          </div>
+          <div class="separator"></div>
+          <a href="/" class="post-end-link">⟵ Back</a>
+          <a class="stats post-end-link" href="https://raw.githubusercontent.com/nerdypepper/site/master/posts/call_to_ARMs.md
+">View Raw</a>
+        </div>
+      </div>
+    </body>
+</html>

@@ -10,6 +10,7 @@
     <meta property="og:type" content="website">
     <meta property="og:description" content="a static site {for, by, about} me ">
     <meta property="og:url" content="https://peppe.rs">
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
     <title>Bash Harder With Vim - peppe.rs</title>
     <body>
       <div class="posts">
@@ -36,7 +37,7 @@
             Bash Harder With Vim
           </span>
           <div class="post-text">
-            <p>Bash is tricky, don&#8217;t let your editor get in your way. Here&#8217;s a couple of neat
+            <p>Bash is tricky, don&#39;t let your editor get in your way. Here&#39;s a couple of neat
 additions you could make to your <code>vimrc</code> for a better shell programming
 experience.</p>
 
@@ -44,7 +45,7 @@ experience.</p>
 
 <p>Source this script to get started:  </p>
 
-<pre><code>runtime ftplugin/man.vim
+<pre><code>runtime ftplugin&#47;man.vim
 </code></pre>
 
 <p>Now, you can open manpages inside vim with <code>:Man</code>! It adds nicer syntax highlighting
@@ -61,7 +62,7 @@ and the ability to jump around with <code>Ctrl-]</code> and <code>Ctrl-T</code>.
 a sample from the script used to generate this site:  </p>
 
 <pre><code># a substitution to convert snake_case to Title Case With Spaces
-echo &quot;$1&quot; | sed -E -e &quot;s/\..+$//g&quot;  -e &quot;s/_(.)/ \u\1/g&quot; -e &quot;s/^(.)/\u\1/g&quot;
+echo &#34;$1&#34; | sed -E -e &#34;s&#47;\..+$&#47;&#47;g&#34;  -e &#34;s&#47;_(.)&#47; \u\1&#47;g&#34; -e &#34;s&#47;^(.)&#47;\u\1&#47;g&#34;
 </code></pre>
 
 <p>Instead of dropping into a new shell, just test it out directly from vim!</p>
@@ -80,7 +81,7 @@ echo &quot;$1&quot; | sed -E -e &quot;s/\..+$//g&quot;  -e &quot;s/_(.)/ \u\1/g&
 <pre><code>syntax off            # previously run commands
 edit index.html       # in a buffer!
 w | so %
-!echo &quot;new_post.md&quot; | sed -E -e &quot;s/\..+$//g&quot;  --snip--
+!echo &#34;new_post.md&#34; | sed -E -e &#34;s&#47;\..+$&#47;&#47;g&#34;  --snip--
 ^--- note the use of &#39;!&#39;
 </code></pre></li>
 <li><p>Hit enter with the cursor on the line containing your command!</p>

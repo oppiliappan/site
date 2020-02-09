@@ -10,6 +10,7 @@
     <meta property="og:type" content="website">
     <meta property="og:description" content="a static site {for, by, about} me ">
     <meta property="og:url" content="https://peppe.rs">
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
     <title>Bye Bye BDFs - peppe.rs</title>
     <body>
       <div class="posts">
@@ -52,7 +53,7 @@ provided no advantage over Harfbuzz (other than being able to fetch
 opentype metrics with ease).</p>
 
 <p>Upgrading to Pango v1.44 will break your GTK applications (if you use a
-<code>bdf</code>/<code>pcf</code> bitmap font). Harfbuzz <em>does</em> support bitmap-only OpenType fonts,
+<code>bdf</code>&#47;<code>pcf</code> bitmap font). Harfbuzz <em>does</em> support bitmap-only OpenType fonts,
 <code>otb</code>s. Convert your existing fonts over to <code>otb</code>s using
 <a href="https://fontforge.github.io">FontForge</a>. It is to be noted that applications
 such as <code>xterm</code> and <code>rxvt</code> use <code>xft</code> (X FreeType) to render fonts, and will
