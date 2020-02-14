@@ -74,7 +74,7 @@ experience loads better:
    I agree)
  - Stack tracing
 
-And its pretty! See for yourself:
+And it's pretty! See for yourself:
 
 [![gef.png](https://u.peppe.rs/wq.png)](https://u.peppe.rs/wq.png)
 
