@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1">
+    <meta content="#ffffff" name="theme-color">
+    <meta name="HandheldFriendly" content="true">
+    <meta property="og:title" content="nerdypepper">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="a static site {for, by, about} me ">
+    <meta property="og:url" content="https://peppe.rs">
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
+    <title>Termux Tandem · peppe.rs</title>
+    <body>
+      <div class="posts">
+        <div class="post">
+          <a href="/" class="post-end-link">⟵ Back</a>
+          <a class="stats post-end-link" href="https://raw.githubusercontent.com/nerdypepper/site/master/posts/termux_tandem.md
+">View Raw</a>
+          <div class="separator"></div>
+          <div class="date">
+            08/03 — 2020
+            <div class="stats">
+              <span class="stats-number">
+                19.17
+              </span>
+              <span class="stats-unit">cm</span>
+              &nbsp
+              <span class="stats-number">
+                1.6
+              </span>
+              <span class="stats-unit">min</span>
+            </div>
+          </div>
+          <span class="post-title">
+            Termux Tandem
+          </span>
+          <div class="post-text">
+            <p>I learnt about <code>termux</code> from a friend on IRC recently.
+It looked super gimmicky to me at first, but it eventually
+proved to be useful. Here&#39;s what I use it for:</p>
+
+<h3 id="rsync">rsync</h3>
+
+<p>Ever since I degoogled my android device, syncing files
+between my phone and my PC has always been a pain. I&#8217;m
+looking at you MTP. But, with <code>termux</code> and <code>sshd</code> all set up,
+it&#39;s as simple as:</p>
+
+<pre><code>$ arp
+Address         HWtype  HWad ...
+192.168.43.187  ether   d0:0 ...
+
+$ rsync -avz 192.168.43.187:~&#47;frogs ~&#47;pics&#47;frogs
+</code></pre>
+
+<h3 id="ssh%20&amp;#38;%20tmux">ssh &#38; tmux</h3>
+
+<p>My phone doubles as a secondary view into my main machine
+with <code>ssh</code> and <code>tmux</code>. When I am away from my PC (read:
+sitting across the room), I check build status and IRC
+messages by <code>ssh</code>ing into a tmux session running the said
+build or weechat.</p>
+
+<h3 id="file%20uploads">file uploads</h3>
+
+<p>Not being able to access my (ssh-only) file host was
+crippling. With a <code>bash</code> instance on my phone, I just copied
+over my ssh keys, and popped in a file upload script (a
+glorified <code>scp</code>). Now I just have to figure out a way to
+clean up these file names &#8230;</p>
+
+<pre><code>~&#47;storage&#47;pictures&#47; $ ls
+02muf5g7b2i41.jpg  7alt3cwg77841.jpg  cl4bsrge7id11.png
+mtZabXG.jpg        p8d5c584f2841.jpg  vjUxGjq.jpg
+</code></pre>
+
+<h3 id="cmus">cmus</h3>
+
+<p>Alright, I don&#39;t really listen to music via <code>cmus</code>, but I
+did use it a couple times when my default music player was
+acting up. <code>cmus</code> is a viable option:</p>
+
+<p><a href="https://u.peppe.rs/CP.jpg"><img src="https://u.peppe.rs/CP.jpg" alt="cmus.png" /></a></p>
+
+          </div>
+          <div class="separator"></div>
+          <a href="/" class="post-end-link">⟵ Back</a>
+          <a class="stats post-end-link" href="https://raw.githubusercontent.com/nerdypepper/site/master/posts/termux_tandem.md
+">View Raw</a>
+        </div>
+      </div>
+    </body>
+</html>
