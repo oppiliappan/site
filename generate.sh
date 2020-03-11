@@ -44,6 +44,16 @@ link_wrapper() {
 
 intro() {
     echo -ne "
+    <div class="intro">
+        Hi. <a href="https://peppe.rs/index.xml" class="feed-button">Subscribe</a>
+        <p>I'm Akshay, I go by nerd or nerdypepper on the internet.</p>
+        <p>
+        I am a compsci undergrad, Rust programmer and an enthusiastic Vimmer.
+        I write open-source stuff to pass time. I also design fonts: scientifica, curie.
+        Things I find cool usually end up here.
+        </p>
+        <p>Get in touch at nerd@irc.rizon.net or nerdypepper@chat.freeode.net.</p>
+    </div>
     "
 }
 
@@ -68,19 +78,9 @@ cat > ./docs/index.html << EOF
     <div class="posts">
     <div class="post">
     <div class="separator"></div>
-        <div class="intro">
-            Hi.
-            <p>I'm Akshay, I go by nerd or nerdypepper on the internet.</p>
-            <p>
-            I am a compsci undergrad, Rust programmer and an enthusiastic Vimmer.
-            I write open-source stuff to pass time. I also design fonts: scientifica, curie.
-            Things I find cool usually end up here.
-            </p>
-            <p>Get in touch at nerd@irc.rizon.net or nerdypepper@chat.freeode.net.</p>
-        </div>
-    <div class="separator"></div>
-    <table>
 EOF
+
+echo -ne "$(intro)<table><div class="separator"></div>" >> ./docs/index.html
 
 
 # posts
@@ -115,7 +115,8 @@ for f in $posts; do
         date="$post_date" \
         title="$post_title" \
         read_time="$r_time" \
-        height="$height"
+        height="$height" \
+        intro="$(intro)"
 done
 
 # generate rss feeds

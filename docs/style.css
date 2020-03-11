@@ -105,6 +105,15 @@ hr {
   border-top: 2px solid var(--dark-white);
 }
 
+.feed-button {
+  float: right;
+  text-decoration: none;
+  background-color: var(--cyan);
+  padding: 0.2rem;
+  border: 1px solid var(--dark-white);
+  border-radius: 0.4rem;
+}
+
 .intro {
   font-size: 0.9rem;
   overflow: auto;
