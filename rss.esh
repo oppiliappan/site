@@ -1,0 +1,37 @@
+<rss version="2.0">
+    <channel>
+      <title>nerdypepper's μblog</title>
+      <link>https://peppe.rs</link>
+      <description>programming, design, software</description>
+      <link href="https://peppe.rs/index.xml" rel="self" type="application/xml"/>
+      <image>
+        <title>nerdypepper logo</title>
+        <url>https://u.peppe.rs/n.png</url>
+        <link>https://peppe.rs</link>
+      </image>
+      <language>en-us</language>
+      <copyright>Creative Commons BY-NC-SA 4.0</copyright>
+      <% for f in `ls -t ./posts`; do
+          file="./posts/"$f
+          post_date=$(date -u -r "$file" "+%a, %d %b %y %H:%M:00 %z")
+          html=$(lowdown "$file")
+          id="${file##*/}"
+          id="${id%.*}"
+          post_title=$(echo "$id" | sed -E -e "s/\..+$//g"  -e "s/_(.)/ \u\1/g" -e "s/^(.)/\u\1/g")
+          post_link="https://peppe.rs/posts/$id/"
+
+          echo "<item>"
+
+          echo "<title>$post_title</title>"
+          echo "<description>$html</description>"
+          echo "<link>$post_link</link>"
+          echo "<pubDate>$post_date</pubDate>"
+          echo "<guid>$post_link</guid>"
+
+          echo "</item>"
+
+          done
+      %>
+
+    </channel>
+</rss>

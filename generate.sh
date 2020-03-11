@@ -116,8 +116,13 @@ for f in $posts; do
         title="$post_title" \
         read_time="$r_time" \
         height="$height"
-
 done
+
+# generate rss feeds
+echo "generating RSS feeds ..."
+esh -s /bin/bash \
+    -o "./docs/index.xml" \
+    "rss.esh"
 
 cat >> ./docs/index.html << EOF
     </table>
