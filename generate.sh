@@ -42,6 +42,11 @@ link_wrapper() {
     "
 }
 
+intro() {
+    echo -ne "
+    "
+}
+
 cat > ./docs/index.html << EOF
 <!DOCTYPE html>
 <html lang="en">
@@ -62,6 +67,17 @@ cat > ./docs/index.html << EOF
     <h4 class="date">nerdypepper's μblog</h4>
     <div class="posts">
     <div class="post">
+    <div class="separator"></div>
+        <div class="intro">
+            Hi.
+            <p>I'm Akshay, I go by nerd or nerdypepper on the internet.</p>
+            <p>
+            I am a compsci undergrad, Rust programmer and an enthusiastic Vimmer.
+            I write open-source stuff to pass time. I also design fonts: scientifica, curie.
+            Things I find cool usually end up here.
+            </p>
+            <p>Get in touch at nerd@irc.rizon.net or nerdypepper@chat.freeode.net.</p>
+        </div>
     <div class="separator"></div>
     <table>
 EOF
@@ -106,17 +122,17 @@ done
 cat >> ./docs/index.html << EOF
     </table>
     <div class="separator"></div>
-        <div class="footer">
-            <a href="https://github.com/nerdypepper">Github</a> · 
-            <a href="https://twitter.com/N3rdyP3pp3r">Twitter</a> · 
-            <a href="mailto:nerdypepper@tuta.io">Mail</a> · 
-            <a href="https://linkedin.com/in/nerdypepper">LinkedIn</a> · 
-            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
-                <img class="footimgs" src="https://d33wubrfki0l68.cloudfront.net/94387e9d77fbc8b4360db81e72603ecba3df94a7/632bc/static/cc.svg">
-            </a>
-        </div>
+    <div class="footer">
+        <a href="https://github.com/nerdypepper">Github</a> · 
+        <a href="https://twitter.com/N3rdyP3pp3r">Twitter</a> · 
+        <a href="mailto:nerdypepper@tuta.io">Mail</a> · 
+        <a href="https://linkedin.com/in/nerdypepper">LinkedIn</a> · 
+        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+            <img class="footimgs" src="https://d33wubrfki0l68.cloudfront.net/94387e9d77fbc8b4360db81e72603ecba3df94a7/632bc/static/cc.svg">
+        </a>
     </div>
     </div>
+</div>
 </body>
 </html>
 EOF

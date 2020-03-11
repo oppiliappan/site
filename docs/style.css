@@ -105,6 +105,14 @@ hr {
   border-top: 2px solid var(--dark-white);
 }
 
+.intro {
+  font-size: 0.9rem;
+  overflow: auto;
+  padding: 0rem;
+  margin: 1rem 0rem;
+  font-family: 'Inter', sans-serif;
+}
+
 .heading {
   margin: 0 auto;
   color: var(--black);
@@ -202,7 +210,7 @@ pre > code {
 }
 
 .footer {
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   text-align: center;
 }
 
