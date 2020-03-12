@@ -3,6 +3,7 @@
       <title>nerdypepper's μblog</title>
       <link>https://peppe.rs</link>
       <description>programming, design, software</description>
+      <atom:link href="https://peppe.rs/index.xml" rel="self" type="application/xml"/>
       <image>
         <title>nerdypepper's μblog</title>
         <url>https://u.peppe.rs/n.png</url>
