@@ -49,22 +49,22 @@ td {
 }
 
 .posts {
-  width: 100%;
-  max-width: 100%;
+  width: 90%;
+  max-width: 90%;
 }
 
 @media only screen and (min-width: 1080px) {
   .posts {
-    max-width: 800px;
+    max-width: 650px;
   }
   html {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 
 @media only screen and (min-width: 1400px) {
   .posts {
-    max-width: 720px;
+    max-width: 700px;
   }
   html {
     font-size: 18px;
@@ -83,8 +83,8 @@ td {
 
 img {
   max-width: 100%;
-  border: 0px solid transparent;
-  border-radius: 4px;
+  border: 1px solid var(--dark-white);
+  border-radius: 0.4rem;
   box-shadow: 0 0 1.5rem 0.5rem rgba(0, 0, 0, 0.15);
 }
 
@@ -108,17 +108,22 @@ hr {
 .feed-button {
   float: right;
   text-decoration: none;
+  color: var(--black) !important;
   background-color: var(--cyan);
-  padding: 0.2rem;
-  border: 1px solid var(--dark-white);
+  font-size: 0.8rem;
+  padding: 0.5rem;
+  margin: -0.5rem 0;
+  border: 0px solid var(--dark-white);
   border-radius: 0.4rem;
 }
 
 .intro {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   overflow: auto;
-  padding: 0rem;
-  margin: 1rem 0rem;
+  padding: 1.3rem;
+  border: 2px solid var(--dark-white);
+  border-radius: 0.4rem;
+  margin: 1rem -1.3rem;
   font-family: 'Inter', sans-serif;
 }
 
@@ -219,7 +224,7 @@ pre > code {
 }
 
 .footer {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   text-align: center;
 }
 

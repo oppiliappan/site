@@ -17,7 +17,6 @@
         <div class="post">
           <a href="/" class="post-end-link">⟵ Back</a>
           <a class="stats post-end-link" href="https://raw.githubusercontent.com/nerdypepper/site/master/posts/<% basename $file%>">View Raw</a>
-          <div class="separator"></div>
           <div class="date">
             <%="$date"%>
             <div class="stats">
@@ -38,9 +37,7 @@
           <div class="post-text">
             <% lowdown "$file"%>
           </div>
-          <div class="separator"></div>
           <%= "$intro" %>
-          <div class="separator"></div>
           <a href="/" class="post-end-link">⟵ Back</a>
           <a class="stats post-end-link" href="https://raw.githubusercontent.com/nerdypepper/site/master/posts/<% basename $file%>">View Raw</a>
         </div>

@@ -77,11 +77,9 @@ cat > ./docs/index.html << EOF
     <h4 class="date">nerdypepper's μblog</h4>
     <div class="posts">
     <div class="post">
-    <div class="separator"></div>
 EOF
 
-echo -ne "$(intro)<table><div class="separator"></div>" >> ./docs/index.html
-
+echo -ne "$(intro)<table>" >> ./docs/index.html
 
 # posts
 posts=$(ls -t ./posts)
@@ -125,9 +123,10 @@ esh -s /bin/bash \
     -o "./docs/index.xml" \
     "rss.esh"
 
+
+
 cat >> ./docs/index.html << EOF
     </table>
-    <div class="separator"></div>
     <div class="footer">
         <a href="https://github.com/nerdypepper">Github</a> · 
         <a href="https://twitter.com/N3rdyP3pp3r">Twitter</a> · 
