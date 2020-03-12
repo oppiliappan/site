@@ -3,9 +3,8 @@
       <title>nerdypepper's μblog</title>
       <link>https://peppe.rs</link>
       <description>programming, design, software</description>
-      <link href="https://peppe.rs/index.xml" rel="self" type="application/xml"/>
       <image>
-        <title>nerdypepper logo</title>
+        <title>nerdypepper's μblog</title>
         <url>https://u.peppe.rs/n.png</url>
         <link>https://peppe.rs</link>
       </image>
@@ -13,7 +12,7 @@
       <copyright>Creative Commons BY-NC-SA 4.0</copyright>
       <% for f in `ls -t ./posts`; do
           file="./posts/"$f
-          post_date=$(date -u -r "$file" "+%a, %d %b %y %H:%M:00 %z")
+          post_date=$(date -u -r "$file" "+%a, %d %b %Y %H:%M:00 %z")
           html=$(lowdown "$file")
           id="${file##*/}"
           id="${id%.*}"

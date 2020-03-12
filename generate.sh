@@ -52,7 +52,7 @@ intro() {
         I write open-source stuff to pass time. I also design fonts: scientifica, curie.
         Things I find cool usually end up here.
         </p>
-        <p>Get in touch at nerd@irc.rizon.net or nerdypepper@chat.freeode.net.</p>
+        <p>Get in touch at nerd@irc.rizon.net or nerdypepper@chat.freenode.net.</p>
     </div>
     "
 }

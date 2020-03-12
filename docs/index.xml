@@ -3,9 +3,8 @@
       <title>nerdypepper's μblog</title>
       <link>https://peppe.rs</link>
       <description>programming, design, software</description>
-      <link href="https://peppe.rs/index.xml" rel="self" type="application/xml"/>
       <image>
-        <title>nerdypepper logo</title>
+        <title>nerdypepper's μblog</title>
         <url>https://u.peppe.rs/n.png</url>
         <link>https://peppe.rs</link>
       </image>
@@ -60,7 +59,7 @@ acting up. <code>cmus</code> is a viable option:</p>
 
 <p><a href="https://u.peppe.rs/CP.jpg"><img src="https://u.peppe.rs/CP.jpg" alt="cmus.png" /></a></p></description>
 <link>https://peppe.rs/posts/termux_tandem/</link>
-<pubDate>Sun, 08 Mar 20 16:47:00 +0000</pubDate>
+<pubDate>Sun, 08 Mar 2020 16:47:00 +0000</pubDate>
 <guid>https://peppe.rs/posts/termux_tandem/</guid>
 </item>
 <item>
@@ -148,7 +147,7 @@ I agree)</li>
 <p>Vim, with <code>syntax off</code> because it
 dosen&#39;t handle GNU ARM syntax too well.</p></description>
 <link>https://peppe.rs/posts/call_to_ARMs/</link>
-<pubDate>Fri, 07 Feb 20 18:30:00 +0000</pubDate>
+<pubDate>Fri, 07 Feb 2020 18:30:00 +0000</pubDate>
 <guid>https://peppe.rs/posts/call_to_ARMs/</guid>
 </item>
 <item>
@@ -190,7 +189,7 @@ are dimmed further.</p>
 <p>I&#39;ll stop myself before I rant about color contrast and
 combinations.</p></description>
 <link>https://peppe.rs/posts/color_conundrum/</link>
-<pubDate>Mon, 30 Dec 19 18:30:00 +0000</pubDate>
+<pubDate>Mon, 30 Dec 2019 18:30:00 +0000</pubDate>
 <guid>https://peppe.rs/posts/color_conundrum/</guid>
 </item>
 <item>
@@ -251,7 +250,7 @@ titles from the file names (removes underscores,
 title-case), and <code>date(1)</code> to add the date to each post
 listing!</p></description>
 <link>https://peppe.rs/posts/static_sites_with_bash/</link>
-<pubDate>Fri, 22 Nov 19 18:30:00 +0000</pubDate>
+<pubDate>Fri, 22 Nov 2019 18:30:00 +0000</pubDate>
 <guid>https://peppe.rs/posts/static_sites_with_bash/</guid>
 </item>
 <item>
@@ -283,7 +282,7 @@ the comfort of my terminal emulator, <code>urxvt</code>.</p>
 compiled with <code>xelatex</code>. Other <em>fun</em> documents are made with
 GIMP :).</p></description>
 <link>https://peppe.rs/posts/my_setup/</link>
-<pubDate>Wed, 06 Nov 19 18:30:00 +0000</pubDate>
+<pubDate>Wed, 06 Nov 2019 18:30:00 +0000</pubDate>
 <guid>https://peppe.rs/posts/my_setup/</guid>
 </item>
 <item>
@@ -331,7 +330,7 @@ $ sudo sv restart wpa_supplicant
 $ sudo sv restart dhcpcd
 </code></pre></description>
 <link>https://peppe.rs/posts/WPA_woes/</link>
-<pubDate>Sat, 12 Oct 19 16:18:00 +0000</pubDate>
+<pubDate>Sat, 12 Oct 2019 16:18:00 +0000</pubDate>
 <guid>https://peppe.rs/posts/WPA_woes/</guid>
 </item>
 <item>
@@ -362,7 +361,7 @@ remain unaffected by the update.</p>
 <a href="https://github.com/nerdypepper/curie">curie</a> will soon ship with bitmap-only
 OpenType font formats.</p></description>
 <link>https://peppe.rs/posts/bye_bye_BDFs/</link>
-<pubDate>Wed, 07 Aug 19 12:31:00 +0000</pubDate>
+<pubDate>Wed, 07 Aug 2019 12:31:00 +0000</pubDate>
 <guid>https://peppe.rs/posts/bye_bye_BDFs/</guid>
 </item>
 <item>
@@ -395,7 +394,7 @@ Currently, Onivim is priced at $19.99, &#8216;pre-alpha&#8217; pricing which is 
 final price! If you are on the lookout for an editor, I would suggest using
 <a href="https://vim.org">Vim</a>, charity ware that actually works, and costs $100 lesser.</p></description>
 <link>https://peppe.rs/posts/onivim_sucks/</link>
-<pubDate>Fri, 02 Aug 19 12:31:00 +0000</pubDate>
+<pubDate>Fri, 02 Aug 2019 12:31:00 +0000</pubDate>
 <guid>https://peppe.rs/posts/onivim_sucks/</guid>
 </item>
 <item>
@@ -455,7 +454,7 @@ Press ENTER or type command to continue
 </code></pre></li>
 </ul></description>
 <link>https://peppe.rs/posts/bash_harder_with_vim/</link>
-<pubDate>Wed, 31 Jul 19 06:30:00 +0000</pubDate>
+<pubDate>Wed, 31 Jul 2019 06:30:00 +0000</pubDate>
 <guid>https://peppe.rs/posts/bash_harder_with_vim/</guid>
 </item>
 <item>
@@ -482,7 +481,7 @@ winrestview(view)        &#34; restore our original view!
 backticks) instead, but it comes in handy when you run your file through
 heavier filtering.</p></description>
 <link>https://peppe.rs/posts/hold_position!/</link>
-<pubDate>Tue, 30 Jul 19 12:31:00 +0000</pubDate>
+<pubDate>Tue, 30 Jul 2019 12:31:00 +0000</pubDate>
 <guid>https://peppe.rs/posts/hold_position!/</guid>
 </item>
 <item>
@@ -510,7 +509,7 @@ nnoremap gb `[v`]    &#34; &#34;a quick map to perform the above
 </code></pre></li>
 </ol></description>
 <link>https://peppe.rs/posts/get_better_at_yanking_and_putting_in_vim/</link>
-<pubDate>Mon, 29 Jul 19 12:31:00 +0000</pubDate>
+<pubDate>Mon, 29 Jul 2019 12:31:00 +0000</pubDate>
 <guid>https://peppe.rs/posts/get_better_at_yanking_and_putting_in_vim/</guid>
 </item>
 
