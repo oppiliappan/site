@@ -127,6 +127,7 @@ esh -s /bin/bash \
 
 cat >> ./docs/index.html << EOF
     </table>
+    <div class="separator"></div>
     <div class="footer">
         <a href="https://github.com/nerdypepper">Github</a> · 
         <a href="https://twitter.com/N3rdyP3pp3r">Twitter</a> · 
