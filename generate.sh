@@ -84,10 +84,10 @@ echo -ne "$(intro)<table>" >> ./docs/index.html
 # posts
 posts=$(ls -t ./posts)
 mkdir -p docs/posts
+rm -rf "./docs/posts/"
 
 for f in $posts; do
     file="./posts/"$f
-    echo "generating post $file"
     id="${file##*/}"    # ill name my posts just fine
 
     # generate posts
@@ -100,6 +100,7 @@ for f in $posts; do
     height="$(height $lines)"
 
     post_title=$(title_wrapper "$id")
+    echo "[~] $post_title"
     post_date=$(date -r "$file" "+%d/%m — %Y")
     post_link=$(link_wrapper "${id%.*}" "$post_title" "$post_date" "$r_time" "$height")
     echo -ne "$post_link" >> docs/index.html
@@ -122,8 +123,6 @@ echo "generating RSS feeds ..."
 esh -s /bin/bash \
     -o "./docs/index.xml" \
     "rss.esh"
-
-
 
 cat >> ./docs/index.html << EOF
     </table>

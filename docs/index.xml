@@ -12,6 +12,105 @@
       <language>en-us</language>
       <copyright>Creative Commons BY-NC-SA 4.0</copyright>
       <item>
+<title>Font Size Fallacies</title>
+<description><p>I am not an expert with fonts, but I do have some
+experience <sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup>, and common sense. This post aims to debunk some
+misconceptions about font sizes!</p>
+
+<p>11 px on your display is <em>probably not</em> 11 px on my display.
+Let&#39;s do some quick math. I have two displays, 1366x768 @
+21&#8221; and another with 1920x1080 @ 13&#8221;, call them <code>A</code> and
+<code>B</code> for now.</p>
+
+<p>Display <code>A</code> has 1,049,088 pixels. A pixel is a square, of
+side say, <code>s</code> cm. The total area covered by my 21&#8221; display
+is about 1,066 cm<sup>2</sup> (41x26). Thus,</p>
+
+<pre><code>Display A
+Dimensions: 1366x768 @ 21&#34; (41x26 sq. cm)
+1,049,088 s^2 = 1066
+            s = 0.0318 cm (side of a pixel on Display A)
+</code></pre>
+
+<p>Bear with me, as I repeat the number crunching for Display
+<code>B</code>:</p>
+
+<pre><code>Display B
+Dimensions: 1920x1080 @ 13&#34; (29.5x16.5 sq. cm)
+2,073,600 s^2 = 486.75
+            s = 0.0153 cm (side of a pixel on Display B)
+</code></pre>
+
+<p>The width of a pixel on Display <code>A</code> is <em>double</em> the width of a
+pixel on Display <code>B</code>. The area occupied by a pixel on Display
+<code>A</code> is <em>4 times</em> the area occupied by a pixel on Display <code>B</code>.</p>
+
+<p><em>The size of a pixel varies from display to display!</em></p>
+
+<p>A 5x11 bitmap font on Display <code>A</code> would be around 4 mm tall
+whereas the same bitmap font on Display <code>B</code> would be around
+1.9 mm tall. A 11 px tall character on <code>B</code> is visually
+equivalent to a 5 px character on <code>A</code>. When you view a
+screenshot of Display <code>A</code> on Display <code>B</code>, the contents are
+shrunk down by a factor of 2!</p>
+
+<p>So screen resolution is not enough, how else do we measure
+size? Pixel Density! Keen readers will realize that the 5<sup>th</sup>
+grade math problem we solved up there showcases pixel
+density, or, pixels per cm (PPCM). Usually we deal with
+pixels per inch (PPI).</p>
+
+<p><strong>Note:</strong> PPI is not to be confused with DPI <sup id="fnref2"><a href="#fn2" rel="footnote">2</a></sup> (dots
+per inch). DPI is defined for printers.</p>
+
+<p>In our example, <code>A</code> is a 75 ppi display and <code>B</code> is around
+165 ppi <sup id="fnref3"><a href="#fn3" rel="footnote">3</a></sup>.  A low ppi display appears to be
+&#8216;pixelated&#8217;, because the pixels are more prominent, much
+like Display <code>A</code>. A higher ppi usually means you can view
+larger images and render crispier fonts. The average desktop
+display can stuff 100-200 pixels per inch. Smart phones
+usually fall into the 400-600 ppi (XXXHDPI) category. The
+human eye fails to differentiate detail past 300 ppi.</p>
+
+<p><em>So &#8230; streaming an 8K video on a 60&#8221; TV provides the same
+clarity as a HD video on a smart phone?</em></p>
+
+<p>Absolutely. Well, clarity is subjective, but the amount of
+detail you can discern on mobile displays has always been
+limited.  Salty consumers of the Xperia 1 <sup id="fnref4"><a href="#fn4" rel="footnote">4</a></sup> will say
+otherwise.</p>
+
+<p>Maybe I will talk about font rendering in another post, but
+thats all for now. Don&#39;t judge a font size by its
+screenshot.</p>
+
+<div class="footnotes">
+<hr/>
+<ol>
+
+<li id="fn1">
+<p><a href="https://github.com/nerdypepper/scientifica">https:&#47;&#47;github.com&#47;nerdypepper&#47;scientifica</a>&#160;<a href="#fnref1" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn2">
+<p><a href="https://en.wikipedia.org/wiki/Dots_per_inch">https:&#47;&#47;en.wikipedia.org&#47;wiki&#47;Dots_per_inch</a>&#160;<a href="#fnref2" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn3">
+<p><a href="https://www.sven.de/dpi/">https:&#47;&#47;www.sven.de&#47;dpi&#47;</a>&#160;<a href="#fnref3" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn4">
+<p><a href="https://en.wikipedia.org/wiki/Sony_Xperia_1">https:&#47;&#47;en.wikipedia.org&#47;wiki&#47;Sony_Xperia_1</a>&#160;<a href="#fnref4" rev="footnote">&#8617;</a></p>
+</li>
+
+</ol>
+</div></description>
+<link>https://peppe.rs/posts/font_size_fallacies/</link>
+<pubDate>Tue, 17 Mar 2020 16:52:00 +0000</pubDate>
+<guid>https://peppe.rs/posts/font_size_fallacies/</guid>
+</item>
+<item>
 <title>Termux Tandem</title>
 <description><p>I learnt about <code>termux</code> from a friend on IRC recently.
 It looked super gimmicky to me at first, but it eventually
