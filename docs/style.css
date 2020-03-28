@@ -191,10 +191,9 @@ pre, code {
 }
 
 pre {
-  background-color: var(--dark-white);
   overflow: auto;
   padding: 1.3rem;
-  border: 1px solid var(--dark-white);
+  border: 2px solid var(--dark-white);
   border-radius: 0.4rem;
   margin: 1rem -1.3rem;
 }
