@@ -12,6 +12,213 @@
       <language>en-us</language>
       <copyright>Creative Commons BY-NC-SA 4.0</copyright>
       <item>
+<title>Rapid Refactoring With Vim</title>
+<description><p>Last weekend, I was tasked with refactoring the 96 unit
+tests on
+<a href="https://github.com/ruma/ruma-events/pull/70">ruma-events</a>
+to use strictly typed json objects using <code>serde_json::json!</code>
+instead of raw strings.  It was rather painless thanks to
+vim :)</p>
+
+<p>Here&#39;s a small sample of what had to be done (note the lines
+prefixed with the arrow):</p>
+
+<pre><code>→ use serde_json::{from_str};
+  
+  #[test]
+  fn deserialize() {
+    assert_eq!(
+→       from_str::&#60;Action&#62;(r#&#34;{&#34;set_tweak&#34;: &#34;highlight&#34;}&#34;#),
+        Action::SetTweak(Tweak::Highlight { value: true })
+        );
+  }
+</code></pre>
+
+<p>had to be converted to:</p>
+
+<pre><code>→ use serde_json::{from_value};
+  
+  #[test]
+  fn deserialize() {
+    assert_eq!(
+→       from_value::&#60;Action&#62;(json!({&#34;set_tweak&#34;: &#34;highlight&#34;})),
+        Action::SetTweak(Tweak::Highlight { value: true })
+        );
+  }
+</code></pre>
+
+<h2 id="The%20arglist">The arglist</h2>
+
+<p>For the initial pass, I decided to handle imports, this was
+a simple find and replace operation, done to all the files
+containing tests. Luckily, modules (and therefore files)
+containing tests in Rust are annotated with the
+<code>#[cfg(test)]</code> attribute. I opened all such files:</p>
+
+<pre><code># `grep -l pattern files` lists all the files
+#  matching the pattern
+
+vim $(grep -l &#39;cfg\(test\)&#39; .&#47;**&#47;*.rs)
+
+# expands to something like:
+vim push_rules.rs room&#47;member.rs key&#47;verification&#47;lib.rs
+</code></pre>
+
+<p>Starting vim with more than one file at the shell prompt
+populates the arglist.  Hit <code>:args</code> to see the list of
+files currently ready to edit. The square [brackets]
+indicate the current file.  Navigate through the arglist
+with <code>:next</code> and <code>:prev</code>. I use tpope&#39;s vim-unimpaired
+<sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup>, which adds <code>]a</code> and <code>[a</code>, mapped to <code>:next</code> and
+<code>:prev</code>.</p>
+
+<p>All that&#39;s left to do is the find and replace, for which we
+will be using vim&#39;s <code>argdo</code>, applying a substitution to
+every file in the arglist:</p>
+
+<pre><code>:argdo s&#47;from_str&#47;from_value&#47;g
+</code></pre>
+
+<h2 id="The%20quickfix%20list">The quickfix list</h2>
+
+<p>Next up, replacing <code>r#&#34; ... &#34;#</code> with <code>json!( ... )</code>. I
+couldn&#39;t search and replace that trivially, so I went with a
+macro call <sup id="fnref2"><a href="#fn2" rel="footnote">2</a></sup> instead, starting with the cursor on
+&#8216;r&#8217;, represented by the caret, in my attempt to breakdown
+the process:</p>
+
+<pre><code>BUFFER:    r#&#34; ... &#34;#;
+           ^
+
+ACTION:    vllsjson!(
+
+BUFFER     json!( ... &#34;#;
+                ^
+
+ACTION:    &#60;esc&#62;$F#
+
+BUFFER:    json!( ... &#34;#;
+                       ^
+
+ACTION:    vhs)&#60;esc&#62;
+
+BUFFER:    json!( ... );
+</code></pre>
+
+<p>Here&#39;s the recorded <sup id="fnref3"><a href="#fn3" rel="footnote">3</a></sup> macro in all its glory:
+<code>vllsjson!(&#60;esc&#62;$F#vhs)&#60;esc&#62;</code>. </p>
+
+<p>Great! So now we just go ahead, find every occurrence of
+<code>r#</code> and apply the macro right? Unfortunately, there were
+more than a few occurrences of raw strings that had to stay
+raw strings. Enter, the quickfix list.</p>
+
+<p>The idea behind the quickfix list is to jump from one
+position in a file to another (maybe in a different file),
+much like how the arglist lets you jump from one file to
+another.</p>
+
+<p>One of the easiest ways to populate this list with a bunch
+of positions is to use <code>vimgrep</code>:</p>
+
+<pre><code># basic usage
+:vimgrep pattern files
+
+# search for raw strings
+:vimgrep &#39;r#&#39; .&#47;**&#47;*.rs
+</code></pre>
+
+<p>Like <code>:next</code> and <code>:prev</code>, you can navigate the quickfix list
+with <code>:cnext</code> and <code>:cprev</code>. Every time you move up or down
+the list, vim indicates your index:</p>
+
+<pre><code>(1 of 131): r#&#34;{&#34;set_tweak&#34;: &#34;highlight&#34;}&#34;#;
+</code></pre>
+
+<p>And just like <code>argdo</code>, you can <code>cdo</code> to apply commands to
+<em>every</em> match in the quickfix list:</p>
+
+<pre><code>:cdo norm! @q
+</code></pre>
+
+<p>But, I had to manually pick out matches, and it involved
+some button mashing.</p>
+
+<h2 id="External%20Filtering">External Filtering</h2>
+
+<p>Some code reviews later, I was asked to format all the json
+inside the <code>json!</code> macro. All you have to do is pass a
+visual selection through a pretty json printer. Select the
+range to be formatted in visual mode, and hit <code>:</code>, you will
+notice the command line displaying what seems to be
+gibberish:</p>
+
+<pre><code>:&#39;&#60;,&#39;&#62;
+</code></pre>
+
+<p><code>&#39;&#60;</code> and <code>&#39;&#62;</code> are <em>marks</em> <sup id="fnref4"><a href="#fn4" rel="footnote">4</a></sup>. More
+specifically, they are marks that vim sets automatically
+every time you make a visual selection, denoting the start
+and end of the selection.</p>
+
+<p>A range is one or more line specifiers separated by a <code>,</code>:</p>
+
+<pre><code>:1,7       lines 1 through 7
+:32        just line 32
+:.         the current line
+:.,$       the current line to the last line
+:&#39;a,&#39;b     mark &#39;a&#39; to mark &#39;b&#39;
+</code></pre>
+
+<p>Most <code>:</code> commands can be prefixed by ranges. <code>:help
+usr_10.txt</code> for more on that.</p>
+
+<p>Alright, lets pass json through <code>python -m json.tool</code>, a
+json formatter that accepts <code>stdin</code> (note the use of <code>!</code> to
+make use of an external program):</p>
+
+<pre><code>:&#39;&#60;,&#39;&#62;!python -m json.tool
+</code></pre>
+
+<p>Unfortunately that didn&#39;t quite work for me because the
+range included some non-json text as well, a mix of regex
+and macros helped fix that. I think you get the drift.</p>
+
+<p>Another fun filter I use from time to time is <code>:!sort</code>, to
+sort css attributes, or <code>:!uniq</code> to remove repeated imports.</p>
+
+<div class="footnotes">
+<hr/>
+<ol>
+
+<li id="fn1">
+<p><a href="https://github.com/tpope/vim-unimpaired">https:&#47;&#47;github.com&#47;tpope&#47;vim-unimpaired</a>
+It also handles various other mappings, <code>]q</code> and <code>[q</code> to
+navigate the quickfix list for example&#160;<a href="#fnref1" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn2">
+<p><code>:help recording</code>&#160;<a href="#fnref2" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn3">
+<p>When I&#39;m recording a macro, I prefer starting out by
+storing it in register <code>q</code>, and then copying it over to
+another register if it works as intended. I think of <code>qq</code> as
+&#8216;quick record&#8217;.&#160;<a href="#fnref3" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn4">
+<p><code>:help mark-motions</code>&#160;<a href="#fnref4" rev="footnote">&#8617;</a></p>
+</li>
+
+</ol>
+</div></description>
+<link>https://peppe.rs/posts/rapid_refactoring_with_vim/</link>
+<pubDate>Wed, 01 Apr 2020 06:25:00 +0000</pubDate>
+<guid>https://peppe.rs/posts/rapid_refactoring_with_vim/</guid>
+</item>
+<item>
 <title>Font Size Fallacies</title>
 <description><p>I am not an expert with fonts, but I do have some
 experience <sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup>, and common sense. This post aims to debunk some
