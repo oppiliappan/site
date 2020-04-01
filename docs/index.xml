@@ -47,7 +47,7 @@ prefixed with the arrow):</p>
   }
 </code></pre>
 
-<h2 id="The%20arglist">The arglist</h2>
+<h3 id="The%20arglist">The arglist</h3>
 
 <p>For the initial pass, I decided to handle imports, this was
 a simple find and replace operation, done to all the files
@@ -79,7 +79,7 @@ every file in the arglist:</p>
 <pre><code>:argdo s&#47;from_str&#47;from_value&#47;g
 </code></pre>
 
-<h2 id="The%20quickfix%20list">The quickfix list</h2>
+<h3 id="The%20quickfix%20list">The quickfix list</h3>
 
 <p>Next up, replacing <code>r#&#34; ... &#34;#</code> with <code>json!( ... )</code>. I
 couldn&#39;t search and replace that trivially, so I went with a
@@ -144,7 +144,7 @@ the list, vim indicates your index:</p>
 <p>But, I had to manually pick out matches, and it involved
 some button mashing.</p>
 
-<h2 id="External%20Filtering">External Filtering</h2>
+<h3 id="External%20Filtering">External Filtering</h3>
 
 <p>Some code reviews later, I was asked to format all the json
 inside the <code>json!</code> macro. All you have to do is pass a
@@ -215,7 +215,7 @@ another register if it works as intended. I think of <code>qq</code> as
 </ol>
 </div></description>
 <link>https://peppe.rs/posts/rapid_refactoring_with_vim/</link>
-<pubDate>Wed, 01 Apr 2020 06:25:00 +0000</pubDate>
+<pubDate>Wed, 01 Apr 2020 06:29:00 +0000</pubDate>
 <guid>https://peppe.rs/posts/rapid_refactoring_with_vim/</guid>
 </item>
 <item>

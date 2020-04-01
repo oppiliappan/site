@@ -34,7 +34,7 @@ had to be converted to:
   }
 ```
 
-## The arglist
+### The arglist
 
 For the initial pass, I decided to handle imports, this was
 a simple find and replace operation, done to all the files
@@ -72,7 +72,7 @@ every file in the arglist:
 :argdo s/from_str/from_value/g
 ```
 
-## The quickfix list
+### The quickfix list
 
 Next up, replacing `r#" ... "#` with `json!( ... )`. I
 couldn't search and replace that trivially, so I went with a
@@ -148,7 +148,7 @@ And just like `argdo`, you can `cdo` to apply commands to
 But, I had to manually pick out matches, and it involved
 some button mashing.
 
-## External Filtering
+### External Filtering
 
 Some code reviews later, I was asked to format all the json
 inside the `json!` macro. All you have to do is pass a
