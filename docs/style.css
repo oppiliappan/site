@@ -54,6 +54,28 @@ td {
   max-width: 650px;
 }
 
+pre, code {
+  color: var(--black);
+  font-family: monospace;
+}
+
+pre {
+  overflow: auto;
+  padding: 1.3rem;
+  border: 2px solid var(--dark-white);
+  border-radius: 0.4rem;
+  margin: 1rem -1.3rem;
+}
+
+code {
+  color: var(--pink);
+}
+
+pre > code {
+  border: none;
+  color: var(--black);
+}
+
 @media only screen and (min-width: 1080px) {
   .posts {
     max-width: 650px;
@@ -185,27 +207,6 @@ ul {
   list-style: lower-greek inside none;
 }
 
-pre, code {
-  color: var(--black);
-  font-family: monospace;
-}
-
-pre {
-  overflow: auto;
-  padding: 1.3rem;
-  border: 2px solid var(--dark-white);
-  border-radius: 0.4rem;
-  margin: 1rem -1.3rem;
-}
-
-code {
-  color: var(--pink);
-}
-
-pre > code {
-  border: none;
-  color: var(--black);
-}
 
 ::-moz-selection, ::selection {
   background: var(--cyan);
