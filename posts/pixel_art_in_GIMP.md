@@ -19,8 +19,8 @@ configuration.
 
 Sometimes I use a 10x10 grid, `View > Show Grid` and `Edit >
 Preferences > Default Grid > Spacing`, but that can get
-jarring at times, so I throw down a couple of guides, drag
-right or down from the left or top gutters for vertical and
+jarring, so I throw down a couple of guides, drag right or
+down from the left or top gutters for vertical and
 horizontal guides respectively.
 
 ### Choosing a Brush
@@ -45,7 +45,7 @@ piece. I usually follow a three step process:
  - fill in the shadows
  - add highlights
 
-But this process are better explained with an example: an
+But this process is better explained with an example: an
 onigiri. Let us start off with a 100x100 canvas.
 
 #### Drawing the outline
@@ -54,8 +54,13 @@ For the most part, our figure will be symmetric. If you are
 on GIMP 2.10+, you can take advantage of the Symmetry
 Painting feature. Go ahead and enable vertical symmetry,
 `Window > Dockable Dialogs > Symmetry Painting` and
-`Symmetry Painting > Symmetry > Mirror > Vertical`. Your
-outline might look something like this:
+`Symmetry Painting > Symmetry > Mirror > Vertical`. 
+
+If you are running an older version of GIMP, draw in the
+left side, duplicate the layer, flip it horizontally, and
+merge it with the original.
+
+Your outline might look something like this:
 
 ![rice_outline](https://u.peppe.rs/mn.png)
 
@@ -94,10 +99,10 @@ might explain better:
 
 To emulate soft lights, reduce the value by 2 to 3 points
 every iteration. Notice how area `1` is much larger than
-area `4`. This is because an onigiri resembles an oblate
-spheroid, a sphere that is slightly fatter around the
-middle, and areas `1` and `2` catch more light than areas
-`3` and `4`.
+area `4`. This is because an onigiri resembles a bottom
+heavy oblate spheroid, a sphere that is slightly fatter
+around the lower bottom, and areas `1` and `2` catch more
+light than areas `3` and `4`.
 
 Do the same with the seaweed. The seaweed, being a smaller,
 flatter object, doesn't cast much of a shadow, so stop with
