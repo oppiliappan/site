@@ -73,7 +73,7 @@ cat > ./docs/index.html << EOF
 <title>peppe.rs</title>
 <body>
     <h1 class="heading">n</h1>
-    <h4 class="date">nerdypepper's μblog</h4>
+    <h4 class="subheading">nerdypepper's μblog</h4>
     <div class="posts">
     <div class="post">
 EOF
