@@ -116,10 +116,10 @@ might explain better:</p>
 
 <p>To emulate soft lights, reduce the value by 2 to 3 points
 every iteration. Notice how area <code>1</code> is much larger than
-area <code>4</code>. This is because an onigiri resembles an oblate
-spheroid, a sphere that is slightly fatter around the
-middle, and areas <code>1</code> and <code>2</code> catch more light than areas
-<code>3</code> and <code>4</code>.</p>
+area <code>4</code>. This is because an onigiri resembles a bottom
+heavy oblate spheroid, a sphere that is slightly fatter
+around the lower bottom, and areas <code>1</code> and <code>2</code> catch more
+light than areas <code>3</code> and <code>4</code>.</p>
 
 <p>Do the same with the seaweed. The seaweed, being a smaller,
 flatter object, doesn&#39;t cast much of a shadow, so stop with
@@ -154,7 +154,7 @@ was 100x100, head over to <code>Image &#62; Scale Image</code>, set
 
 <p><img src="https://u.peppe.rs/CH.png" alt="big_onigiri" /></p></description>
 <link>https://peppe.rs/posts/pixel_art_in_GIMP/</link>
-<pubDate>Thu, 09 Apr 2020 16:26:00 +0000</pubDate>
+<pubDate>Thu, 09 Apr 2020 16:28:00 +0000</pubDate>
 <guid>https://peppe.rs/posts/pixel_art_in_GIMP/</guid>
 </item>
 <item>
