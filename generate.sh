@@ -90,7 +90,6 @@ for f in $posts; do
     id="${file##*/}"    # ill name my posts just fine
 
     # generate posts
-    html=$(lowdown "$file")
     stats=$(wc "$file")
     words="$(echo $stats | awk '{print $2}')"
     lines="$(echo $stats | awk '{print $1}')"

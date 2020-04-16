@@ -36,7 +36,7 @@
             <%=$title%>
           </h1>
           <div class="post-text">
-            <% lowdown "$file"%>
+            <% pandoc --quiet -t html -s --highlight-style monochrome "$file" %>
           </div>
           <%= "$intro" %>
           <a href="/" class="post-end-link">⟵ Back</a>
