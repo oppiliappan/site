@@ -1,15 +1,20 @@
 @import url('https://rsms.me/inter/inter.css');
 
-.feed-button {
+.hot-links {
   float: right;
-  text-decoration: none;
-  color: var(--black) !important;
-  background-color: var(--cyan);
-  font-size: 0.8rem;
-  padding: 0.3rem 0.5rem;
+  padding: 0.3rem 0rem;
   margin: -0.5rem 0;
-  border: 0px solid var(--dark-white);
+}
+
+.feed-button, .donate-button {
+  background-color: var(--dark-white);
   border-radius: 0.2rem;
+  border: 0px solid var(--dark-white);
+  color: var(--black) !important;
+  font-size: 0.8rem;
+  margin: -0.5rem 0;
+  padding: 0.3rem 0.5rem;
+  text-decoration: none;
 }
 
 ::-moz-selection, ::selection {
@@ -17,12 +22,15 @@
 }
 
 :root {
-  --cyan: #79ffe1;
+  --cyan: #00cece;
   --pink: #d344e2;
   --black: #212121;
   --light-black: #666666;
   --white: #ffffff;
   --dark-white: #eeeeee;
+
+  --light-yellow: #F7B955;
+  --dark-yellow: #F49B0B;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -33,10 +41,6 @@
   --light-black: #ccc;
   --white: #000;
   --dark-white: #323232;
-  }
-  .feed-button {
-    color: var(--white) !important;
-    background: var(--cyan);
   }
   ::-moz-selection, ::selection {
     color: var(--white);
@@ -62,6 +66,7 @@ body {
 }
 
 html {
+  padding: 0;
   line-height: 1.5;
   font-size: 18px;
 }
@@ -119,19 +124,20 @@ td {
 }
 
 .posts {
-  width: 97%;
+  width: 95%;
   max-width: 650px;
+}
+
+pre:not(.sourceCode),div.sourceCode {
+  overflow: auto !important;
+  padding: 1.3rem;
+  margin: 1rem -1.3rem !important;
+  border: 2px solid var(--dark-white);
+  border-radius: 0.4rem;
 }
 
 pre, code {
   font-family: monospace;
-}
-
-pre {
-  overflow: auto;
-  padding: 1rem;
-  border: 2px solid var(--dark-white);
-  border-radius: 0.4rem;
 }
 
 code {
@@ -139,6 +145,7 @@ code {
 }
 
 pre > code {
+  white-space: pre !important;
   border: none;
   color: var(--black);
 }
@@ -162,7 +169,7 @@ pre > code {
 
 
 .post {
-  margin: 1rem;
+  margin: 0.5rem;
 }
 
 img {
@@ -196,9 +203,10 @@ hr {
   font-size: 0.8rem;
   overflow: auto;
   padding: 1.3rem;
+  padding-right: 0.6rem;
   border: 2px solid var(--dark-white);
   border-radius: 0.4rem;
-  margin: 1rem -1.3rem;
+  margin: 2rem -1.3rem;
   font-family: 'Inter', sans-serif;
 }
 
