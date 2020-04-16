@@ -15,7 +15,7 @@ I host my site on GitHub pages, so
 go into `posts/`, get converted into html, and end up in
 `docs/index.html`, something like this:
 
-```
+```bash
 posts=$(ls -t ./posts)     # chronological order!
 for f in $posts; do
     file="./posts/"$f      # `ls` mangled our file paths
@@ -31,7 +31,7 @@ Most static site generators recommend dropping image
 assets into the site source itself. That does have it's
 merits, but I prefer hosting images separately:
 
-```
+```bash
 # strip file extension
 ext="${1##*.}"
 

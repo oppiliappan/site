@@ -45,7 +45,7 @@ Pencil Tool (<code>n</code> on the keyboard) for hard edge drawings.
 Here&#39;s a small comparison if you don&#39;t know the difference
 between a hard edge and a soft edge:</p>
 
-<p><img src="https://u.peppe.rs/kz.png" alt="hard edge vs soft edge" /></p>
+<p><img src="https://u.peppe.rs/kz.png" alt="Hard edge vs Soft Edge" /></p>
 
 <p>I turn the size down all the way to 1 (<code>[</code> on the keyboard).
 Set <code>Dynamics</code> off. <a href="https://u.peppe.rs/Fs.png">Here&#8217;s</a> a
@@ -79,14 +79,14 @@ merge it with the original.</p>
 
 <p>Your outline might look something like this:</p>
 
-<p><img src="https://u.peppe.rs/mn.png" alt="rice_outline" /></p>
+<p><img src="https://u.peppe.rs/mn.png" alt="" /></p>
 
 <p>Go ahead and fill it in with the fill tool (<code>Shift + b</code> on
 the keyboard), add in some seaweed as well, preferably on a
 different layer. You can toggle symmetry on and off to save
 yourself some time.</p>
 
-<p><img src="https://u.peppe.rs/xu.png" alt="with_seaweed" /></p>
+<p><img src="https://u.peppe.rs/xu.png" alt="" /></p>
 
 <h4 id="Shadows">Shadows</h4>
 
@@ -97,7 +97,7 @@ surface later.</p>
 <p>Shadows on any surface always follow the shape of the
 surface. A spherical onigiri would have a circular shadow:</p>
 
-<p><img src="https://u.peppe.rs/FU.png" alt="riceball_shadow" /></p>
+<p><img src="https://u.peppe.rs/FU.png" alt="" /></p>
 
 <p>A couple of noticeable changes:</p>
 
@@ -112,7 +112,7 @@ edges).  </p>
 filling in that area with another, darker shadow! An image
 might explain better:</p>
 
-<p><img src="https://u.peppe.rs/Br.png" alt="shadow_all" /></p>
+<p><img src="https://u.peppe.rs/Br.png" alt="" /></p>
 
 <p>To emulate soft lights, reduce the value by 2 to 3 points
 every iteration. Notice how area <code>1</code> is much larger than
@@ -125,7 +125,7 @@ light than areas <code>3</code> and <code>4</code>.</p>
 flatter object, doesn&#39;t cast much of a shadow, so stop with
 1 or 2 iterations of the gradient:</p>
 
-<p><img src="https://u.peppe.rs/T3.png" alt="shadow_weed" /></p>
+<p><img src="https://u.peppe.rs/T3.png" alt="" /></p>
 
 <p>We&#39;re getting there!</p>
 
@@ -138,21 +138,21 @@ it does form an uneven surface. Add in some shadows to
 promote the idea of rice grains. Here is the finished
 result:</p>
 
-<p><img src="https://u.peppe.rs/VE.png" alt="highlights" /></p>
+<p><img src="https://u.peppe.rs/VE.png" alt="" /></p>
 
 <h3 id="Finishing%20Touches">Finishing Touches</h3>
 
 <p>Some color correction and <code>a e s t h e t i c</code> Japanese text
 later, our piece is complete!</p>
 
-<p><img src="https://u.peppe.rs/cn.png" alt="small_onigiri" /></p>
+<p><img src="https://u.peppe.rs/cn.png" alt="" /></p>
 
 <p>Hold on, why is it so tiny? Well, that&#39;s because our canvas
 was 100x100, head over to <code>Image &#62; Scale Image</code>, set
 <code>Quality &#62; Interpolation</code> to <code>None</code> and scale it up to
 700x700, et voilà!</p>
 
-<p><img src="https://u.peppe.rs/CH.png" alt="big_onigiri" /></p></description>
+<p><img src="https://u.peppe.rs/CH.png" alt="" /></p></description>
 <link>https://peppe.rs/posts/pixel_art_in_GIMP/</link>
 <pubDate>Thu, 09 Apr 2020 16:28:00 +0000</pubDate>
 <guid>https://peppe.rs/posts/pixel_art_in_GIMP/</guid>
@@ -169,12 +169,12 @@ vim :)</p>
 <p>Here&#39;s a small sample of what had to be done (note the lines
 prefixed with the arrow):</p>
 
-<pre><code>→ use serde_json::{from_str};
+<pre><code class="language-rust">→ use serde_json::{from_str};
   
   #[test]
   fn deserialize() {
     assert_eq!(
-→       from_str::&#60;Action&#62;(r#&#34;{&#34;set_tweak&#34;: &#34;highlight&#34;}&#34;#),
+→       from_str::&#60;Action&#62;(r#"{"set_tweak": "highlight"}"#),
         Action::SetTweak(Tweak::Highlight { value: true })
         );
   }
@@ -182,12 +182,12 @@ prefixed with the arrow):</p>
 
 <p>had to be converted to:</p>
 
-<pre><code>→ use serde_json::{from_value};
+<pre><code class="language-rust">→ use serde_json::{from_value};
   
   #[test]
   fn deserialize() {
     assert_eq!(
-→       from_value::&#60;Action&#62;(json!({&#34;set_tweak&#34;: &#34;highlight&#34;})),
+→       from_value::&#60;Action&#62;(json!({"set_tweak": "highlight"})),
         Action::SetTweak(Tweak::Highlight { value: true })
         );
   }
@@ -201,7 +201,7 @@ containing tests. Luckily, modules (and therefore files)
 containing tests in Rust are annotated with the
 <code>#[cfg(test)]</code> attribute. I opened all such files:</p>
 
-<pre><code># `grep -l pattern files` lists all the files
+<pre><code class="language-bash"># `grep -l pattern files` lists all the files
 #  matching the pattern
 
 vim $(grep -l &#39;cfg\(test\)&#39; .&#47;**&#47;*.rs)
@@ -227,23 +227,23 @@ every file in the arglist:</p>
 
 <h3 id="The%20quickfix%20list">The quickfix list</h3>
 
-<p>Next up, replacing <code>r#&#34; ... &#34;#</code> with <code>json!( ... )</code>. I
+<p>Next up, replacing <code>r#" ... "#</code> with <code>json!( ... )</code>. I
 couldn&#39;t search and replace that trivially, so I went with a
 macro call <sup id="fnref2"><a href="#fn2" rel="footnote">2</a></sup> instead, starting with the cursor on
 &#8216;r&#8217;, represented by the caret, in my attempt to breakdown
 the process:</p>
 
-<pre><code>BUFFER:    r#&#34; ... &#34;#;
+<pre><code>BUFFER:    r#" ... "#;
            ^
 
 ACTION:    vllsjson!(
 
-BUFFER     json!( ... &#34;#;
+BUFFER     json!( ... "#;
                 ^
 
 ACTION:    &#60;esc&#62;$F#
 
-BUFFER:    json!( ... &#34;#;
+BUFFER:    json!( ... "#;
                        ^
 
 ACTION:    vhs)&#60;esc&#62;
@@ -278,7 +278,7 @@ of positions is to use <code>vimgrep</code>:</p>
 with <code>:cnext</code> and <code>:cprev</code>. Every time you move up or down
 the list, vim indicates your index:</p>
 
-<pre><code>(1 of 131): r#&#34;{&#34;set_tweak&#34;: &#34;highlight&#34;}&#34;#;
+<pre><code>(1 of 131): r#"{"set_tweak": "highlight"}"#;
 </code></pre>
 
 <p>And just like <code>argdo</code>, you can <code>cdo</code> to apply commands to
@@ -380,7 +380,7 @@ side say, <code>s</code> cm. The total area covered by my 21&#8221; display
 is about 1,066 cm<sup>2</sup> (41x26). Thus,</p>
 
 <pre><code>Display A
-Dimensions: 1366x768 @ 21&#34; (41x26 sq. cm)
+Dimensions: 1366x768 @ 21" (41x26 sq. cm)
 1,049,088 s^2 = 1066
             s = 0.0318 cm (side of a pixel on Display A)
 </code></pre>
@@ -389,7 +389,7 @@ Dimensions: 1366x768 @ 21&#34; (41x26 sq. cm)
 <code>B</code>:</p>
 
 <pre><code>Display B
-Dimensions: 1920x1080 @ 13&#34; (29.5x16.5 sq. cm)
+Dimensions: 1920x1080 @ 13" (29.5x16.5 sq. cm)
 2,073,600 s^2 = 486.75
             s = 0.0153 cm (side of a pixel on Display B)
 </code></pre>
@@ -510,7 +510,7 @@ mtZabXG.jpg        p8d5c584f2841.jpg  vjUxGjq.jpg
 did use it a couple times when my default music player was
 acting up. <code>cmus</code> is a viable option:</p>
 
-<p><a href="https://u.peppe.rs/CP.jpg"><img src="https://u.peppe.rs/CP.jpg" alt="cmus.png" /></a></p></description>
+<p><a href="https://u.peppe.rs/CP.jpg"><img src="https://u.peppe.rs/CP.jpg" alt="" /></a></p></description>
 <link>https://peppe.rs/posts/termux_tandem/</link>
 <pubDate>Sun, 08 Mar 2020 16:47:00 +0000</pubDate>
 <guid>https://peppe.rs/posts/termux_tandem/</guid>
@@ -593,7 +593,7 @@ I agree)</li>
 
 <p>And it&#39;s pretty! See for yourself:</p>
 
-<p><a href="https://u.peppe.rs/wq.png"><img src="https://u.peppe.rs/wq.png" alt="gef.png" /></a></p>
+<p><a href="https://u.peppe.rs/wq.png"><img src="https://u.peppe.rs/wq.png" alt="" /></a></p>
 
 <h3 id="Editing">Editing</h3>
 
@@ -628,7 +628,7 @@ can&#39;t find one.</p>
 (none, ample and over-the-top highlighting, from left to
 right):</p>
 
-<p><a href="https://u.peppe.rs/lt.png"><img src="https://u.peppe.rs/lt.png" alt="hi.png" /></a></p>
+<p><a href="https://u.peppe.rs/lt.png"><img src="https://u.peppe.rs/lt.png" alt="" /></a></p>
 
 <p>Without highlighting (far left), it is hard to differentiate
 between comments and code! The florid color scheme (far
@@ -666,13 +666,13 @@ to html with <a href="https://kristaps.bsd.lv/lowdown/">lowdown</a>.</p>
 go into <code>posts&#47;</code>, get converted into html, and end up in
 <code>docs&#47;index.html</code>, something like this:</p>
 
-<pre><code>posts=$(ls -t .&#47;posts)     # chronological order!
+<pre><code class="language-bash">posts=$(ls -t .&#47;posts)     # chronological order!
 for f in $posts; do
-    file=&#34;.&#47;posts&#47;&#34;$f      # `ls` mangled our file paths
-    echo &#34;generating post $file&#34;
+    file=".&#47;posts&#47;"$f      # `ls` mangled our file paths
+    echo "generating post $file"
 
-    html=$(lowdown &#34;$file&#34;)
-    echo -e &#34;html&#34; &#62;&#62; docs&#47;index.html
+    html=$(lowdown "$file")
+    echo -e "html" &#62;&#62; docs&#47;index.html
 done
 </code></pre>
 
@@ -682,16 +682,16 @@ done
 assets into the site source itself. That does have it&#8217;s
 merits, but I prefer hosting images separately:</p>
 
-<pre><code># strip file extension
-ext=&#34;${1##*.}&#34;
+<pre><code class="language-bash"># strip file extension
+ext="${1##*.}"
 
 # generate a random file name
 id=$( cat &#47;dev&#47;urandom | tr -dc &#39;a-zA-Z0-9&#39; | fold -w 2 | head -n 1 )
-id=&#34;$id.$ext&#34;
+id="$id.$ext"
 
 # copy to my file host
-scp -P 443 &#34;$1&#34; emerald:files&#47;&#34;$id&#34; 
-echo &#34;https:&#47;&#47;u.peppe.rs&#47;$id&#34;
+scp -P 443 "$1" emerald:files&#47;"$id" 
+echo "https:&#47;&#47;u.peppe.rs&#47;$id"
 </code></pre>
 
 <h3 id="Templating">Templating</h3>
@@ -711,7 +711,7 @@ listing!</p></description>
 <description><p>Decided to do one of these because everyone does one of
 these.</p>
 
-<p><img src="https://u.peppe.rs/Hb.png" alt="scrot" /></p>
+<p><img src="https://u.peppe.rs/Hb.png" alt="" /></p>
 
 <p>My entire setup is managed with GNU <code>stow</code>, making it easier
 to replicate on fresh installations. You can find my
@@ -774,8 +774,8 @@ PING ...
 
 <pre><code>------------------------------------------------------
 # Add these to &#47;etc&#47;wpa_supplicant&#47;wpa_supplicant.conf
-OPTS=&#34;-B&#34;
-WPA_INTERFACE=&#34;wlp2s0&#34;
+OPTS="-B"
+WPA_INTERFACE="wlp2s0"
 ------------------------------------------------------
 $ sudo ln -s &#47;etc&#47;sv&#47;wpa_supplicant &#47;var&#47;service&#47;
 $ sudo ln -s &#47;etc&#47;sv&#47;dhcpcd &#47;var&#47;service&#47;
@@ -877,7 +877,7 @@ and the ability to jump around with <code>Ctrl-]</code> and <code>Ctrl-T</code>.
 a sample from the script used to generate this site:  </p>
 
 <pre><code># a substitution to convert snake_case to Title Case With Spaces
-echo &#34;$1&#34; | sed -E -e &#34;s&#47;\..+$&#47;&#47;g&#34;  -e &#34;s&#47;_(.)&#47; \u\1&#47;g&#34; -e &#34;s&#47;^(.)&#47;\u\1&#47;g&#34;
+echo "$1" | sed -E -e "s&#47;\..+$&#47;&#47;g"  -e "s&#47;_(.)&#47; \u\1&#47;g" -e "s&#47;^(.)&#47;\u\1&#47;g"
 </code></pre>
 
 <p>Instead of dropping into a new shell, just test it out directly from vim!</p>
@@ -896,7 +896,7 @@ echo &#34;$1&#34; | sed -E -e &#34;s&#47;\..+$&#47;&#47;g&#34;  -e &#34;s&#47;_(
 <pre><code>syntax off            # previously run commands
 edit index.html       # in a buffer!
 w | so %
-!echo &#34;new_post.md&#34; | sed -E -e &#34;s&#47;\..+$&#47;&#47;g&#34;  --snip--
+!echo "new_post.md" | sed -E -e "s&#47;\..+$&#47;&#47;g"  --snip--
 ^--- note the use of &#39;!&#39;
 </code></pre></li>
 <li><p>Hit enter with the cursor on the line containing your command!</p>
@@ -926,8 +926,8 @@ none of which concern us.</p>
 our view, and restore it once its done, with <code>winrestview</code>.</p>
 
 <pre><code>let view = winsaveview()
-s&#47;\s\+$&#47;&#47;gc              &#34; find and (confirm) replace trailing blanks
-winrestview(view)        &#34; restore our original view!
+s&#47;\s\+$&#47;&#47;gc              " find and (confirm) replace trailing blanks
+winrestview(view)        " restore our original view!
 </code></pre>
 
 <p>It might seem a little overkill in the above example, just use `` (double
@@ -942,23 +942,23 @@ heavier filtering.</p></description>
 <description><ol start="1">
 <li><p>reselecting previously selected text (i use this to fix botched selections):</p>
 
-<pre><code>gv  &#34; :h gv for more
-    &#34; you can use `o` in visual mode to go to the `Other` end of the selection
-    &#34; use a motion to fix the selection
+<pre><code>gv  " :h gv for more
+    " you can use `o` in visual mode to go to the `Other` end of the selection
+    " use a motion to fix the selection
 </code></pre></li>
 <li><p>reselecting previously yanked text:</p>
 
 <pre><code>`[v`]
-`[         &#34; marks the beginning of the previously yanked text   :h `[
-`]         &#34; marks the end                                       :h `]
- v         &#34; visual select everything in between
+`[         " marks the beginning of the previously yanked text   :h `[
+`]         " marks the end                                       :h `]
+ v         " visual select everything in between
 
-nnoremap gb `[v`]    &#34; &#34;a quick map to perform the above
+nnoremap gb `[v`]    " "a quick map to perform the above
 </code></pre></li>
 <li><p>pasting and indenting text (in one go):</p>
 
-<pre><code>]p   &#34; put (p) and adjust indent to current line
-]P   &#34; put the text before the cursor (P) and adjust indent to current line
+<pre><code>]p   " put (p) and adjust indent to current line
+]P   " put the text before the cursor (P) and adjust indent to current line
 </code></pre></li>
 </ol></description>
 <link>https://peppe.rs/posts/get_better_at_yanking_and_putting_in_vim/</link>

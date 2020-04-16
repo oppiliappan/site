@@ -30,7 +30,7 @@ Pencil Tool (`n` on the keyboard) for hard edge drawings.
 Here's a small comparison if you don't know the difference
 between a hard edge and a soft edge:
 
-![hard edge vs soft edge](https://u.peppe.rs/kz.png)
+![Hard edge vs Soft Edge](https://u.peppe.rs/kz.png)
 
 I turn the size down all the way to 1 (`[` on the keyboard).
 Set `Dynamics` off. [Here's](https://u.peppe.rs/Fs.png) a
@@ -62,14 +62,14 @@ merge it with the original.
 
 Your outline might look something like this:
 
-![rice_outline](https://u.peppe.rs/mn.png)
+![](https://u.peppe.rs/mn.png)
 
 Go ahead and fill it in with the fill tool (`Shift + b` on
 the keyboard), add in some seaweed as well, preferably on a
 different layer. You can toggle symmetry on and off to save
 yourself some time.
 
-![with_seaweed](https://u.peppe.rs/xu.png)
+![](https://u.peppe.rs/xu.png)
 
 #### Shadows
 
@@ -80,7 +80,7 @@ surface later.
 Shadows on any surface always follow the shape of the
 surface. A spherical onigiri would have a circular shadow:
 
-![riceball_shadow](https://u.peppe.rs/FU.png)
+![](https://u.peppe.rs/FU.png)
 
 A couple of noticeable changes:
 
@@ -95,7 +95,7 @@ The shadow does not go all the way because we will be
 filling in that area with another, darker shadow! An image
 might explain better:
 
-![shadow_all](https://u.peppe.rs/Br.png)
+![](https://u.peppe.rs/Br.png)
 
 To emulate soft lights, reduce the value by 2 to 3 points
 every iteration. Notice how area `1` is much larger than
@@ -108,7 +108,7 @@ Do the same with the seaweed. The seaweed, being a smaller,
 flatter object, doesn't cast much of a shadow, so stop with
 1 or 2 iterations of the gradient:
 
-![shadow_weed](https://u.peppe.rs/T3.png)
+![](https://u.peppe.rs/T3.png)
 
 We're getting there!
 
@@ -121,19 +121,19 @@ it does form an uneven surface. Add in some shadows to
 promote the idea of rice grains. Here is the finished
 result:
 
-![highlights](https://u.peppe.rs/VE.png)
+![](https://u.peppe.rs/VE.png)
 
 ### Finishing Touches
 
 Some color correction and `a e s t h e t i c` Japanese text
 later, our piece is complete!
 
-![small_onigiri](https://u.peppe.rs/cn.png)
+![](https://u.peppe.rs/cn.png)
 
 Hold on, why is it so tiny? Well, that's because our canvas
 was 100x100, head over to `Image > Scale Image`, set
 `Quality > Interpolation` to `None` and scale it up to
 700x700, et voilà!
 
-![big_onigiri](https://u.peppe.rs/CH.png)
+![](https://u.peppe.rs/CH.png)
 

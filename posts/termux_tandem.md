@@ -45,4 +45,4 @@ Alright, I don't really listen to music via `cmus`, but I
 did use it a couple times when my default music player was
 acting up. `cmus` is a viable option:
 
-[![cmus.png](https://u.peppe.rs/CP.jpg)](https://u.peppe.rs/CP.jpg)
+[![](https://u.peppe.rs/CP.jpg)](https://u.peppe.rs/CP.jpg)

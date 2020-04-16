@@ -21,7 +21,7 @@ The following comparison does a better job of explaining
 (none, ample and over-the-top highlighting, from left to
 right):
 
-[![hi.png](https://u.peppe.rs/lt.png)](https://u.peppe.rs/lt.png)
+[![](https://u.peppe.rs/lt.png)](https://u.peppe.rs/lt.png)
 
 Without highlighting (far left), it is hard to differentiate
 between comments and code! The florid color scheme (far

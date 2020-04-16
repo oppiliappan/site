@@ -76,7 +76,7 @@ experience loads better:
 
 And it's pretty! See for yourself:
 
-[![gef.png](https://u.peppe.rs/wq.png)](https://u.peppe.rs/wq.png)
+[![](https://u.peppe.rs/wq.png)](https://u.peppe.rs/wq.png)
 
 ### Editing
 

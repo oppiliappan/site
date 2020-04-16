@@ -8,7 +8,7 @@ vim :)
 Here's a small sample of what had to be done (note the lines
 prefixed with the arrow):
 
-```
+```rust
 → use serde_json::{from_str};
   
   #[test]
@@ -22,7 +22,7 @@ prefixed with the arrow):
 
 had to be converted to:
 
-```
+```rust
 → use serde_json::{from_value};
   
   #[test]
@@ -42,7 +42,7 @@ containing tests. Luckily, modules (and therefore files)
 containing tests in Rust are annotated with the
 `#[cfg(test)]` attribute. I opened all such files:
 
-```
+```bash
 # `grep -l pattern files` lists all the files
 #  matching the pattern
 
