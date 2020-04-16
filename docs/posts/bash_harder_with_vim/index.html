@@ -37,60 +37,62 @@
             Bash Harder With Vim
           </h1>
           <div class="post-text">
-            <p>Bash is tricky, don&#39;t let your editor get in your way. Here&#39;s a couple of neat
-additions you could make to your <code>vimrc</code> for a better shell programming
-experience.</p>
-
-<h3 id="Man%20pages%20inside%20vim">Man pages inside vim</h3>
-
-<p>Source this script to get started:  </p>
-
-<pre><code>runtime ftplugin&#47;man.vim
-</code></pre>
-
-<p>Now, you can open manpages inside vim with <code>:Man</code>! It adds nicer syntax highlighting
-and the ability to jump around with <code>Ctrl-]</code> and <code>Ctrl-T</code>.</p>
-
+            <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>bash_harder_with_vim</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<p>Bash is tricky, don’t let your editor get in your way. Here’s a couple of neat additions you could make to your <code>vimrc</code> for a better shell programming experience.</p>
+<h3 id="man-pages-inside-vim">Man pages inside vim</h3>
+<p>Source this script to get started:</p>
+<pre><code>runtime ftplugin/man.vim</code></pre>
+<p>Now, you can open manpages inside vim with <code>:Man</code>! It adds nicer syntax highlighting and the ability to jump around with <code>Ctrl-]</code> and <code>Ctrl-T</code>.</p>
 <p>By default, the manpage is opened in a horizontal split, I prefer using a new tab:</p>
-
-<pre><code>let g:ft_man_open_mode = &#39;tab&#39;
-</code></pre>
-
-<h3 id="Scratchpad%20to%20test%20your%20commands">Scratchpad to test your commands</h3>
-
-<p>I often test my <code>sed</code> substitutions, here is
-a sample from the script used to generate this site:  </p>
-
+<pre><code>let g:ft_man_open_mode = &#39;tab&#39;</code></pre>
+<h3 id="scratchpad-to-test-your-commands">Scratchpad to test your commands</h3>
+<p>I often test my <code>sed</code> substitutions, here is a sample from the script used to generate this site:</p>
 <pre><code># a substitution to convert snake_case to Title Case With Spaces
-echo &#34;$1&#34; | sed -E -e &#34;s&#47;\..+$&#47;&#47;g&#34;  -e &#34;s&#47;_(.)&#47; \u\1&#47;g&#34; -e &#34;s&#47;^(.)&#47;\u\1&#47;g&#34;
-</code></pre>
-
+echo &quot;$1&quot; | sed -E -e &quot;s/\..+$//g&quot;  -e &quot;s/_(.)/ \u\1/g&quot; -e &quot;s/^(.)/\u\1/g&quot;</code></pre>
 <p>Instead of dropping into a new shell, just test it out directly from vim!</p>
-
 <ul>
-<li><p>Yank the line into a register:</p>
-
-<pre><code>yy
-</code></pre></li>
-<li><p>Paste it into the command-line window:</p>
-
-<pre><code>q:p
-</code></pre></li>
-<li><p>Make edits as required:</p>
-
+<li>Yank the line into a register:</li>
+</ul>
+<pre><code>yy</code></pre>
+<ul>
+<li>Paste it into the command-line window:</li>
+</ul>
+<pre><code>q:p</code></pre>
+<ul>
+<li>Make edits as required:</li>
+</ul>
 <pre><code>syntax off            # previously run commands
 edit index.html       # in a buffer!
 w | so %
-!echo &#34;new_post.md&#34; | sed -E -e &#34;s&#47;\..+$&#47;&#47;g&#34;  --snip--
-^--- note the use of &#39;!&#39;
-</code></pre></li>
-<li><p>Hit enter with the cursor on the line containing your command!</p>
-
+!echo &quot;new_post.md&quot; | sed -E -e &quot;s/\..+$//g&quot;  --snip--
+^--- note the use of &#39;!&#39;</code></pre>
+<ul>
+<li>Hit enter with the cursor on the line containing your command!</li>
+</ul>
 <pre><code>$ vim
 New Post         # output
-Press ENTER or type command to continue
-</code></pre></li>
-</ul>
+Press ENTER or type command to continue</code></pre>
+</body>
+</html>
 
           </div>
           

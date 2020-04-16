@@ -37,99 +37,58 @@
             Font Size Fallacies
           </h1>
           <div class="post-text">
-            <p>I am not an expert with fonts, but I do have some
-experience <sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup>, and common sense. This post aims to debunk some
-misconceptions about font sizes!</p>
-
-<p>11 px on your display is <em>probably not</em> 11 px on my display.
-Let&#39;s do some quick math. I have two displays, 1366x768 @
-21&#8221; and another with 1920x1080 @ 13&#8221;, call them <code>A</code> and
-<code>B</code> for now.</p>
-
-<p>Display <code>A</code> has 1,049,088 pixels. A pixel is a square, of
-side say, <code>s</code> cm. The total area covered by my 21&#8221; display
-is about 1,066 cm<sup>2</sup> (41x26). Thus,</p>
-
+            <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>font_size_fallacies</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<p>I am not an expert with fonts, but I do have some experience <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, and common sense. This post aims to debunk some misconceptions about font sizes!</p>
+<p>11 px on your display is <em>probably not</em> 11 px on my display. Let’s do some quick math. I have two displays, 1366x768 @ 21" and another with 1920x1080 @ 13", call them <code>A</code> and <code>B</code> for now.</p>
+<p>Display <code>A</code> has 1,049,088 pixels. A pixel is a square, of side say, <code>s</code> cm. The total area covered by my 21" display is about 1,066 cm^2 (41x26). Thus,</p>
 <pre><code>Display A
-Dimensions: 1366x768 @ 21&#34; (41x26 sq. cm)
+Dimensions: 1366x768 @ 21&quot; (41x26 sq. cm)
 1,049,088 s^2 = 1066
-            s = 0.0318 cm (side of a pixel on Display A)
-</code></pre>
-
-<p>Bear with me, as I repeat the number crunching for Display
-<code>B</code>:</p>
-
+            s = 0.0318 cm (side of a pixel on Display A)</code></pre>
+<p>Bear with me, as I repeat the number crunching for Display <code>B</code>:</p>
 <pre><code>Display B
-Dimensions: 1920x1080 @ 13&#34; (29.5x16.5 sq. cm)
+Dimensions: 1920x1080 @ 13&quot; (29.5x16.5 sq. cm)
 2,073,600 s^2 = 486.75
-            s = 0.0153 cm (side of a pixel on Display B)
-</code></pre>
-
-<p>The width of a pixel on Display <code>A</code> is <em>double</em> the width of a
-pixel on Display <code>B</code>. The area occupied by a pixel on Display
-<code>A</code> is <em>4 times</em> the area occupied by a pixel on Display <code>B</code>.</p>
-
+            s = 0.0153 cm (side of a pixel on Display B)</code></pre>
+<p>The width of a pixel on Display <code>A</code> is <em>double</em> the width of a pixel on Display <code>B</code>. The area occupied by a pixel on Display <code>A</code> is <em>4 times</em> the area occupied by a pixel on Display <code>B</code>.</p>
 <p><em>The size of a pixel varies from display to display!</em></p>
-
-<p>A 5x11 bitmap font on Display <code>A</code> would be around 4 mm tall
-whereas the same bitmap font on Display <code>B</code> would be around
-1.9 mm tall. A 11 px tall character on <code>B</code> is visually
-equivalent to a 5 px character on <code>A</code>. When you view a
-screenshot of Display <code>A</code> on Display <code>B</code>, the contents are
-shrunk down by a factor of 2!</p>
-
-<p>So screen resolution is not enough, how else do we measure
-size? Pixel Density! Keen readers will realize that the 5<sup>th</sup>
-grade math problem we solved up there showcases pixel
-density, or, pixels per cm (PPCM). Usually we deal with
-pixels per inch (PPI).</p>
-
-<p><strong>Note:</strong> PPI is not to be confused with DPI <sup id="fnref2"><a href="#fn2" rel="footnote">2</a></sup> (dots
-per inch). DPI is defined for printers.</p>
-
-<p>In our example, <code>A</code> is a 75 ppi display and <code>B</code> is around
-165 ppi <sup id="fnref3"><a href="#fn3" rel="footnote">3</a></sup>.  A low ppi display appears to be
-&#8216;pixelated&#8217;, because the pixels are more prominent, much
-like Display <code>A</code>. A higher ppi usually means you can view
-larger images and render crispier fonts. The average desktop
-display can stuff 100-200 pixels per inch. Smart phones
-usually fall into the 400-600 ppi (XXXHDPI) category. The
-human eye fails to differentiate detail past 300 ppi.</p>
-
-<p><em>So &#8230; streaming an 8K video on a 60&#8221; TV provides the same
-clarity as a HD video on a smart phone?</em></p>
-
-<p>Absolutely. Well, clarity is subjective, but the amount of
-detail you can discern on mobile displays has always been
-limited.  Salty consumers of the Xperia 1 <sup id="fnref4"><a href="#fn4" rel="footnote">4</a></sup> will say
-otherwise.</p>
-
-<p>Maybe I will talk about font rendering in another post, but
-thats all for now. Don&#39;t judge a font size by its
-screenshot.</p>
-
-<div class="footnotes">
-<hr/>
+<p>A 5x11 bitmap font on Display <code>A</code> would be around 4 mm tall whereas the same bitmap font on Display <code>B</code> would be around 1.9 mm tall. A 11 px tall character on <code>B</code> is visually equivalent to a 5 px character on <code>A</code>. When you view a screenshot of Display <code>A</code> on Display <code>B</code>, the contents are shrunk down by a factor of 2!</p>
+<p>So screen resolution is not enough, how else do we measure size? Pixel Density! Keen readers will realize that the 5^th grade math problem we solved up there showcases pixel density, or, pixels per cm (PPCM). Usually we deal with pixels per inch (PPI).</p>
+<p><strong>Note:</strong> PPI is not to be confused with DPI <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> (dots per inch). DPI is defined for printers.</p>
+<p>In our example, <code>A</code> is a 75 ppi display and <code>B</code> is around 165 ppi <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. A low ppi display appears to be ‘pixelated’, because the pixels are more prominent, much like Display <code>A</code>. A higher ppi usually means you can view larger images and render crispier fonts. The average desktop display can stuff 100-200 pixels per inch. Smart phones usually fall into the 400-600 ppi (XXXHDPI) category. The human eye fails to differentiate detail past 300 ppi.</p>
+<p><em>So … streaming an 8K video on a 60" TV provides the same clarity as a HD video on a smart phone?</em></p>
+<p>Absolutely. Well, clarity is subjective, but the amount of detail you can discern on mobile displays has always been limited. Salty consumers of the Xperia 1 <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> will say otherwise.</p>
+<p>Maybe I will talk about font rendering in another post, but thats all for now. Don’t judge a font size by its screenshot.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr />
 <ol>
-
-<li id="fn1">
-<p><a href="https://github.com/nerdypepper/scientifica">https:&#47;&#47;github.com&#47;nerdypepper&#47;scientifica</a>&#160;<a href="#fnref1" rev="footnote">&#8617;</a></p>
-</li>
-
-<li id="fn2">
-<p><a href="https://en.wikipedia.org/wiki/Dots_per_inch">https:&#47;&#47;en.wikipedia.org&#47;wiki&#47;Dots_per_inch</a>&#160;<a href="#fnref2" rev="footnote">&#8617;</a></p>
-</li>
-
-<li id="fn3">
-<p><a href="https://www.sven.de/dpi/">https:&#47;&#47;www.sven.de&#47;dpi&#47;</a>&#160;<a href="#fnref3" rev="footnote">&#8617;</a></p>
-</li>
-
-<li id="fn4">
-<p><a href="https://en.wikipedia.org/wiki/Sony_Xperia_1">https:&#47;&#47;en.wikipedia.org&#47;wiki&#47;Sony_Xperia_1</a>&#160;<a href="#fnref4" rev="footnote">&#8617;</a></p>
-</li>
-
+<li id="fn1" role="doc-endnote"><p>https://github.com/nerdypepper/scientifica<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>https://en.wikipedia.org/wiki/Dots_per_inch<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>https://www.sven.de/dpi/<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>https://en.wikipedia.org/wiki/Sony_Xperia_1<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</div>
+</section>
+</body>
+</html>
 
           </div>
           

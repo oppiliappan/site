@@ -37,146 +37,77 @@
             Pixel Art In GIMP
           </h1>
           <div class="post-text">
-            <p>I&#39;ve always been an admirer of pixel art, because of it&#8217;s
-simplicity and it&#39;s resemblance to bitmap font design.
-Recently, I decided to take the dive and make some art of my
-own.</p>
-
-<p>I used GIMP because I am fairly familiar with it. Aseprite
-seems to be the editor of choice for animated pixel art
-though.</p>
-
-<h3 id="Setting%20up%20the%20canvas">Setting up the canvas</h3>
-
-<p>Picking a canvas size is daunting. Too small, and you won&#8217;t
-be able to fit in enough detail to make a legible piece. Too
-big and you&#39;ve got too many pixels to work with!</p>
-
-<p>I would suggest starting out with anywhere between 100x100
-and 200x200. <a href="https://u.peppe.rs/u9.png">Here&#8217;s</a> a sample
-configuration. </p>
-
-<p>Sometimes I use a 10x10 grid, <code>View &#62; Show Grid</code> and <code>Edit &#62;
-Preferences &#62; Default Grid &#62; Spacing</code>, but that can get
-jarring, so I throw down a couple of guides, drag right or
-down from the left or top gutters for vertical and
-horizontal guides respectively.</p>
-
-<h3 id="Choosing%20a%20Brush">Choosing a Brush</h3>
-
-<p>The most important part of our setup is the brush. Use the
-Pencil Tool (<code>n</code> on the keyboard) for hard edge drawings.
-Here&#39;s a small comparison if you don&#39;t know the difference
-between a hard edge and a soft edge:</p>
-
-<p><img src="https://u.peppe.rs/kz.png" alt="hard edge vs soft edge" /></p>
-
-<p>I turn the size down all the way to 1 (<code>[</code> on the keyboard).
-Set <code>Dynamics</code> off. <a href="https://u.peppe.rs/Fs.png">Here&#8217;s</a> a
-sample brush configuration.</p>
-
-<h3 id="Laying%20down%20the%20pixels!">Laying down the pixels!</h3>
-
-<p>With the boring stuff out of the way, we can start with our
-piece. I usually follow a three step process:</p>
-
+            <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>pixel_art_in_GIMP</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<p>I’ve always been an admirer of pixel art, because of it’s simplicity and it’s resemblance to bitmap font design. Recently, I decided to take the dive and make some art of my own.</p>
+<p>I used GIMP because I am fairly familiar with it. Aseprite seems to be the editor of choice for animated pixel art though.</p>
+<h3 id="setting-up-the-canvas">Setting up the canvas</h3>
+<p>Picking a canvas size is daunting. Too small, and you won’t be able to fit in enough detail to make a legible piece. Too big and you’ve got too many pixels to work with!</p>
+<p>I would suggest starting out with anywhere between 100x100 and 200x200. <a href="https://u.peppe.rs/u9.png">Here’s</a> a sample configuration.</p>
+<p>Sometimes I use a 10x10 grid, <code>View &gt; Show Grid</code> and <code>Edit &gt; Preferences &gt; Default Grid &gt; Spacing</code>, but that can get jarring, so I throw down a couple of guides, drag right or down from the left or top gutters for vertical and horizontal guides respectively.</p>
+<h3 id="choosing-a-brush">Choosing a Brush</h3>
+<p>The most important part of our setup is the brush. Use the Pencil Tool (<code>n</code> on the keyboard) for hard edge drawings. Here’s a small comparison if you don’t know the difference between a hard edge and a soft edge:</p>
+<figure>
+<img src="https://u.peppe.rs/kz.png" alt="" /><figcaption>Hard edge vs Soft Edge</figcaption>
+</figure>
+<p>I turn the size down all the way to 1 (<code>[</code> on the keyboard). Set <code>Dynamics</code> off. <a href="https://u.peppe.rs/Fs.png">Here’s</a> a sample brush configuration.</p>
+<h3 id="laying-down-the-pixels">Laying down the pixels!</h3>
+<p>With the boring stuff out of the way, we can start with our piece. I usually follow a three step process:</p>
 <ul>
 <li>draw a rough outline</li>
 <li>fill in the shadows</li>
 <li>add highlights</li>
 </ul>
-
-<p>But this process is better explained with an example: an
-onigiri. Let us start off with a 100x100 canvas.</p>
-
-<h4 id="Drawing%20the%20outline">Drawing the outline</h4>
-
-<p>For the most part, our figure will be symmetric. If you are
-on GIMP 2.10+, you can take advantage of the Symmetry
-Painting feature. Go ahead and enable vertical symmetry,
-<code>Window &#62; Dockable Dialogs &#62; Symmetry Painting</code> and
-<code>Symmetry Painting &#62; Symmetry &#62; Mirror &#62; Vertical</code>. </p>
-
-<p>If you are running an older version of GIMP, draw in the
-left side, duplicate the layer, flip it horizontally, and
-merge it with the original.</p>
-
+<p>But this process is better explained with an example: an onigiri. Let us start off with a 100x100 canvas.</p>
+<h4 id="drawing-the-outline">Drawing the outline</h4>
+<p>For the most part, our figure will be symmetric. If you are on GIMP 2.10+, you can take advantage of the Symmetry Painting feature. Go ahead and enable vertical symmetry, <code>Window &gt; Dockable Dialogs &gt; Symmetry Painting</code> and <code>Symmetry Painting &gt; Symmetry &gt; Mirror &gt; Vertical</code>.</p>
+<p>If you are running an older version of GIMP, draw in the left side, duplicate the layer, flip it horizontally, and merge it with the original.</p>
 <p>Your outline might look something like this:</p>
-
-<p><img src="https://u.peppe.rs/mn.png" alt="rice_outline" /></p>
-
-<p>Go ahead and fill it in with the fill tool (<code>Shift + b</code> on
-the keyboard), add in some seaweed as well, preferably on a
-different layer. You can toggle symmetry on and off to save
-yourself some time.</p>
-
-<p><img src="https://u.peppe.rs/xu.png" alt="with_seaweed" /></p>
-
-<h4 id="Shadows">Shadows</h4>
-
-<p>For now, let us focus on the shadows on the object itself,
-we&#39;ll come back to the shadows cast by the object on the
-surface later.</p>
-
-<p>Shadows on any surface always follow the shape of the
-surface. A spherical onigiri would have a circular shadow:</p>
-
-<p><img src="https://u.peppe.rs/FU.png" alt="riceball_shadow" /></p>
-
+<p><img src="https://u.peppe.rs/mn.png" /></p>
+<p>Go ahead and fill it in with the fill tool (<code>Shift + b</code> on the keyboard), add in some seaweed as well, preferably on a different layer. You can toggle symmetry on and off to save yourself some time.</p>
+<p><img src="https://u.peppe.rs/xu.png" /></p>
+<h4 id="shadows">Shadows</h4>
+<p>For now, let us focus on the shadows on the object itself, we’ll come back to the shadows cast by the object on the surface later.</p>
+<p>Shadows on any surface always follow the shape of the surface. A spherical onigiri would have a circular shadow:</p>
+<p><img src="https://u.peppe.rs/FU.png" /></p>
 <p>A couple of noticeable changes:</p>
-
-<p><strong>Layers</strong>: The layer containing the seaweed has been hidden.<br/>
-<strong>Color</strong>: The color of the shadow is just a slightly
-lighter version of the original object (reduce the Value on
-the HSV scale).<br/>
-<strong>Area</strong>: The shadow does not go all the way (notice the bottom
-edges).  </p>
-
-<p>The shadow does not go all the way because we will be
-filling in that area with another, darker shadow! An image
-might explain better:</p>
-
-<p><img src="https://u.peppe.rs/Br.png" alt="shadow_all" /></p>
-
-<p>To emulate soft lights, reduce the value by 2 to 3 points
-every iteration. Notice how area <code>1</code> is much larger than
-area <code>4</code>. This is because an onigiri resembles a bottom
-heavy oblate spheroid, a sphere that is slightly fatter
-around the lower bottom, and areas <code>1</code> and <code>2</code> catch more
-light than areas <code>3</code> and <code>4</code>.</p>
-
-<p>Do the same with the seaweed. The seaweed, being a smaller,
-flatter object, doesn&#39;t cast much of a shadow, so stop with
-1 or 2 iterations of the gradient:</p>
-
-<p><img src="https://u.peppe.rs/T3.png" alt="shadow_weed" /></p>
-
-<p>We&#39;re getting there!</p>
-
-<h4 id="Highlights">Highlights</h4>
-
-<p>This step handles the details on the strongly illuminated
-portions of the object. Seaweed is a bit glossy, lighten the
-edges to make it seem shiny. The rice is not as shiny, but
-it does form an uneven surface. Add in some shadows to
-promote the idea of rice grains. Here is the finished
-result:</p>
-
-<p><img src="https://u.peppe.rs/VE.png" alt="highlights" /></p>
-
-<h3 id="Finishing%20Touches">Finishing Touches</h3>
-
-<p>Some color correction and <code>a e s t h e t i c</code> Japanese text
-later, our piece is complete!</p>
-
-<p><img src="https://u.peppe.rs/cn.png" alt="small_onigiri" /></p>
-
-<p>Hold on, why is it so tiny? Well, that&#39;s because our canvas
-was 100x100, head over to <code>Image &#62; Scale Image</code>, set
-<code>Quality &#62; Interpolation</code> to <code>None</code> and scale it up to
-700x700, et voilà!</p>
-
-<p><img src="https://u.peppe.rs/CH.png" alt="big_onigiri" /></p>
+<p><strong>Layers</strong>: The layer containing the seaweed has been hidden.<br />
+<strong>Color</strong>: The color of the shadow is just a slightly lighter version of the original object (reduce the Value on the HSV scale).<br />
+<strong>Area</strong>: The shadow does not go all the way (notice the bottom edges).</p>
+<p>The shadow does not go all the way because we will be filling in that area with another, darker shadow! An image might explain better:</p>
+<p><img src="https://u.peppe.rs/Br.png" /></p>
+<p>To emulate soft lights, reduce the value by 2 to 3 points every iteration. Notice how area <code>1</code> is much larger than area <code>4</code>. This is because an onigiri resembles a bottom heavy oblate spheroid, a sphere that is slightly fatter around the lower bottom, and areas <code>1</code> and <code>2</code> catch more light than areas <code>3</code> and <code>4</code>.</p>
+<p>Do the same with the seaweed. The seaweed, being a smaller, flatter object, doesn’t cast much of a shadow, so stop with 1 or 2 iterations of the gradient:</p>
+<p><img src="https://u.peppe.rs/T3.png" /></p>
+<p>We’re getting there!</p>
+<h4 id="highlights">Highlights</h4>
+<p>This step handles the details on the strongly illuminated portions of the object. Seaweed is a bit glossy, lighten the edges to make it seem shiny. The rice is not as shiny, but it does form an uneven surface. Add in some shadows to promote the idea of rice grains. Here is the finished result:</p>
+<p><img src="https://u.peppe.rs/VE.png" /></p>
+<h3 id="finishing-touches">Finishing Touches</h3>
+<p>Some color correction and <code>a e s t h e t i c</code> Japanese text later, our piece is complete!</p>
+<p><img src="https://u.peppe.rs/cn.png" /></p>
+<p>Hold on, why is it so tiny? Well, that’s because our canvas was 100x100, head over to <code>Image &gt; Scale Image</code>, set <code>Quality &gt; Interpolation</code> to <code>None</code> and scale it up to 700x700, et voilà!</p>
+<p><img src="https://u.peppe.rs/CH.png" /></p>
+</body>
+</html>
 
           </div>
           

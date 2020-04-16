@@ -37,28 +37,45 @@
             Get Better At Yanking And Putting In Vim
           </h1>
           <div class="post-text">
-            <ol start="1">
+            <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>get_better_at_yanking_and_putting_in_vim</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<p>a couple of nifty tricks to help you copy-paste better:</p>
+<ol type="1">
 <li><p>reselecting previously selected text (i use this to fix botched selections):</p>
-
-<pre><code>gv  &#34; :h gv for more
-    &#34; you can use `o` in visual mode to go to the `Other` end of the selection
-    &#34; use a motion to fix the selection
-</code></pre></li>
+<pre><code>gv  &quot; :h gv for more
+    &quot; you can use `o` in visual mode to go to the `Other` end of the selection
+    &quot; use a motion to fix the selection</code></pre></li>
 <li><p>reselecting previously yanked text:</p>
-
 <pre><code>`[v`]
-`[         &#34; marks the beginning of the previously yanked text   :h `[
-`]         &#34; marks the end                                       :h `]
- v         &#34; visual select everything in between
+`[         &quot; marks the beginning of the previously yanked text   :h `[
+`]         &quot; marks the end                                       :h `]
+ v         &quot; visual select everything in between
 
-nnoremap gb `[v`]    &#34; &#34;a quick map to perform the above
-</code></pre></li>
+nnoremap gb `[v`]    &quot; &quot;a quick map to perform the above</code></pre></li>
 <li><p>pasting and indenting text (in one go):</p>
-
-<pre><code>]p   &#34; put (p) and adjust indent to current line
-]P   &#34; put the text before the cursor (P) and adjust indent to current line
-</code></pre></li>
+<pre><code>]p   &quot; put (p) and adjust indent to current line
+]P   &quot; put the text before the cursor (P) and adjust indent to current line</code></pre></li>
 </ol>
+</body>
+</html>
 
           </div>
           

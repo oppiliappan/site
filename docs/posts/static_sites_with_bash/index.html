@@ -37,61 +37,99 @@
             Static Sites With Bash
           </h1>
           <div class="post-text">
-            <p>After going through a bunch of static site generators
-(<a href="https://blog.getpelican.com/">pelican</a>,
-<a href="https://gohugo.io">hugo</a>,
-<a href="https://github.com/icyphox/vite">vite</a>), I decided to roll
-my own. If you are more of the &#8216;show me the code&#8217; kinda guy,
-<a href="https://github.com/nerdypepper/site">here</a> you go.</p>
-
-<h3 id="Text%20formatting">Text formatting</h3>
-
-<p>I chose to write in markdown, and convert
-to html with <a href="https://kristaps.bsd.lv/lowdown/">lowdown</a>.</p>
-
-<h3 id="Directory%20structure">Directory structure</h3>
-
-<p>I host my site on GitHub pages, so
-<code>docs&#47;</code> has to be the entry point. Markdown formatted posts
-go into <code>posts&#47;</code>, get converted into html, and end up in
-<code>docs&#47;index.html</code>, something like this:</p>
-
-<pre><code>posts=$(ls -t .&#47;posts)     # chronological order!
-for f in $posts; do
-    file=&#34;.&#47;posts&#47;&#34;$f      # `ls` mangled our file paths
-    echo &#34;generating post $file&#34;
-
-    html=$(lowdown &#34;$file&#34;)
-    echo -e &#34;html&#34; &#62;&#62; docs&#47;index.html
-done
-</code></pre>
-
-<h3 id="Assets">Assets</h3>
-
-<p>Most static site generators recommend dropping image
-assets into the site source itself. That does have it&#8217;s
-merits, but I prefer hosting images separately:</p>
-
-<pre><code># strip file extension
-ext=&#34;${1##*.}&#34;
-
-# generate a random file name
-id=$( cat &#47;dev&#47;urandom | tr -dc &#39;a-zA-Z0-9&#39; | fold -w 2 | head -n 1 )
-id=&#34;$id.$ext&#34;
-
-# copy to my file host
-scp -P 443 &#34;$1&#34; emerald:files&#47;&#34;$id&#34; 
-echo &#34;https:&#47;&#47;u.peppe.rs&#47;$id&#34;
-</code></pre>
-
-<h3 id="Templating">Templating</h3>
-
-<p><a href="https://github.com/NerdyPepper/site/blob/master/generate.sh"><code>generate.sh</code></a>
-brings the above bits and pieces together (with some extra
-cruft to avoid javascript).  It uses <code>sed</code> to produce nice
-titles from the file names (removes underscores,
-title-case), and <code>date(1)</code> to add the date to each post
-listing!</p>
+            <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>static_sites_with_bash</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { font-weight: bold; } /* Alert */
+    code span.an { font-style: italic; } /* Annotation */
+    code span.cf { font-weight: bold; } /* ControlFlow */
+    code span.co { font-style: italic; } /* Comment */
+    code span.cv { font-style: italic; } /* CommentVar */
+    code span.do { font-style: italic; } /* Documentation */
+    code span.dt { text-decoration: underline; } /* DataType */
+    code span.er { font-weight: bold; } /* Error */
+    code span.in { font-style: italic; } /* Information */
+    code span.kw { font-weight: bold; } /* Keyword */
+    code span.pp { font-weight: bold; } /* Preprocessor */
+    code span.wa { font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<p>After going through a bunch of static site generators (<a href="https://blog.getpelican.com/">pelican</a>, <a href="https://gohugo.io">hugo</a>, <a href="https://github.com/icyphox/vite">vite</a>), I decided to roll my own. If you are more of the ‘show me the code’ kinda guy, <a href="https://github.com/nerdypepper/site">here</a> you go.</p>
+<h3 id="text-formatting">Text formatting</h3>
+<p>I chose to write in markdown, and convert to html with <a href="https://kristaps.bsd.lv/lowdown/">lowdown</a>.</p>
+<h3 id="directory-structure">Directory structure</h3>
+<p>I host my site on GitHub pages, so <code>docs/</code> has to be the entry point. Markdown formatted posts go into <code>posts/</code>, get converted into html, and end up in <code>docs/index.html</code>, something like this:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="va">posts=$(</span><span class="fu">ls</span> -t ./posts<span class="va">)</span>     <span class="co"># chronological order!</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">for</span> <span class="ex">f</span> in <span class="va">$posts</span><span class="kw">;</span> <span class="kw">do</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>    <span class="va">file=</span><span class="st">&quot;./posts/&quot;</span><span class="va">$f</span>      <span class="co"># `ls` mangled our file paths</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>    <span class="bu">echo</span> <span class="st">&quot;generating post </span><span class="va">$file</span><span class="st">&quot;</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a>    <span class="va">html=$(</span><span class="ex">lowdown</span> <span class="st">&quot;</span><span class="va">$file</span><span class="st">&quot;</span><span class="va">)</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>    <span class="bu">echo</span> -e <span class="st">&quot;html&quot;</span> <span class="op">&gt;&gt;</span> docs/index.html</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="kw">done</span></span></code></pre></div>
+<h3 id="assets">Assets</h3>
+<p>Most static site generators recommend dropping image assets into the site source itself. That does have it’s merits, but I prefer hosting images separately:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># strip file extension</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="va">ext=</span><span class="st">&quot;</span><span class="va">${1##</span>*.<span class="va">}</span><span class="st">&quot;</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># generate a random file name</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="va">id=$(</span> <span class="fu">cat</span> /dev/urandom <span class="kw">|</span> <span class="fu">tr</span> -dc <span class="st">&#39;a-zA-Z0-9&#39;</span> <span class="kw">|</span> <span class="ex">fold</span> -w 2 <span class="kw">|</span> <span class="fu">head</span> -n 1 <span class="va">)</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="va">id=</span><span class="st">&quot;</span><span class="va">$id</span><span class="st">.</span><span class="va">$ext</span><span class="st">&quot;</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co"># copy to my file host</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="fu">scp</span> -P 443 <span class="st">&quot;</span><span class="va">$1</span><span class="st">&quot;</span> emerald:files/<span class="st">&quot;</span><span class="va">$id</span><span class="st">&quot;</span> </span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="bu">echo</span> <span class="st">&quot;https://u.peppe.rs/</span><span class="va">$id</span><span class="st">&quot;</span></span></code></pre></div>
+<h3 id="templating">Templating</h3>
+<p><a href="https://github.com/NerdyPepper/site/blob/master/generate.sh"><code>generate.sh</code></a> brings the above bits and pieces together (with some extra cruft to avoid javascript). It uses <code>sed</code> to produce nice titles from the file names (removes underscores, title-case), and <code>date(1)</code> to add the date to each post listing!</p>
+</body>
+</html>
 
           </div>
           

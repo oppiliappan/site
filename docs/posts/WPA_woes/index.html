@@ -37,48 +37,52 @@
             WPA Woes
           </h1>
           <div class="post-text">
-            <p>I finally got around to installing Void GNU&#47;Linux on my main
-computer. Rolling release, non-systemd, need I say more?</p>
-
-<p>As with all GNU&#47;Linux distributions, wireless networks had
-me in a fix. If you can see this post, it means I&#39;ve managed
-to get online. It turns out, <code>wpa_supplicant</code> was detecting the
-wrong interface by default (does it ever select the right
-one?). Let us fix that:</p>
-
-<pre><code>$ sudo rm -r &#47;var&#47;service&#47;wpa_supplicant
-$ sudo killall dhcpcd
-</code></pre>
-
+            <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>WPA_woes</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<p>I finally got around to installing Void GNU/Linux on my main computer. Rolling release, non-systemd, need I say more?</p>
+<p>As with all GNU/Linux distributions, wireless networks had me in a fix. If you can see this post, it means I’ve managed to get online. It turns out, <code>wpa_supplicant</code> was detecting the wrong interface by default (does it ever select the right one?). Let us fix that:</p>
+<pre><code>$ sudo rm -r /var/service/wpa_supplicant
+$ sudo killall dhcpcd</code></pre>
 <p>What is the right interface though?</p>
-
 <pre><code>$ iw dev
    ...
    Interface wlp2s0
-   ...
-</code></pre>
-
-<p>Aha! Let us run <code>wpa_supplicant</code> on that interface, as a
-background process:</p>
-
-<pre><code>$ sudo wpa_supplicant -B -i wlp2s0 -c &#47;etc&#47;wpa_supplicant&#47;wpa_supplicant.conf
+   ...</code></pre>
+<p>Aha! Let us run <code>wpa_supplicant</code> on that interface, as a background process:</p>
+<pre><code>$ sudo wpa_supplicant -B -i wlp2s0 -c /etc/wpa_supplicant/wpa_supplicant.conf
 $ sudo dhcpcd -B wlp2s0
 $ ping google.com
-PING ...
-</code></pre>
-
+PING ...</code></pre>
 <p>Yay! Make those changes perpetual by enabling the service:</p>
-
 <pre><code>------------------------------------------------------
-# Add these to &#47;etc&#47;wpa_supplicant&#47;wpa_supplicant.conf
-OPTS=&#34;-B&#34;
-WPA_INTERFACE=&#34;wlp2s0&#34;
+# Add these to /etc/wpa_supplicant/wpa_supplicant.conf
+OPTS=&quot;-B&quot;
+WPA_INTERFACE=&quot;wlp2s0&quot;
 ------------------------------------------------------
-$ sudo ln -s &#47;etc&#47;sv&#47;wpa_supplicant &#47;var&#47;service&#47;
-$ sudo ln -s &#47;etc&#47;sv&#47;dhcpcd &#47;var&#47;service&#47;
+$ sudo ln -s /etc/sv/wpa_supplicant /var/service/
+$ sudo ln -s /etc/sv/dhcpcd /var/service/
 $ sudo sv restart wpa_supplicant
-$ sudo sv restart dhcpcd
-</code></pre>
+$ sudo sv restart dhcpcd</code></pre>
+</body>
+</html>
 
           </div>
           

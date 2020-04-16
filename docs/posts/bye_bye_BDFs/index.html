@@ -37,31 +37,34 @@
             Bye Bye BDFs
           </h1>
           <div class="post-text">
-            <p>Glyph Bitmap Distribution Format is no more, as the creators of
-<a href="https://pango.org">Pango</a>, one of the most widely used text rendering
-libraries,
-<a href="https://blogs.gnome.org/mclasen/2019/05/25/pango-future-directions/">announced</a>
-their plans for Pango 1.44.</p>
-
-<p>Until recently, Pango used FreeType to draw fonts. They will be moving over
-to <a href="https://harfbuzz.org">Harfbuzz</a>, an evolution of FreeType.</p>
-
+            <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>bye_bye_BDFs</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<p>Glyph Bitmap Distribution Format is no more, as the creators of <a href="https://pango.org">Pango</a>, one of the most widely used text rendering libraries, <a href="https://blogs.gnome.org/mclasen/2019/05/25/pango-future-directions/">announced</a> their plans for Pango 1.44.</p>
+<p>Until recently, Pango used FreeType to draw fonts. They will be moving over to <a href="https://harfbuzz.org">Harfbuzz</a>, an evolution of FreeType.</p>
 <p><em>Why?</em></p>
-
-<p>In short, FreeType was hard to work with. It required complex logic, and 
-provided no advantage over Harfbuzz (other than being able to fetch
-opentype metrics with ease).</p>
-
-<p>Upgrading to Pango v1.44 will break your GTK applications (if you use a
-<code>bdf</code>&#47;<code>pcf</code> bitmap font). Harfbuzz <em>does</em> support bitmap-only OpenType fonts,
-<code>otb</code>s. Convert your existing fonts over to <code>otb</code>s using
-<a href="https://fontforge.github.io">FontForge</a>. It is to be noted that applications
-such as <code>xterm</code> and <code>rxvt</code> use <code>xft</code> (X FreeType) to render fonts, and will
-remain unaffected by the update.</p>
-
-<p>Both <a href="https://github.com/nerdypepper/scientifica">scientifica</a> and
-<a href="https://github.com/nerdypepper/curie">curie</a> will soon ship with bitmap-only
-OpenType font formats.</p>
+<p>In short, FreeType was hard to work with. It required complex logic, and provided no advantage over Harfbuzz (other than being able to fetch opentype metrics with ease).</p>
+<p>Upgrading to Pango v1.44 will break your GTK applications (if you use a <code>bdf</code>/<code>pcf</code> bitmap font). Harfbuzz <em>does</em> support bitmap-only OpenType fonts, <code>otb</code>s. Convert your existing fonts over to <code>otb</code>s using <a href="https://fontforge.github.io">FontForge</a>. It is to be noted that applications such as <code>xterm</code> and <code>rxvt</code> use <code>xft</code> (X FreeType) to render fonts, and will remain unaffected by the update.</p>
+<p>Both <a href="https://github.com/nerdypepper/scientifica">scientifica</a> and <a href="https://github.com/nerdypepper/curie">curie</a> will soon ship with bitmap-only OpenType font formats.</p>
+</body>
+</html>
 
           </div>
           
