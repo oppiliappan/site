@@ -1,5 +1,9 @@
 ### peppe.rs
 
-my blog, put together with a very basic static site generator crafted with
-`bash` and `sed`; `lowdown` for markdown to html.
+my technical blog, put together with:
+ - bash: string and file manipulation
+ - [esh](https://github.com/jirutka/esh): html templating
+ - [pandoc](https://pandoc.org/): markdown to html conversion
+ - sed: case conversions
+ - [eva](https://github.com/nerdypepper/eva): floating point calculations
 
