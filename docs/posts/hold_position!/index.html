@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/syntax.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1">
     <meta content="#ffffff" name="theme-color">
@@ -37,27 +38,7 @@
             Hold Position!
           </h1>
           <div class="post-text">
-            <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
-<head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>hold_position!</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-  </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
-</head>
-<body>
-<p>Often times, when I run a vim command that makes “big” changes to a file (a macro or a <code>:vimgrep</code> command) I lose my original position and feel disoriented.</p>
+            <p>Often times, when I run a vim command that makes “big” changes to a file (a macro or a <code>:vimgrep</code> command) I lose my original position and feel disoriented.</p>
 <p><em>Save position with <code>winsaveview()</code>!</em></p>
 <p>The <code>winsaveview()</code> command returns a <code>Dictionary</code> that contains information about the view of the current window. This includes the cursor line number, cursor coloumn, the top most line in the window and a couple of other values, none of which concern us.</p>
 <p>Before running our command (one that jumps around the buffer, a lot), we save our view, and restore it once its done, with <code>winrestview</code>.</p>
@@ -65,13 +46,15 @@
 s/\s\+$//gc              &quot; find and (confirm) replace trailing blanks
 winrestview(view)        &quot; restore our original view!</code></pre>
 <p>It might seem a little overkill in the above example, just use `` (double backticks) instead, but it comes in handy when you run your file through heavier filtering.</p>
-</body>
-</html>
 
           </div>
           
     <div class=intro>
-        Hi. <a href=https://peppe.rs/index.xml class=feed-button>Subscribe</a>
+        Hi. 
+        <div class=hot-links>
+            <a href=https://peppe.rs/index.xml class=feed-button>Subscribe</a>
+            <a href=https://liberapay.com/nerdypepper/donate class=donate-button>Donate</a>
+        </div>
         <p>I'm Akshay, I go by nerd or nerdypepper on the internet.</p>
         <p>
         I am a compsci undergrad, Rust programmer and an enthusiastic Vimmer.

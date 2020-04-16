@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/syntax.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1">
     <meta content="#ffffff" name="theme-color">
@@ -37,27 +38,7 @@
             Call To ARMs
           </h1>
           <div class="post-text">
-            <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
-<head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>call_to_ARMs</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-  </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
-</head>
-<body>
-<p>My 4th semester involves ARM programming. And proprietary tooling (Keil C). But we don’t do that here.</p>
+            <p>My 4th semester involves ARM programming. And proprietary tooling (Keil C). But we don’t do that here.</p>
 <h3 id="building">Building</h3>
 <p>Assembling and linking ARM binaries on non-ARM architecture devices is fairly trivial. I went along with the GNU cross bare metal toolchain binutils, which provides <code>arm-as</code> and <code>arm-ld</code> (among a bunch of other utils that I don’t care about for now).</p>
 <p>Assemble <code>.s</code> files with:</p>
@@ -88,13 +69,15 @@ Reading symbols from main...  # yay!</code></pre>
 <p><a href="https://u.peppe.rs/wq.png"><img src="https://u.peppe.rs/wq.png" /></a></p>
 <h3 id="editing">Editing</h3>
 <p>Vim, with <code>syntax off</code> because it dosen’t handle GNU ARM syntax too well.</p>
-</body>
-</html>
 
           </div>
           
     <div class=intro>
-        Hi. <a href=https://peppe.rs/index.xml class=feed-button>Subscribe</a>
+        Hi. 
+        <div class=hot-links>
+            <a href=https://peppe.rs/index.xml class=feed-button>Subscribe</a>
+            <a href=https://liberapay.com/nerdypepper/donate class=donate-button>Donate</a>
+        </div>
         <p>I'm Akshay, I go by nerd or nerdypepper on the internet.</p>
         <p>
         I am a compsci undergrad, Rust programmer and an enthusiastic Vimmer.

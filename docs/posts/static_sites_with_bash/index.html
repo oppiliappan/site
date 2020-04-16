@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/syntax.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1">
     <meta content="#ffffff" name="theme-color">
@@ -37,71 +38,7 @@
             Static Sites With Bash
           </h1>
           <div class="post-text">
-            <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
-<head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>static_sites_with_bash</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-      }
-    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-    div.sourceCode
-      {   }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span.al { font-weight: bold; } /* Alert */
-    code span.an { font-style: italic; } /* Annotation */
-    code span.cf { font-weight: bold; } /* ControlFlow */
-    code span.co { font-style: italic; } /* Comment */
-    code span.cv { font-style: italic; } /* CommentVar */
-    code span.do { font-style: italic; } /* Documentation */
-    code span.dt { text-decoration: underline; } /* DataType */
-    code span.er { font-weight: bold; } /* Error */
-    code span.in { font-style: italic; } /* Information */
-    code span.kw { font-weight: bold; } /* Keyword */
-    code span.pp { font-weight: bold; } /* Preprocessor */
-    code span.wa { font-style: italic; } /* Warning */
-  </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
-</head>
-<body>
-<p>After going through a bunch of static site generators (<a href="https://blog.getpelican.com/">pelican</a>, <a href="https://gohugo.io">hugo</a>, <a href="https://github.com/icyphox/vite">vite</a>), I decided to roll my own. If you are more of the ‘show me the code’ kinda guy, <a href="https://github.com/nerdypepper/site">here</a> you go.</p>
+            <p>After going through a bunch of static site generators (<a href="https://blog.getpelican.com/">pelican</a>, <a href="https://gohugo.io">hugo</a>, <a href="https://github.com/icyphox/vite">vite</a>), I decided to roll my own. If you are more of the ‘show me the code’ kinda guy, <a href="https://github.com/nerdypepper/site">here</a> you go.</p>
 <h3 id="text-formatting">Text formatting</h3>
 <p>I chose to write in markdown, and convert to html with <a href="https://kristaps.bsd.lv/lowdown/">lowdown</a>.</p>
 <h3 id="directory-structure">Directory structure</h3>
@@ -128,13 +65,15 @@
 <span id="cb2-10"><a href="#cb2-10"></a><span class="bu">echo</span> <span class="st">&quot;https://u.peppe.rs/</span><span class="va">$id</span><span class="st">&quot;</span></span></code></pre></div>
 <h3 id="templating">Templating</h3>
 <p><a href="https://github.com/NerdyPepper/site/blob/master/generate.sh"><code>generate.sh</code></a> brings the above bits and pieces together (with some extra cruft to avoid javascript). It uses <code>sed</code> to produce nice titles from the file names (removes underscores, title-case), and <code>date(1)</code> to add the date to each post listing!</p>
-</body>
-</html>
 
           </div>
           
     <div class=intro>
-        Hi. <a href=https://peppe.rs/index.xml class=feed-button>Subscribe</a>
+        Hi. 
+        <div class=hot-links>
+            <a href=https://peppe.rs/index.xml class=feed-button>Subscribe</a>
+            <a href=https://liberapay.com/nerdypepper/donate class=donate-button>Donate</a>
+        </div>
         <p>I'm Akshay, I go by nerd or nerdypepper on the internet.</p>
         <p>
         I am a compsci undergrad, Rust programmer and an enthusiastic Vimmer.
