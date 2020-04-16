@@ -45,7 +45,11 @@ link_wrapper() {
 intro() {
     echo -ne "
     <div class="intro">
-        Hi. <a href="https://peppe.rs/index.xml" class="feed-button">Subscribe</a>
+        Hi. 
+        <div class="hot-links">
+            <a href="https://peppe.rs/index.xml" class="feed-button">Subscribe</a>
+            <a href="https://liberapay.com/nerdypepper/donate" class="donate-button">Donate</a>
+        </div>
         <p>I'm Akshay, I go by nerd or nerdypepper on the internet.</p>
         <p>
         I am a compsci undergrad, Rust programmer and an enthusiastic Vimmer.
