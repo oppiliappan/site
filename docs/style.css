@@ -1,6 +1,7 @@
 @import url('https://rsms.me/inter/inter.css');
+@import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@3/distr/fira_code.css);
 
-.hot-links {
+div.hot-links {
   float: right;
   padding: 0.3rem 0rem;
   margin: -0.5rem 0;
@@ -35,12 +36,12 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-  --cyan: #79ffe1;
-  --pink: #ff3299;
-  --black: #dedede;
-  --light-black: #ccc;
-  --white: #000;
-  --dark-white: #323232;
+    --cyan: #79ffe1;
+    --pink: #ff3299;
+    --black: #dedede;
+    --light-black: #ccc;
+    --white: #000;
+    --dark-white: #323232;
   }
   ::-moz-selection, ::selection {
     color: var(--white);
@@ -137,7 +138,13 @@ pre:not(.sourceCode),div.sourceCode {
 }
 
 pre, code {
-  font-family: monospace;
+  font-family: 'Fira Code', monospace;
+}
+
+@supports (font-variation-settings: normal) {
+  pre, code {
+    font-family: 'Fira Code VF', monospace;  
+  }
 }
 
 code {
@@ -221,11 +228,11 @@ hr {
   font-style: italic;
 
   display:inline-block;
-    -webkit-transform:scale(1,1.2);
-    -moz-transform:scale(1,1.2);
-    -ms-transform:scale(1,1.2);
-    -o-transform:scale(1,1.2);
-    transform:scale(1,1.2);
+  -webkit-transform:scale(1,1.2);
+  -moz-transform:scale(1,1.2);
+  -ms-transform:scale(1,1.2);
+  -o-transform:scale(1,1.2);
+  transform:scale(1,1.2);
 }
 
 a, a:hover, a:visited, a:active {
