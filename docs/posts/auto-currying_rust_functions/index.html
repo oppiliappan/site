@@ -115,9 +115,9 @@ We have placed <code>?</code>s in place of return types. Let’s try to fix that
 A function cannot access it’s environment. Our solution will not work. <code>add_curried3</code> attempts to access <code>x</code>, which is not allowed! A closure<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> however, can. If we are returning a closure, our return type must be <code>impl Fn</code>, and not <code>fn</code>. The difference between the <code>Fn</code> trait and function pointers is beyond the scope of this post.</p>
 <h3 id="refinement">Refinement</h3>
 <p>Armed with knowledge, we refine our expected output, this time, employing closures:</p>
-<pre><code>fn add(x: u32) -&gt; impl Fn(u32) -&gt; impl Fn(u32) -&gt; u32 {
-  return move |y| move |z| x + y + z;
-}</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">fn</span> add(x<span class="op">:</span> <span class="dt">u32</span>) <span class="op">-&gt;</span> <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) <span class="op">-&gt;</span> <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) <span class="op">-&gt;</span> <span class="dt">u32</span> <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="kw">return</span> <span class="kw">move</span> <span class="op">|</span>y<span class="op">|</span> <span class="kw">move</span> <span class="op">|</span>z<span class="op">|</span> x <span class="op">+</span> y <span class="op">+</span> z<span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="op">}</span></span></code></pre></div>
 <p>Alas, that does not compile either! It errors out with the following message:</p>
 <pre><code>error[E0562]: `impl Trait` not allowed outside of function
 and inherent method return types

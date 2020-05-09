@@ -150,7 +150,7 @@ function pointers is beyond the scope of this post.
 Armed with knowledge, we refine our expected output, this
 time, employing closures:
 
-```
+```rust
 fn add(x: u32) -> impl Fn(u32) -> impl Fn(u32) -> u32 {
   return move |y| move |z| x + y + z;
 }
