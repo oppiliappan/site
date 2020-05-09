@@ -19,6 +19,7 @@ div.hot-links {
 }
 
 ::-moz-selection, ::selection {
+  color: var(--black);
   background: var(--cyan);
 }
 
@@ -67,6 +68,7 @@ body {
 }
 
 html {
+  scroll-behavior: smooth;
   padding: 0;
   line-height: 1.5;
   font-size: 18px;

@@ -1,19 +1,44 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-    <channel>
-      <title>nerdypepper's μblog</title>
-      <link>https://peppe.rs</link>
-      <description>programming, design, software</description>
-      <atom:link href="https://peppe.rs/index.xml" rel="self" type="application/rss+xml" />
-      <image>
-        <title>nerdypepper's μblog</title>
-        <url>https://u.peppe.rs/n.png</url>
-        <link>https://peppe.rs</link>
-      </image>
-      <language>en-us</language>
-      <copyright>Creative Commons BY-NC-SA 4.0</copyright>
-      <item>
-<title>Auto-currying Rust Functions</title>
-<description><p>This post contains a gentle introduction to procedural macros in Rust and a guide to writing a procedural macro to curry Rust functions. The source code for the entire library can be found <a href="https://github.com/nerdypepper/cutlass">here</a>. It is also available on <a href="https://crates.io/crates/cutlass">crates.io</a>.</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/syntax.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1">
+    <meta content="#ffffff" name="theme-color">
+    <meta name="HandheldFriendly" content="true">
+    <meta property="og:title" content="Auto-currying Rust Functions">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="a static site {for, by, about} me ">
+    <meta property="og:url" content="https://peppe.rs">
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
+    <title>Auto-currying Rust Functions · peppe.rs</title>
+    <body>
+      <div class="posts">
+        <div class="post">
+          <a href="/" class="post-end-link">⟵ Back</a>
+          <a class="stats post-end-link" href="https://raw.githubusercontent.com/nerdypepper/site/master/posts/auto-currying_rust_functions.md
+">View Raw</a>
+          <div class="separator"></div>
+          <div class="date">
+            09/05 — 2020
+            <div class="stats">
+              <span class="stats-number">
+                356.43
+              </span>
+              <span class="stats-unit">cm</span>
+              &nbsp
+              <span class="stats-number">
+                25.1
+              </span>
+              <span class="stats-unit">min</span>
+            </div>
+          </div>
+          <h1>
+            Auto-currying Rust Functions
+          </h1>
+          <div class="post-text">
+            <p>This post contains a gentle introduction to procedural macros in Rust and a guide to writing a procedural macro to curry Rust functions. The source code for the entire library can be found <a href="https://github.com/nerdypepper/cutlass">here</a>. It is also available on <a href="https://crates.io/crates/cutlass">crates.io</a>.</p>
 <p>The following links might prove to be useful before getting started:</p>
 <ul>
 <li><a href="https://doc.rust-lang.org/reference/procedural-macros.html">Procedural Macros</a></li>
@@ -498,448 +523,28 @@ test tests::works ... ok</code></pre>
 <li id="fn1" role="doc-endnote"><p><a href="https://doc.rust-lang.org/book/ch13-01-closures.html">https://doc.rust-lang.org/book/ch13-01-closures.html</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2" role="doc-endnote"><p><a href="https://caniuse.rs">caniuse.rs</a> contains an indexed list of features and their status.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section></description>
-<link>https://peppe.rs/posts/auto-currying_rust_functions/</link>
-<pubDate>Sat, 09 May 2020 06:07:00 +0000</pubDate>
-<guid>https://peppe.rs/posts/auto-currying_rust_functions/</guid>
-</item>
-<item>
-<title>Pixel Art In GIMP</title>
-<description><p>I’ve always been an admirer of pixel art, because of it’s simplicity and it’s resemblance to bitmap font design. Recently, I decided to take the dive and make some art of my own.</p>
-<p>I used GIMP because I am fairly familiar with it. Aseprite seems to be the editor of choice for animated pixel art though.</p>
-<h3 id="setting-up-the-canvas">Setting up the canvas</h3>
-<p>Picking a canvas size is daunting. Too small, and you won’t be able to fit in enough detail to make a legible piece. Too big and you’ve got too many pixels to work with!</p>
-<p>I would suggest starting out with anywhere between 100x100 and 200x200. <a href="https://u.peppe.rs/u9.png">Here’s</a> a sample configuration.</p>
-<p>Sometimes I use a 10x10 grid, <code>View &gt; Show Grid</code> and <code>Edit &gt; Preferences &gt; Default Grid &gt; Spacing</code>, but that can get jarring, so I throw down a couple of guides, drag right or down from the left or top gutters for vertical and horizontal guides respectively.</p>
-<h3 id="choosing-a-brush">Choosing a Brush</h3>
-<p>The most important part of our setup is the brush. Use the Pencil Tool (<code>n</code> on the keyboard) for hard edge drawings. Here’s a small comparison if you don’t know the difference between a hard edge and a soft edge:</p>
-<figure>
-<img src="https://u.peppe.rs/kz.png" alt="" /><figcaption>Hard edge vs Soft Edge</figcaption>
-</figure>
-<p>I turn the size down all the way to 1 (<code>[</code> on the keyboard). Set <code>Dynamics</code> off. <a href="https://u.peppe.rs/Fs.png">Here’s</a> a sample brush configuration.</p>
-<h3 id="laying-down-the-pixels">Laying down the pixels!</h3>
-<p>With the boring stuff out of the way, we can start with our piece. I usually follow a three step process:</p>
-<ul>
-<li>draw a rough outline</li>
-<li>fill in the shadows</li>
-<li>add highlights</li>
-</ul>
-<p>But this process is better explained with an example: an onigiri. Let us start off with a 100x100 canvas.</p>
-<h4 id="drawing-the-outline">Drawing the outline</h4>
-<p>For the most part, our figure will be symmetric. If you are on GIMP 2.10+, you can take advantage of the Symmetry Painting feature. Go ahead and enable vertical symmetry, <code>Window &gt; Dockable Dialogs &gt; Symmetry Painting</code> and <code>Symmetry Painting &gt; Symmetry &gt; Mirror &gt; Vertical</code>.</p>
-<p>If you are running an older version of GIMP, draw in the left side, duplicate the layer, flip it horizontally, and merge it with the original.</p>
-<p>Your outline might look something like this:</p>
-<p><img src="https://u.peppe.rs/mn.png" /></p>
-<p>Go ahead and fill it in with the fill tool (<code>Shift + b</code> on the keyboard), add in some seaweed as well, preferably on a different layer. You can toggle symmetry on and off to save yourself some time.</p>
-<p><img src="https://u.peppe.rs/xu.png" /></p>
-<h4 id="shadows">Shadows</h4>
-<p>For now, let us focus on the shadows on the object itself, we’ll come back to the shadows cast by the object on the surface later.</p>
-<p>Shadows on any surface always follow the shape of the surface. A spherical onigiri would have a circular shadow:</p>
-<p><img src="https://u.peppe.rs/FU.png" /></p>
-<p>A couple of noticeable changes:</p>
-<p><strong>Layers</strong>: The layer containing the seaweed has been hidden.<br />
-<strong>Color</strong>: The color of the shadow is just a slightly lighter version of the original object (reduce the Value on the HSV scale).<br />
-<strong>Area</strong>: The shadow does not go all the way (notice the bottom edges).</p>
-<p>The shadow does not go all the way because we will be filling in that area with another, darker shadow! An image might explain better:</p>
-<p><img src="https://u.peppe.rs/Br.png" /></p>
-<p>To emulate soft lights, reduce the value by 2 to 3 points every iteration. Notice how area <code>1</code> is much larger than area <code>4</code>. This is because an onigiri resembles a bottom heavy oblate spheroid, a sphere that is slightly fatter around the lower bottom, and areas <code>1</code> and <code>2</code> catch more light than areas <code>3</code> and <code>4</code>.</p>
-<p>Do the same with the seaweed. The seaweed, being a smaller, flatter object, doesn’t cast much of a shadow, so stop with 1 or 2 iterations of the gradient:</p>
-<p><img src="https://u.peppe.rs/T3.png" /></p>
-<p>We’re getting there!</p>
-<h4 id="highlights">Highlights</h4>
-<p>This step handles the details on the strongly illuminated portions of the object. Seaweed is a bit glossy, lighten the edges to make it seem shiny. The rice is not as shiny, but it does form an uneven surface. Add in some shadows to promote the idea of rice grains. Here is the finished result:</p>
-<p><img src="https://u.peppe.rs/VE.png" /></p>
-<h3 id="finishing-touches">Finishing Touches</h3>
-<p>Some color correction and <code>a e s t h e t i c</code> Japanese text later, our piece is complete!</p>
-<p><img src="https://u.peppe.rs/cn.png" /></p>
-<p>Hold on, why is it so tiny? Well, that’s because our canvas was 100x100, head over to <code>Image &gt; Scale Image</code>, set <code>Quality &gt; Interpolation</code> to <code>None</code> and scale it up to 700x700, et voilà!</p>
-<p><img src="https://u.peppe.rs/CH.png" /></p></description>
-<link>https://peppe.rs/posts/pixel_art_in_GIMP/</link>
-<pubDate>Thu, 09 Apr 2020 16:28:00 +0000</pubDate>
-<guid>https://peppe.rs/posts/pixel_art_in_GIMP/</guid>
-</item>
-<item>
-<title>Rapid Refactoring With Vim</title>
-<description><p>Last weekend, I was tasked with refactoring the 96 unit tests on <a href="https://github.com/ruma/ruma-events/pull/70">ruma-events</a> to use strictly typed json objects using <code>serde_json::json!</code> instead of raw strings. It was rather painless thanks to vim :)</p>
-<p>Here’s a small sample of what had to be done (note the lines prefixed with the arrow):</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1"></a>→ <span class="kw">use</span> <span class="pp">serde_json::</span><span class="op">{</span>from_str<span class="op">};</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>  </span>
-<span id="cb1-3"><a href="#cb1-3"></a>  <span class="at">#[</span>test<span class="at">]</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>  <span class="kw">fn</span> deserialize() <span class="op">{</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a>    <span class="pp">assert_eq!</span>(</span>
-<span id="cb1-6"><a href="#cb1-6"></a>→       <span class="pp">from_str::</span><span class="op">&lt;</span>Action<span class="op">&gt;</span>(<span class="st">r#&quot;{&quot;set_tweak&quot;: &quot;highlight&quot;}&quot;#</span>)<span class="op">,</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>        <span class="pp">Action::</span>SetTweak(<span class="pp">Tweak::</span>Highlight <span class="op">{</span> value<span class="op">:</span> <span class="cn">true</span> <span class="op">}</span>)</span>
-<span id="cb1-8"><a href="#cb1-8"></a>        )<span class="op">;</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a>  <span class="op">}</span></span></code></pre></div>
-<p>had to be converted to:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1"></a>→ <span class="kw">use</span> <span class="pp">serde_json::</span><span class="op">{</span>from_value<span class="op">};</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>  </span>
-<span id="cb2-3"><a href="#cb2-3"></a>  <span class="at">#[</span>test<span class="at">]</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>  <span class="kw">fn</span> deserialize() <span class="op">{</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>    <span class="pp">assert_eq!</span>(</span>
-<span id="cb2-6"><a href="#cb2-6"></a>→       <span class="pp">from_value::</span><span class="op">&lt;</span>Action<span class="op">&gt;</span>(<span class="pp">json!</span>(<span class="op">{</span><span class="st">&quot;set_tweak&quot;</span><span class="op">:</span> <span class="st">&quot;highlight&quot;</span><span class="op">}</span>))<span class="op">,</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a>        <span class="pp">Action::</span>SetTweak(<span class="pp">Tweak::</span>Highlight <span class="op">{</span> value<span class="op">:</span> <span class="cn">true</span> <span class="op">}</span>)</span>
-<span id="cb2-8"><a href="#cb2-8"></a>        )<span class="op">;</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a>  <span class="op">}</span></span></code></pre></div>
-<h3 id="the-arglist">The arglist</h3>
-<p>For the initial pass, I decided to handle imports, this was a simple find and replace operation, done to all the files containing tests. Luckily, modules (and therefore files) containing tests in Rust are annotated with the <code>#[cfg(test)]</code> attribute. I opened all such files:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># `grep -l pattern files` lists all the files</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="co">#  matching the pattern</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="ex">vim</span> <span class="va">$(</span><span class="fu">grep</span> -l <span class="st">&#39;cfg\(test\)&#39;</span> ./**/*.rs<span class="va">)</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="co"># expands to something like:</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="ex">vim</span> push_rules.rs room/member.rs key/verification/lib.rs</span></code></pre></div>
-<p>Starting vim with more than one file at the shell prompt populates the arglist. Hit <code>:args</code> to see the list of files currently ready to edit. The square [brackets] indicate the current file. Navigate through the arglist with <code>:next</code> and <code>:prev</code>. I use tpope’s vim-unimpaired <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, which adds <code>]a</code> and <code>[a</code>, mapped to <code>:next</code> and <code>:prev</code>.</p>
-<p>All that’s left to do is the find and replace, for which we will be using vim’s <code>argdo</code>, applying a substitution to every file in the arglist:</p>
-<pre><code>:argdo s/from_str/from_value/g</code></pre>
-<h3 id="the-quickfix-list">The quickfix list</h3>
-<p>Next up, replacing <code>r#" ... "#</code> with <code>json!( ... )</code>. I couldn’t search and replace that trivially, so I went with a macro call <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> instead, starting with the cursor on ‘r’, represented by the caret, in my attempt to breakdown the process:</p>
-<pre><code>BUFFER:    r#&quot; ... &quot;#;
-           ^
+</section>
 
-ACTION:    vllsjson!(
-
-BUFFER     json!( ... &quot;#;
-                ^
-
-ACTION:    &lt;esc&gt;$F#
-
-BUFFER:    json!( ... &quot;#;
-                       ^
-
-ACTION:    vhs)&lt;esc&gt;
-
-BUFFER:    json!( ... );</code></pre>
-<p>Here’s the recorded <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> macro in all its glory: <code>vllsjson!(&lt;esc&gt;$F#vhs)&lt;esc&gt;</code>.</p>
-<p>Great! So now we just go ahead, find every occurrence of <code>r#</code> and apply the macro right? Unfortunately, there were more than a few occurrences of raw strings that had to stay raw strings. Enter, the quickfix list.</p>
-<p>The idea behind the quickfix list is to jump from one position in a file to another (maybe in a different file), much like how the arglist lets you jump from one file to another.</p>
-<p>One of the easiest ways to populate this list with a bunch of positions is to use <code>vimgrep</code>:</p>
-<pre><code># basic usage
-:vimgrep pattern files
-
-# search for raw strings
-:vimgrep &#39;r#&#39; ./**/*.rs</code></pre>
-<p>Like <code>:next</code> and <code>:prev</code>, you can navigate the quickfix list with <code>:cnext</code> and <code>:cprev</code>. Every time you move up or down the list, vim indicates your index:</p>
-<pre><code>(1 of 131): r#&quot;{&quot;set_tweak&quot;: &quot;highlight&quot;}&quot;#;</code></pre>
-<p>And just like <code>argdo</code>, you can <code>cdo</code> to apply commands to <em>every</em> match in the quickfix list:</p>
-<pre><code>:cdo norm! @q</code></pre>
-<p>But, I had to manually pick out matches, and it involved some button mashing.</p>
-<h3 id="external-filtering">External Filtering</h3>
-<p>Some code reviews later, I was asked to format all the json inside the <code>json!</code> macro. All you have to do is pass a visual selection through a pretty json printer. Select the range to be formatted in visual mode, and hit <code>:</code>, you will notice the command line displaying what seems to be gibberish:</p>
-<pre><code>:&#39;&lt;,&#39;&gt;</code></pre>
-<p><code>'&lt;</code> and <code>'&gt;</code> are <em>marks</em> <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. More specifically, they are marks that vim sets automatically every time you make a visual selection, denoting the start and end of the selection.</p>
-<p>A range is one or more line specifiers separated by a <code>,</code>:</p>
-<pre><code>:1,7       lines 1 through 7
-:32        just line 32
-:.         the current line
-:.,$       the current line to the last line
-:&#39;a,&#39;b     mark &#39;a&#39; to mark &#39;b&#39;</code></pre>
-<p>Most <code>:</code> commands can be prefixed by ranges. <code>:help usr_10.txt</code> for more on that.</p>
-<p>Alright, lets pass json through <code>python -m json.tool</code>, a json formatter that accepts <code>stdin</code> (note the use of <code>!</code> to make use of an external program):</p>
-<pre><code>:&#39;&lt;,&#39;&gt;!python -m json.tool</code></pre>
-<p>Unfortunately that didn’t quite work for me because the range included some non-json text as well, a mix of regex and macros helped fix that. I think you get the drift.</p>
-<p>Another fun filter I use from time to time is <code>:!sort</code>, to sort css attributes, or <code>:!uniq</code> to remove repeated imports.</p>
-<section class="footnotes" role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1" role="doc-endnote"><p>https://github.com/tpope/vim-unimpaired It also handles various other mappings, <code>]q</code> and <code>[q</code> to navigate the quickfix list for example<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p><code>:help recording</code><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>When I’m recording a macro, I prefer starting out by storing it in register <code>q</code>, and then copying it over to another register if it works as intended. I think of <code>qq</code> as ‘quick record’.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4" role="doc-endnote"><p><code>:help mark-motions</code><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section></description>
-<link>https://peppe.rs/posts/rapid_refactoring_with_vim/</link>
-<pubDate>Wed, 01 Apr 2020 06:29:00 +0000</pubDate>
-<guid>https://peppe.rs/posts/rapid_refactoring_with_vim/</guid>
-</item>
-<item>
-<title>Font Size Fallacies</title>
-<description><p>I am not an expert with fonts, but I do have some experience <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, and common sense. This post aims to debunk some misconceptions about font sizes!</p>
-<p>11 px on your display is <em>probably not</em> 11 px on my display. Let’s do some quick math. I have two displays, 1366x768 @ 21" and another with 1920x1080 @ 13", call them <code>A</code> and <code>B</code> for now.</p>
-<p>Display <code>A</code> has 1,049,088 pixels. A pixel is a square, of side say, <code>s</code> cm. The total area covered by my 21" display is about 1,066 cm^2 (41x26). Thus,</p>
-<pre><code>Display A
-Dimensions: 1366x768 @ 21&quot; (41x26 sq. cm)
-1,049,088 s^2 = 1066
-            s = 0.0318 cm (side of a pixel on Display A)</code></pre>
-<p>Bear with me, as I repeat the number crunching for Display <code>B</code>:</p>
-<pre><code>Display B
-Dimensions: 1920x1080 @ 13&quot; (29.5x16.5 sq. cm)
-2,073,600 s^2 = 486.75
-            s = 0.0153 cm (side of a pixel on Display B)</code></pre>
-<p>The width of a pixel on Display <code>A</code> is <em>double</em> the width of a pixel on Display <code>B</code>. The area occupied by a pixel on Display <code>A</code> is <em>4 times</em> the area occupied by a pixel on Display <code>B</code>.</p>
-<p><em>The size of a pixel varies from display to display!</em></p>
-<p>A 5x11 bitmap font on Display <code>A</code> would be around 4 mm tall whereas the same bitmap font on Display <code>B</code> would be around 1.9 mm tall. A 11 px tall character on <code>B</code> is visually equivalent to a 5 px character on <code>A</code>. When you view a screenshot of Display <code>A</code> on Display <code>B</code>, the contents are shrunk down by a factor of 2!</p>
-<p>So screen resolution is not enough, how else do we measure size? Pixel Density! Keen readers will realize that the 5^th grade math problem we solved up there showcases pixel density, or, pixels per cm (PPCM). Usually we deal with pixels per inch (PPI).</p>
-<p><strong>Note:</strong> PPI is not to be confused with DPI <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> (dots per inch). DPI is defined for printers.</p>
-<p>In our example, <code>A</code> is a 75 ppi display and <code>B</code> is around 165 ppi <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. A low ppi display appears to be ‘pixelated’, because the pixels are more prominent, much like Display <code>A</code>. A higher ppi usually means you can view larger images and render crispier fonts. The average desktop display can stuff 100-200 pixels per inch. Smart phones usually fall into the 400-600 ppi (XXXHDPI) category. The human eye fails to differentiate detail past 300 ppi.</p>
-<p><em>So … streaming an 8K video on a 60" TV provides the same clarity as a HD video on a smart phone?</em></p>
-<p>Absolutely. Well, clarity is subjective, but the amount of detail you can discern on mobile displays has always been limited. Salty consumers of the Xperia 1 <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> will say otherwise.</p>
-<p>Maybe I will talk about font rendering in another post, but thats all for now. Don’t judge a font size by its screenshot.</p>
-<section class="footnotes" role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1" role="doc-endnote"><p>https://github.com/nerdypepper/scientifica<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>https://en.wikipedia.org/wiki/Dots_per_inch<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>https://www.sven.de/dpi/<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4" role="doc-endnote"><p>https://en.wikipedia.org/wiki/Sony_Xperia_1<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section></description>
-<link>https://peppe.rs/posts/font_size_fallacies/</link>
-<pubDate>Tue, 17 Mar 2020 16:52:00 +0000</pubDate>
-<guid>https://peppe.rs/posts/font_size_fallacies/</guid>
-</item>
-<item>
-<title>Termux Tandem</title>
-<description><p>I learnt about <code>termux</code> from a friend on IRC recently. It looked super gimmicky to me at first, but it eventually proved to be useful. Here’s what I use it for:</p>
-<h3 id="rsync">rsync</h3>
-<p>Ever since I degoogled my android device, syncing files between my phone and my PC has always been a pain. I’m looking at you MTP. But, with <code>termux</code> and <code>sshd</code> all set up, it’s as simple as:</p>
-<pre><code>$ arp
-Address         HWtype  HWad ...
-192.168.43.187  ether   d0:0 ...
-
-$ rsync -avz 192.168.43.187:~/frogs ~/pics/frogs</code></pre>
-<h3 id="ssh-tmux">ssh &amp; tmux</h3>
-<p>My phone doubles as a secondary view into my main machine with <code>ssh</code> and <code>tmux</code>. When I am away from my PC (read: sitting across the room), I check build status and IRC messages by <code>ssh</code>ing into a tmux session running the said build or weechat.</p>
-<h3 id="file-uploads">file uploads</h3>
-<p>Not being able to access my (ssh-only) file host was crippling. With a <code>bash</code> instance on my phone, I just copied over my ssh keys, and popped in a file upload script (a glorified <code>scp</code>). Now I just have to figure out a way to clean up these file names …</p>
-<pre><code>~/storage/pictures/ $ ls
-02muf5g7b2i41.jpg  7alt3cwg77841.jpg  cl4bsrge7id11.png
-mtZabXG.jpg        p8d5c584f2841.jpg  vjUxGjq.jpg</code></pre>
-<h3 id="cmus">cmus</h3>
-<p>Alright, I don’t really listen to music via <code>cmus</code>, but I did use it a couple times when my default music player was acting up. <code>cmus</code> is a viable option:</p>
-<p><a href="https://u.peppe.rs/CP.jpg"><img src="https://u.peppe.rs/CP.jpg" /></a></p></description>
-<link>https://peppe.rs/posts/termux_tandem/</link>
-<pubDate>Sun, 08 Mar 2020 16:47:00 +0000</pubDate>
-<guid>https://peppe.rs/posts/termux_tandem/</guid>
-</item>
-<item>
-<title>Call To ARMs</title>
-<description><p>My 4th semester involves ARM programming. And proprietary tooling (Keil C). But we don’t do that here.</p>
-<h3 id="building">Building</h3>
-<p>Assembling and linking ARM binaries on non-ARM architecture devices is fairly trivial. I went along with the GNU cross bare metal toolchain binutils, which provides <code>arm-as</code> and <code>arm-ld</code> (among a bunch of other utils that I don’t care about for now).</p>
-<p>Assemble <code>.s</code> files with:</p>
-<pre class="shell"><code>arm-none-eabi-as main.s -g -march=armv8.1-a -o main.out</code></pre>
-<p>The <code>-g</code> flag generates extra debugging information that <code>gdb</code> picks up. The <code>-march</code> option establishes target architecture.</p>
-<p>Link <code>.o</code> files with:</p>
-<pre class="shell"><code>arm-none-eabi-ld main.out -o main</code></pre>
-<h3 id="running-and-debugging">Running (and Debugging)</h3>
-<p>Things get interesting here. <code>gdb</code> on your x86 machine cannot read nor execute binaries compiled for ARM. So, we simulate an ARM processor using <code>qemu</code>. Now qemu allows you to run <code>gdbserver</code> on startup. Connecting our local <code>gdb</code> instance to <code>gdbserver</code> gives us a view into the program’s execution. Easy!</p>
-<p>Run <code>qemu</code>, with <code>gdbserver</code> on port <code>1234</code>, with our ARM binary, <code>main</code>:</p>
-<pre class="shell"><code>qemu-arm -singlestep -g 1234 main</code></pre>
-<p>Start up <code>gdb</code> on your machine, and connect to <code>qemu</code>’s <code>gdbserver</code>:</p>
-<pre><code>(gdb) set architecture armv8-a
-(gdb) target remote localhost:1234
-(gdb) file main
-Reading symbols from main...  # yay!</code></pre>
-<h3 id="gdb-enhanced">GDB Enhanced</h3>
-<p><code>gdb</code> is cool, but it’s not nearly as comfortable as well fleshed out emulators/IDEs like Keil. Watching registers, CPSR and memory chunks update <em>is</em> pretty fun.</p>
-<p>I came across <code>gdb</code>’s TUI mode (hit <code>C-x C-a</code> or type <code>tui enable</code> at the prompt). TUI mode is a godsend. It highlights the current line of execution, shows you disassembly outputs, updated registers, active breakpoints and more.</p>
-<p><em>But</em>, it is an absolute eyesore.</p>
-<p>Say hello to <a href="https://github.com/hugsy/gef">GEF</a>! “GDB Enhanced Features” teaches our old dog some cool new tricks. Here are some additions that made my ARM debugging experience loads better:</p>
-<ul>
-<li>Memory watches</li>
-<li>Register watches, with up to 7 levels of deref (overkill, I agree)</li>
-<li>Stack tracing</li>
-</ul>
-<p>And it’s pretty! See for yourself:</p>
-<p><a href="https://u.peppe.rs/wq.png"><img src="https://u.peppe.rs/wq.png" /></a></p>
-<h3 id="editing">Editing</h3>
-<p>Vim, with <code>syntax off</code> because it dosen’t handle GNU ARM syntax too well.</p></description>
-<link>https://peppe.rs/posts/call_to_ARMs/</link>
-<pubDate>Fri, 07 Feb 2020 18:30:00 +0000</pubDate>
-<guid>https://peppe.rs/posts/call_to_ARMs/</guid>
-</item>
-<item>
-<title>Color Conundrum</title>
-<description><p>This piece aims to highlight (pun intended) some of the reasons behind my <a href="https://u.peppe.rs/bF.png">color free</a> editor setup.</p>
-<p>Imagine highlighting an entire book because <em>all</em> of it is important. That is exactly what (most) syntax highlighting does. It is difficult for the human eye to filter out noise in rainbow barf. Use color to draw attention, not diverge it.</p>
-<p>At the same time, a book devoid of color is <em>boring!</em> What is the takeaway from this 10 line paragraph? What are the technical terms used?</p>
-<p>Prose and code are certainly different, but the fickle minded human eye is the same. The eye constantly looks for a frame of reference, a focal point. It grows tired when it can’t find one.</p>
-<p>The following comparison does a better job of explaining (none, ample and over-the-top highlighting, from left to right):</p>
-<p><a href="https://u.peppe.rs/lt.png"><img src="https://u.peppe.rs/lt.png" /></a></p>
-<p>Without highlighting (far left), it is hard to differentiate between comments and code! The florid color scheme (far right) is no good either, it contains too many attention grabbers. The center sample is a healthy balance of both. Function calls and constants stand out, and repetitive keywords and other noise (<code>let</code>, <code>as</code>) are mildly dimmed out. Comments and non-code text (sign column, status text) are dimmed further.</p>
-<p>I’ll stop myself before I rant about color contrast and combinations.</p></description>
-<link>https://peppe.rs/posts/color_conundrum/</link>
-<pubDate>Mon, 30 Dec 2019 18:30:00 +0000</pubDate>
-<guid>https://peppe.rs/posts/color_conundrum/</guid>
-</item>
-<item>
-<title>Static Sites With Bash</title>
-<description><p>After going through a bunch of static site generators (<a href="https://blog.getpelican.com/">pelican</a>, <a href="https://gohugo.io">hugo</a>, <a href="https://github.com/icyphox/vite">vite</a>), I decided to roll my own. If you are more of the ‘show me the code’ kinda guy, <a href="https://github.com/nerdypepper/site">here</a> you go.</p>
-<h3 id="text-formatting">Text formatting</h3>
-<p>I chose to write in markdown, and convert to html with <a href="https://kristaps.bsd.lv/lowdown/">lowdown</a>.</p>
-<h3 id="directory-structure">Directory structure</h3>
-<p>I host my site on GitHub pages, so <code>docs/</code> has to be the entry point. Markdown formatted posts go into <code>posts/</code>, get converted into html, and end up in <code>docs/index.html</code>, something like this:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="va">posts=$(</span><span class="fu">ls</span> -t ./posts<span class="va">)</span>     <span class="co"># chronological order!</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">for</span> <span class="ex">f</span> in <span class="va">$posts</span><span class="kw">;</span> <span class="kw">do</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>    <span class="va">file=</span><span class="st">&quot;./posts/&quot;</span><span class="va">$f</span>      <span class="co"># `ls` mangled our file paths</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>    <span class="bu">echo</span> <span class="st">&quot;generating post </span><span class="va">$file</span><span class="st">&quot;</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a></span>
-<span id="cb1-6"><a href="#cb1-6"></a>    <span class="va">html=$(</span><span class="ex">lowdown</span> <span class="st">&quot;</span><span class="va">$file</span><span class="st">&quot;</span><span class="va">)</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>    <span class="bu">echo</span> -e <span class="st">&quot;html&quot;</span> <span class="op">&gt;&gt;</span> docs/index.html</span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="kw">done</span></span></code></pre></div>
-<h3 id="assets">Assets</h3>
-<p>Most static site generators recommend dropping image assets into the site source itself. That does have it’s merits, but I prefer hosting images separately:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># strip file extension</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="va">ext=</span><span class="st">&quot;</span><span class="va">${1##</span>*.<span class="va">}</span><span class="st">&quot;</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># generate a random file name</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="va">id=$(</span> <span class="fu">cat</span> /dev/urandom <span class="kw">|</span> <span class="fu">tr</span> -dc <span class="st">&#39;a-zA-Z0-9&#39;</span> <span class="kw">|</span> <span class="ex">fold</span> -w 2 <span class="kw">|</span> <span class="fu">head</span> -n 1 <span class="va">)</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="va">id=</span><span class="st">&quot;</span><span class="va">$id</span><span class="st">.</span><span class="va">$ext</span><span class="st">&quot;</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="co"># copy to my file host</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="fu">scp</span> -P 443 <span class="st">&quot;</span><span class="va">$1</span><span class="st">&quot;</span> emerald:files/<span class="st">&quot;</span><span class="va">$id</span><span class="st">&quot;</span> </span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="bu">echo</span> <span class="st">&quot;https://u.peppe.rs/</span><span class="va">$id</span><span class="st">&quot;</span></span></code></pre></div>
-<h3 id="templating">Templating</h3>
-<p><a href="https://github.com/NerdyPepper/site/blob/master/generate.sh"><code>generate.sh</code></a> brings the above bits and pieces together (with some extra cruft to avoid javascript). It uses <code>sed</code> to produce nice titles from the file names (removes underscores, title-case), and <code>date(1)</code> to add the date to each post listing!</p></description>
-<link>https://peppe.rs/posts/static_sites_with_bash/</link>
-<pubDate>Fri, 22 Nov 2019 18:30:00 +0000</pubDate>
-<guid>https://peppe.rs/posts/static_sites_with_bash/</guid>
-</item>
-<item>
-<title>My Setup</title>
-<description><p>Decided to do one of these because everyone does one of these.</p>
-<p><img src="https://u.peppe.rs/Hb.png" /></p>
-<p>My entire setup is managed with GNU <code>stow</code>, making it easier to replicate on fresh installations. You can find my configuration files on <a href="https://github.com/nerdypepper">GitHub</a>.</p>
-<p>I run Void Linux (glibc) on my <a href="https://store.hp.com/us/en/mdp/laptops/envy-13">HP Envy 13" (2018)</a>. To keep things simple, I run a raw X session with <code>2bwm</code> as my window manager, along with <code>dunst</code> (notification daemon) and Sam’s <a href="https://github.com/sdhand/compton"><code>compton</code></a> (compositor) fork.</p>
-<p>I am a fan of GNU tools, so I use <code>bash</code> as my shell, and <code>coreutils</code> to manage files, archives, strings, paths etc. I edit files with <code>vim</code>, chat with <code>weechat</code>, listen to music with <code>cmus</code>, monitor processes with <code>htop</code>, manage sessions with <code>tmux</code>, read pdfs in <code>zathura</code>. I rarely ever leave the comfort of my terminal emulator, <code>urxvt</code>.</p>
-<p>Most of my academic typesetting is done with TeX, and compiled with <code>xelatex</code>. Other <em>fun</em> documents are made with GIMP :).</p></description>
-<link>https://peppe.rs/posts/my_setup/</link>
-<pubDate>Wed, 06 Nov 2019 18:30:00 +0000</pubDate>
-<guid>https://peppe.rs/posts/my_setup/</guid>
-</item>
-<item>
-<title>WPA Woes</title>
-<description><p>I finally got around to installing Void GNU/Linux on my main computer. Rolling release, non-systemd, need I say more?</p>
-<p>As with all GNU/Linux distributions, wireless networks had me in a fix. If you can see this post, it means I’ve managed to get online. It turns out, <code>wpa_supplicant</code> was detecting the wrong interface by default (does it ever select the right one?). Let us fix that:</p>
-<pre><code>$ sudo rm -r /var/service/wpa_supplicant
-$ sudo killall dhcpcd</code></pre>
-<p>What is the right interface though?</p>
-<pre><code>$ iw dev
-   ...
-   Interface wlp2s0
-   ...</code></pre>
-<p>Aha! Let us run <code>wpa_supplicant</code> on that interface, as a background process:</p>
-<pre><code>$ sudo wpa_supplicant -B -i wlp2s0 -c /etc/wpa_supplicant/wpa_supplicant.conf
-$ sudo dhcpcd -B wlp2s0
-$ ping google.com
-PING ...</code></pre>
-<p>Yay! Make those changes perpetual by enabling the service:</p>
-<pre><code>------------------------------------------------------
-# Add these to /etc/wpa_supplicant/wpa_supplicant.conf
-OPTS=&quot;-B&quot;
-WPA_INTERFACE=&quot;wlp2s0&quot;
-------------------------------------------------------
-$ sudo ln -s /etc/sv/wpa_supplicant /var/service/
-$ sudo ln -s /etc/sv/dhcpcd /var/service/
-$ sudo sv restart wpa_supplicant
-$ sudo sv restart dhcpcd</code></pre></description>
-<link>https://peppe.rs/posts/WPA_woes/</link>
-<pubDate>Sat, 12 Oct 2019 16:18:00 +0000</pubDate>
-<guid>https://peppe.rs/posts/WPA_woes/</guid>
-</item>
-<item>
-<title>Bye Bye BDFs</title>
-<description><p>Glyph Bitmap Distribution Format is no more, as the creators of <a href="https://pango.org">Pango</a>, one of the most widely used text rendering libraries, <a href="https://blogs.gnome.org/mclasen/2019/05/25/pango-future-directions/">announced</a> their plans for Pango 1.44.</p>
-<p>Until recently, Pango used FreeType to draw fonts. They will be moving over to <a href="https://harfbuzz.org">Harfbuzz</a>, an evolution of FreeType.</p>
-<p><em>Why?</em></p>
-<p>In short, FreeType was hard to work with. It required complex logic, and provided no advantage over Harfbuzz (other than being able to fetch opentype metrics with ease).</p>
-<p>Upgrading to Pango v1.44 will break your GTK applications (if you use a <code>bdf</code>/<code>pcf</code> bitmap font). Harfbuzz <em>does</em> support bitmap-only OpenType fonts, <code>otb</code>s. Convert your existing fonts over to <code>otb</code>s using <a href="https://fontforge.github.io">FontForge</a>. It is to be noted that applications such as <code>xterm</code> and <code>rxvt</code> use <code>xft</code> (X FreeType) to render fonts, and will remain unaffected by the update.</p>
-<p>Both <a href="https://github.com/nerdypepper/scientifica">scientifica</a> and <a href="https://github.com/nerdypepper/curie">curie</a> will soon ship with bitmap-only OpenType font formats.</p></description>
-<link>https://peppe.rs/posts/bye_bye_BDFs/</link>
-<pubDate>Wed, 07 Aug 2019 12:31:00 +0000</pubDate>
-<guid>https://peppe.rs/posts/bye_bye_BDFs/</guid>
-</item>
-<item>
-<title>Onivim Sucks</title>
-<description><p><a href="https://v2.onivim.io">Onivim</a> is a ‘modern modal editor’, combining fancy interface and language features with vim-style modal editing. What’s wrong you ask?</p>
-<p>Apart from <a href="https://github.com/onivim/oni2/issues/550">buggy syntax highlighting</a>, <a href="https://github.com/onivim/oni2/issues/519">broken scrolling</a> and <a href="https://github.com/onivim/oni2/issues?q=is%3Aissue+label%3A%22daily+editor+blocker%22+is%3Aopen">others</a>, Onivim is <strong>proprietary</strong> software. It is licensed under a commercial <a href="https://github.com/onivim/oni1/blob/master/Outrun-Labs-EULA-v1.1.md">end user agreement license</a>, which prohibits redistribution in both object code and source code formats.</p>
-<p>Onivim’s core editor logic (bits that belong to vim), have been separated from the interface, into <a href="https://github.com/onivim/libvim">libvim</a>. libvim is licensed under MIT, which means, this ‘extension’ of vim is perfectly in adherence to <a href="http://vimdoc.sourceforge.net/htmldoc/uganda.html#license">vim’s license text</a>! Outrun Labs are exploiting this loophole (distributing vim as a library) to commercialize Onivim.</p>
-<p>Onivim’s source code is available on <a href="https://github.com/onivim/oni2">GitHub</a>. They do mention that the source code trickles down to the <a href="https://github.com/onivim/oni2-mit">oni2-mit</a> repository, which (not yet) contains MIT-licensed code, <strong>18 months</strong> after each commit to the original repository.</p>
-<p>Want to contribute to Onivim? Don’t. They make a profit out of your contributions. Currently, Onivim is priced at $19.99, ‘pre-alpha’ pricing which is 80% off the final price! If you are on the lookout for an editor, I would suggest using <a href="https://vim.org">Vim</a>, charity ware that actually works, and costs $100 lesser.</p></description>
-<link>https://peppe.rs/posts/onivim_sucks/</link>
-<pubDate>Fri, 02 Aug 2019 12:31:00 +0000</pubDate>
-<guid>https://peppe.rs/posts/onivim_sucks/</guid>
-</item>
-<item>
-<title>Bash Harder With Vim</title>
-<description><p>Bash is tricky, don’t let your editor get in your way. Here’s a couple of neat additions you could make to your <code>vimrc</code> for a better shell programming experience.</p>
-<h3 id="man-pages-inside-vim">Man pages inside vim</h3>
-<p>Source this script to get started:</p>
-<pre><code>runtime ftplugin/man.vim</code></pre>
-<p>Now, you can open manpages inside vim with <code>:Man</code>! It adds nicer syntax highlighting and the ability to jump around with <code>Ctrl-]</code> and <code>Ctrl-T</code>.</p>
-<p>By default, the manpage is opened in a horizontal split, I prefer using a new tab:</p>
-<pre><code>let g:ft_man_open_mode = &#39;tab&#39;</code></pre>
-<h3 id="scratchpad-to-test-your-commands">Scratchpad to test your commands</h3>
-<p>I often test my <code>sed</code> substitutions, here is a sample from the script used to generate this site:</p>
-<pre><code># a substitution to convert snake_case to Title Case With Spaces
-echo &quot;$1&quot; | sed -E -e &quot;s/\..+$//g&quot;  -e &quot;s/_(.)/ \u\1/g&quot; -e &quot;s/^(.)/\u\1/g&quot;</code></pre>
-<p>Instead of dropping into a new shell, just test it out directly from vim!</p>
-<ul>
-<li>Yank the line into a register:</li>
-</ul>
-<pre><code>yy</code></pre>
-<ul>
-<li>Paste it into the command-line window:</li>
-</ul>
-<pre><code>q:p</code></pre>
-<ul>
-<li>Make edits as required:</li>
-</ul>
-<pre><code>syntax off            # previously run commands
-edit index.html       # in a buffer!
-w | so %
-!echo &quot;new_post.md&quot; | sed -E -e &quot;s/\..+$//g&quot;  --snip--
-^--- note the use of &#39;!&#39;</code></pre>
-<ul>
-<li>Hit enter with the cursor on the line containing your command!</li>
-</ul>
-<pre><code>$ vim
-New Post         # output
-Press ENTER or type command to continue</code></pre></description>
-<link>https://peppe.rs/posts/bash_harder_with_vim/</link>
-<pubDate>Wed, 31 Jul 2019 06:30:00 +0000</pubDate>
-<guid>https://peppe.rs/posts/bash_harder_with_vim/</guid>
-</item>
-<item>
-<title>Hold Position!</title>
-<description><p>Often times, when I run a vim command that makes “big” changes to a file (a macro or a <code>:vimgrep</code> command) I lose my original position and feel disoriented.</p>
-<p><em>Save position with <code>winsaveview()</code>!</em></p>
-<p>The <code>winsaveview()</code> command returns a <code>Dictionary</code> that contains information about the view of the current window. This includes the cursor line number, cursor coloumn, the top most line in the window and a couple of other values, none of which concern us.</p>
-<p>Before running our command (one that jumps around the buffer, a lot), we save our view, and restore it once its done, with <code>winrestview</code>.</p>
-<pre><code>let view = winsaveview()
-s/\s\+$//gc              &quot; find and (confirm) replace trailing blanks
-winrestview(view)        &quot; restore our original view!</code></pre>
-<p>It might seem a little overkill in the above example, just use `` (double backticks) instead, but it comes in handy when you run your file through heavier filtering.</p></description>
-<link>https://peppe.rs/posts/hold_position!/</link>
-<pubDate>Tue, 30 Jul 2019 12:31:00 +0000</pubDate>
-<guid>https://peppe.rs/posts/hold_position!/</guid>
-</item>
-<item>
-<title>Get Better At Yanking And Putting In Vim</title>
-<description><p>a couple of nifty tricks to help you copy-paste better:</p>
-<ol type="1">
-<li><p>reselecting previously selected text (i use this to fix botched selections):</p>
-<pre><code>gv  &quot; :h gv for more
-    &quot; you can use `o` in visual mode to go to the `Other` end of the selection
-    &quot; use a motion to fix the selection</code></pre></li>
-<li><p>reselecting previously yanked text:</p>
-<pre><code>`[v`]
-`[         &quot; marks the beginning of the previously yanked text   :h `[
-`]         &quot; marks the end                                       :h `]
- v         &quot; visual select everything in between
-
-nnoremap gb `[v`]    &quot; &quot;a quick map to perform the above</code></pre></li>
-<li><p>pasting and indenting text (in one go):</p>
-<pre><code>]p   &quot; put (p) and adjust indent to current line
-]P   &quot; put the text before the cursor (P) and adjust indent to current line</code></pre></li>
-</ol></description>
-<link>https://peppe.rs/posts/get_better_at_yanking_and_putting_in_vim/</link>
-<pubDate>Mon, 29 Jul 2019 12:31:00 +0000</pubDate>
-<guid>https://peppe.rs/posts/get_better_at_yanking_and_putting_in_vim/</guid>
-</item>
-
-
-    </channel>
-</rss>
+          </div>
+          
+    <div class=intro>
+        Hi. 
+        <div class=hot-links>
+            <a href=https://peppe.rs/index.xml class=feed-button>Subscribe</a>
+            <a href=https://liberapay.com/nerdypepper/donate class=donate-button>Donate</a>
+        </div>
+        <p>I'm Akshay, I go by nerd or nerdypepper on the internet.</p>
+        <p>
+        I am a compsci undergrad, Rust programmer and an enthusiastic Vimmer.
+        I write open-source stuff to pass time. I also design fonts: scientifica, curie.
+        </p>
+        <p>Send me a mail at nerdy@peppe.rs or a message at nerd@irc.rizon.net.</p>
+    </div>
+    
+          <a href="/" class="post-end-link">⟵ Back</a>
+          <a class="stats post-end-link" href="https://raw.githubusercontent.com/nerdypepper/site/master/posts/auto-currying_rust_functions.md
+">View Raw</a>
+        </div>
+      </div>
+    </body>
+</html>
