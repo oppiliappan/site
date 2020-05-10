@@ -71,11 +71,11 @@ These are functions that take code as input and spit out
 modified code as output. Powerful stuff. Rust has three
 kinds of proc-macros:
 
- - Function like macros: `println!`, `vec!`. 
+ - Function like macros  
  - Derive macros: `#[derive(...)]`, used to automatically
-   implement traits for structs/enums.
+   implement traits for structs/enums  
  - and Attribute macros: `#[test]`, usually slapped onto
-   functions. 
+   functions  
 
 We will be using Attribute macros to convert a Rust function
 into a curried Rust function, which we should be able to

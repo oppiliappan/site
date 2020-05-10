@@ -60,9 +60,11 @@ h(x)(y)(z) = g(y)(z) = k(z) = v</code></pre>
 <h3 id="procedural-macros">Procedural Macros</h3>
 <p>These are functions that take code as input and spit out modified code as output. Powerful stuff. Rust has three kinds of proc-macros:</p>
 <ul>
-<li>Function like macros: <code>println!</code>, <code>vec!</code>.</li>
-<li>Derive macros: <code>#[derive(...)]</code>, used to automatically implement traits for structs/enums.</li>
-<li>and Attribute macros: <code>#[test]</code>, usually slapped onto functions.</li>
+<li>Function like macros<br />
+</li>
+<li>Derive macros: <code>#[derive(...)]</code>, used to automatically implement traits for structs/enums<br />
+</li>
+<li>and Attribute macros: <code>#[test]</code>, usually slapped onto functions</li>
 </ul>
 <p>We will be using Attribute macros to convert a Rust function into a curried Rust function, which we should be able to call via: <code>function(arg1)(arg2)</code>.</p>
 <h3 id="definitions">Definitions</h3>
