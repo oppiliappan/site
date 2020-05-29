@@ -64,6 +64,7 @@ cat > ./docs/index.html << EOF
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<a rel="me" href="https://freeradical.zone/@NerdyPepper">Mastodon</a>
 <link rel="stylesheet" href="./style.css">
 <meta charset="UTF-8">
 <meta name="viewport" content="initial-scale=1">
@@ -131,8 +132,8 @@ cat >> ./docs/index.html << EOF
     <div class="separator"></div>
     <div class="footer">
         <a href="https://github.com/nerdypepper">Github</a> · 
-        <a href="https://twitter.com/N3rdyP3pp3r">Twitter</a> · 
-        <a href="mailto:nerdypepper@tuta.io">Mail</a> · 
+        <a rel="me" href="https://freeradical.zone/@NerdyPepper">Mastodon</a>
+        <a href="mailto:nerdy@peppe.rs">Mail</a> · 
         <a href="https://linkedin.com/in/nerdypepper">LinkedIn</a> · 
         <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
             <img class="footimgs" src="https://d33wubrfki0l68.cloudfront.net/94387e9d77fbc8b4360db81e72603ecba3df94a7/632bc/static/cc.svg">
