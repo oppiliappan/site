@@ -66,6 +66,7 @@ cat > ./docs/index.html << EOF
 <head>
 <a rel="me" href="https://freeradical.zone/@NerdyPepper">Mastodon</a>
 <link rel="stylesheet" href="./style.css">
+<link rel="alternate" type="application/atom+xml" title="nerdypepper's micro musings" href="./index.xml">
 <meta charset="UTF-8">
 <meta name="viewport" content="initial-scale=1">
 <meta content="#ffffff" name="theme-color">
