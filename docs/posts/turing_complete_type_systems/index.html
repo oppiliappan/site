@@ -24,12 +24,12 @@
             18/06 — 2020
             <div class="stats">
               <span class="stats-number">
-                8.78
+                9.18
               </span>
               <span class="stats-unit">cm</span>
               &nbsp
               <span class="stats-number">
-                0.8
+                0.9
               </span>
               <span class="stats-unit">min</span>
             </div>
@@ -45,7 +45,7 @@
 </ul>
 <p>It is impossible to determine if a program written in a generally Turing complete system will ever stop. That is, it is impossible to write a program <code>f</code> that determines if a program <code>g</code>, where <code>g</code> is written in a Turing complete programming language, will ever halt. The <a href="https://en.wikipedia.org/wiki/Halting_problem">Halting Problem</a> is in fact, an <a href="https://en.wikipedia.org/wiki/Undecidable_problem">undecidable problem</a>.</p>
 <p><em>How is any of this relevant?</em></p>
-<p>Rust performs compile-time type inference. The type checker, in turn, compiles and infers types, I would describe it as a compiler inside a compiler. It is possible that <code>rustc</code> may never finish compiling your Rust program!</p>
+<p>Rust performs compile-time type inference. The type checker, in turn, compiles and infers types, I would describe it as a compiler inside a compiler. It is possible that <code>rustc</code> may never finish compiling your Rust program! I lied, <code>rustc</code> stops after a while, after hitting the recursion limit.</p>
 <p>I understand that this post lacks content.</p>
 
           </div>

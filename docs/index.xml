@@ -12,7 +12,7 @@
       <language>en-us</language>
       <copyright>Creative Commons BY-NC-SA 4.0</copyright>
       <item>
-<title>Turing Complete Type Systems</title>
+<title>turing_complete_type_systems</title>
 <description><p>Rust’s type system is Turing complete:</p>
 <ul>
 <li><a href="https://github.com/doctorn/trait-eval/">FizzBuzz with Rust Traits</a></li>
@@ -20,14 +20,14 @@
 </ul>
 <p>It is impossible to determine if a program written in a generally Turing complete system will ever stop. That is, it is impossible to write a program <code>f</code> that determines if a program <code>g</code>, where <code>g</code> is written in a Turing complete programming language, will ever halt. The <a href="https://en.wikipedia.org/wiki/Halting_problem">Halting Problem</a> is in fact, an <a href="https://en.wikipedia.org/wiki/Undecidable_problem">undecidable problem</a>.</p>
 <p><em>How is any of this relevant?</em></p>
-<p>Rust performs compile-time type inference. The type checker, in turn, compiles and infers types, I would describe it as a compiler inside a compiler. It is possible that <code>rustc</code> may never finish compiling your Rust program!</p>
+<p>Rust performs compile-time type inference. The type checker, in turn, compiles and infers types, I would describe it as a compiler inside a compiler. It is possible that <code>rustc</code> may never finish compiling your Rust program! I lied, <code>rustc</code> stops after a while, after hitting the recursion limit.</p>
 <p>I understand that this post lacks content.</p></description>
 <link>https://peppe.rs/posts/turing_complete_type_systems/</link>
-<pubDate>Thu, 18 Jun 2020 05:07:00 +0000</pubDate>
+<pubDate>Thu, 18 Jun 2020 05:18:00 +0000</pubDate>
 <guid>https://peppe.rs/posts/turing_complete_type_systems/</guid>
 </item>
 <item>
-<title>Auto-currying Rust Functions</title>
+<title>auto-currying_rust_functions</title>
 <description><p>This post contains a gentle introduction to procedural macros in Rust and a guide to writing a procedural macro to curry Rust functions. The source code for the entire library can be found <a href="https://github.com/nerdypepper/cutlass">here</a>. It is also available on <a href="https://crates.io/crates/cutlass">crates.io</a>.</p>
 <p>The following links might prove to be useful before getting started:</p>
 <ul>
@@ -521,7 +521,7 @@ test tests::works ... ok</code></pre>
 <guid>https://peppe.rs/posts/auto-currying_rust_functions/</guid>
 </item>
 <item>
-<title>Pixel Art In GIMP</title>
+<title>pixel_art_in_GIMP</title>
 <description><p>I’ve always been an admirer of pixel art, because of it’s simplicity and it’s resemblance to bitmap font design. Recently, I decided to take the dive and make some art of my own.</p>
 <p>I used GIMP because I am fairly familiar with it. Aseprite seems to be the editor of choice for animated pixel art though.</p>
 <h3 id="setting-up-the-canvas">Setting up the canvas</h3>
@@ -576,7 +576,7 @@ test tests::works ... ok</code></pre>
 <guid>https://peppe.rs/posts/pixel_art_in_GIMP/</guid>
 </item>
 <item>
-<title>Rapid Refactoring With Vim</title>
+<title>rapid_refactoring_with_vim</title>
 <description><p>Last weekend, I was tasked with refactoring the 96 unit tests on <a href="https://github.com/ruma/ruma-events/pull/70">ruma-events</a> to use strictly typed json objects using <code>serde_json::json!</code> instead of raw strings. It was rather painless thanks to vim :)</p>
 <p>Here’s a small sample of what had to be done (note the lines prefixed with the arrow):</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>→ <span class="kw">use</span> <span class="pp">serde_json::</span><span class="op">{</span>from_str<span class="op">};</span></span>
@@ -671,7 +671,7 @@ BUFFER:    json!( ... );</code></pre>
 <guid>https://peppe.rs/posts/rapid_refactoring_with_vim/</guid>
 </item>
 <item>
-<title>Font Size Fallacies</title>
+<title>font_size_fallacies</title>
 <description><p>I am not an expert with fonts, but I do have some experience <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, and common sense. This post aims to debunk some misconceptions about font sizes!</p>
 <p>11 px on your display is <em>probably not</em> 11 px on my display. Let’s do some quick math. I have two displays, 1366x768 @ 21" and another with 1920x1080 @ 13", call them <code>A</code> and <code>B</code> for now.</p>
 <p>Display <code>A</code> has 1,049,088 pixels. A pixel is a square, of side say, <code>s</code> cm. The total area covered by my 21" display is about 1,066 cm^2 (41x26). Thus,</p>
@@ -707,7 +707,7 @@ Dimensions: 1920x1080 @ 13&quot; (29.5x16.5 sq. cm)
 <guid>https://peppe.rs/posts/font_size_fallacies/</guid>
 </item>
 <item>
-<title>Termux Tandem</title>
+<title>termux_tandem</title>
 <description><p>I learnt about <code>termux</code> from a friend on IRC recently. It looked super gimmicky to me at first, but it eventually proved to be useful. Here’s what I use it for:</p>
 <h3 id="rsync">rsync</h3>
 <p>Ever since I degoogled my android device, syncing files between my phone and my PC has always been a pain. I’m looking at you MTP. But, with <code>termux</code> and <code>sshd</code> all set up, it’s as simple as:</p>
@@ -731,7 +731,7 @@ mtZabXG.jpg        p8d5c584f2841.jpg  vjUxGjq.jpg</code></pre>
 <guid>https://peppe.rs/posts/termux_tandem/</guid>
 </item>
 <item>
-<title>Call To ARMs</title>
+<title>call_to_ARMs</title>
 <description><p>My 4th semester involves ARM programming. And proprietary tooling (Keil C). But we don’t do that here.</p>
 <h3 id="building">Building</h3>
 <p>Assembling and linking ARM binaries on non-ARM architecture devices is fairly trivial. I went along with the GNU cross bare metal toolchain binutils, which provides <code>arm-as</code> and <code>arm-ld</code> (among a bunch of other utils that I don’t care about for now).</p>
@@ -768,7 +768,7 @@ Reading symbols from main...  # yay!</code></pre>
 <guid>https://peppe.rs/posts/call_to_ARMs/</guid>
 </item>
 <item>
-<title>Color Conundrum</title>
+<title>color_conundrum</title>
 <description><p>This piece aims to highlight (pun intended) some of the reasons behind my <a href="https://u.peppe.rs/bF.png">color free</a> editor setup.</p>
 <p>Imagine highlighting an entire book because <em>all</em> of it is important. That is exactly what (most) syntax highlighting does. It is difficult for the human eye to filter out noise in rainbow barf. Use color to draw attention, not diverge it.</p>
 <p>At the same time, a book devoid of color is <em>boring!</em> What is the takeaway from this 10 line paragraph? What are the technical terms used?</p>
@@ -782,7 +782,7 @@ Reading symbols from main...  # yay!</code></pre>
 <guid>https://peppe.rs/posts/color_conundrum/</guid>
 </item>
 <item>
-<title>Static Sites With Bash</title>
+<title>static_sites_with_bash</title>
 <description><p>After going through a bunch of static site generators (<a href="https://blog.getpelican.com/">pelican</a>, <a href="https://gohugo.io">hugo</a>, <a href="https://github.com/icyphox/vite">vite</a>), I decided to roll my own. If you are more of the ‘show me the code’ kinda guy, <a href="https://github.com/nerdypepper/site">here</a> you go.</p>
 <h3 id="text-formatting">Text formatting</h3>
 <p>I chose to write in markdown, and convert to html with <a href="https://kristaps.bsd.lv/lowdown/">lowdown</a>.</p>
@@ -815,7 +815,7 @@ Reading symbols from main...  # yay!</code></pre>
 <guid>https://peppe.rs/posts/static_sites_with_bash/</guid>
 </item>
 <item>
-<title>My Setup</title>
+<title>my_setup</title>
 <description><p>Decided to do one of these because everyone does one of these.</p>
 <p><img src="https://u.peppe.rs/Hb.png" /></p>
 <p>My entire setup is managed with GNU <code>stow</code>, making it easier to replicate on fresh installations. You can find my configuration files on <a href="https://github.com/nerdypepper">GitHub</a>.</p>
@@ -827,7 +827,7 @@ Reading symbols from main...  # yay!</code></pre>
 <guid>https://peppe.rs/posts/my_setup/</guid>
 </item>
 <item>
-<title>WPA Woes</title>
+<title>WPA_woes</title>
 <description><p>I finally got around to installing Void GNU/Linux on my main computer. Rolling release, non-systemd, need I say more?</p>
 <p>As with all GNU/Linux distributions, wireless networks had me in a fix. If you can see this post, it means I’ve managed to get online. It turns out, <code>wpa_supplicant</code> was detecting the wrong interface by default (does it ever select the right one?). Let us fix that:</p>
 <pre><code>$ sudo rm -r /var/service/wpa_supplicant
@@ -857,7 +857,7 @@ $ sudo sv restart dhcpcd</code></pre></description>
 <guid>https://peppe.rs/posts/WPA_woes/</guid>
 </item>
 <item>
-<title>Bye Bye BDFs</title>
+<title>bye_bye_BDFs</title>
 <description><p>Glyph Bitmap Distribution Format is no more, as the creators of <a href="https://pango.org">Pango</a>, one of the most widely used text rendering libraries, <a href="https://blogs.gnome.org/mclasen/2019/05/25/pango-future-directions/">announced</a> their plans for Pango 1.44.</p>
 <p>Until recently, Pango used FreeType to draw fonts. They will be moving over to <a href="https://harfbuzz.org">Harfbuzz</a>, an evolution of FreeType.</p>
 <p><em>Why?</em></p>
@@ -869,7 +869,7 @@ $ sudo sv restart dhcpcd</code></pre></description>
 <guid>https://peppe.rs/posts/bye_bye_BDFs/</guid>
 </item>
 <item>
-<title>Onivim Sucks</title>
+<title>onivim_sucks</title>
 <description><p><a href="https://v2.onivim.io">Onivim</a> is a ‘modern modal editor’, combining fancy interface and language features with vim-style modal editing. What’s wrong you ask?</p>
 <p>Apart from <a href="https://github.com/onivim/oni2/issues/550">buggy syntax highlighting</a>, <a href="https://github.com/onivim/oni2/issues/519">broken scrolling</a> and <a href="https://github.com/onivim/oni2/issues?q=is%3Aissue+label%3A%22daily+editor+blocker%22+is%3Aopen">others</a>, Onivim is <strong>proprietary</strong> software. It is licensed under a commercial <a href="https://github.com/onivim/oni1/blob/master/Outrun-Labs-EULA-v1.1.md">end user agreement license</a>, which prohibits redistribution in both object code and source code formats.</p>
 <p>Onivim’s core editor logic (bits that belong to vim), have been separated from the interface, into <a href="https://github.com/onivim/libvim">libvim</a>. libvim is licensed under MIT, which means, this ‘extension’ of vim is perfectly in adherence to <a href="http://vimdoc.sourceforge.net/htmldoc/uganda.html#license">vim’s license text</a>! Outrun Labs are exploiting this loophole (distributing vim as a library) to commercialize Onivim.</p>
@@ -880,7 +880,7 @@ $ sudo sv restart dhcpcd</code></pre></description>
 <guid>https://peppe.rs/posts/onivim_sucks/</guid>
 </item>
 <item>
-<title>Bash Harder With Vim</title>
+<title>bash_harder_with_vim</title>
 <description><p>Bash is tricky, don’t let your editor get in your way. Here’s a couple of neat additions you could make to your <code>vimrc</code> for a better shell programming experience.</p>
 <h3 id="man-pages-inside-vim">Man pages inside vim</h3>
 <p>Source this script to get started:</p>
@@ -920,7 +920,7 @@ Press ENTER or type command to continue</code></pre></description>
 <guid>https://peppe.rs/posts/bash_harder_with_vim/</guid>
 </item>
 <item>
-<title>Hold Position!</title>
+<title>hold_position!</title>
 <description><p>Often times, when I run a vim command that makes “big” changes to a file (a macro or a <code>:vimgrep</code> command) I lose my original position and feel disoriented.</p>
 <p><em>Save position with <code>winsaveview()</code>!</em></p>
 <p>The <code>winsaveview()</code> command returns a <code>Dictionary</code> that contains information about the view of the current window. This includes the cursor line number, cursor coloumn, the top most line in the window and a couple of other values, none of which concern us.</p>
@@ -934,7 +934,7 @@ winrestview(view)        &quot; restore our original view!</code></pre>
 <guid>https://peppe.rs/posts/hold_position!/</guid>
 </item>
 <item>
-<title>Get Better At Yanking And Putting In Vim</title>
+<title>get_better_at_yanking_and_putting_in_vim</title>
 <description><p>a couple of nifty tricks to help you copy-paste better:</p>
 <ol type="1">
 <li><p>reselecting previously selected text (i use this to fix botched selections):</p>
