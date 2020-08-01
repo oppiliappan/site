@@ -55,7 +55,7 @@ intro() {
         I am a compsci undergrad, Rust programmer and an enthusiastic Vimmer.
         I write open-source stuff to pass time. I also design fonts: scientifica, curie.
         </p>
-        <p>Send me a mail at nerdy@peppe.rs or a message at nerd@irc.rizon.net.</p>
+        <p>Send me a mail at nerdy@peppe.rs or a message at nerdypepper@irc.rizon.net.</p>
     </div>
     "
 }

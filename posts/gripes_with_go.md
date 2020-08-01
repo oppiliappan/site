@@ -166,12 +166,27 @@ employed by Rust as well:
 // 1. error handling is compulsory
 // 2. errors are propagated with the `?` operator
 fn foo() -> Result<String, io::Error> {
-    let mut f = File::open("foo.txt")?; // return here if error
+    let mut f = File::open("foo.txt")?; // return if error
     let mut s = String::new();
 
-    f.read_to_string(&mut s)?; // return here if error
+    f.read_to_string(&mut s)?; // return if error
 
-    Ok(s) // all good, return the value inside a `Result` context
+    Ok(s) // all good, return a string inside a `Result` context
+}
+
+fn main() {
+    // `contents` is an enum known as Result:
+    let contents = foo();
+    match contents {
+        Ok(c) => println!(c),
+        Err(e) => eprintln!(e)
+    }
 }
 ```
 
+### Conclusion
+
+I did not want to conclude without talking about stylistic
+choices, lack of metaprogramming, bizzare export rules, but,
+I am too busy converting my `interface{}` types into actual
+generic code for Go v2.
