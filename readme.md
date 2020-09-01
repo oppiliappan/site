@@ -7,3 +7,9 @@ my technical blog, put together with:
  - sed: case conversions
  - [eva](https://github.com/nerdypepper/eva): floating point calculations
 
+### build
+
+ ```shell
+ # on nixos
+ $ ./generate.sh
+ ```
