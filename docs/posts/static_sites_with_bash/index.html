@@ -43,26 +43,26 @@
 <p>I chose to write in markdown, and convert to html with <a href="https://kristaps.bsd.lv/lowdown/">lowdown</a>.</p>
 <h3 id="directory-structure">Directory structure</h3>
 <p>I host my site on GitHub pages, so <code>docs/</code> has to be the entry point. Markdown formatted posts go into <code>posts/</code>, get converted into html, and end up in <code>docs/index.html</code>, something like this:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="va">posts=$(</span><span class="fu">ls</span> -t ./posts<span class="va">)</span>     <span class="co"># chronological order!</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">for</span> <span class="ex">f</span> in <span class="va">$posts</span><span class="kw">;</span> <span class="kw">do</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    <span class="va">file=</span><span class="st">&quot;./posts/&quot;</span><span class="va">$f</span>      <span class="co"># `ls` mangled our file paths</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    <span class="bu">echo</span> <span class="st">&quot;generating post </span><span class="va">$file</span><span class="st">&quot;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>    <span class="va">html=$(</span><span class="ex">lowdown</span> <span class="st">&quot;</span><span class="va">$file</span><span class="st">&quot;</span><span class="va">)</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>    <span class="bu">echo</span> -e <span class="st">&quot;html&quot;</span> <span class="op">&gt;&gt;</span> docs/index.html</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a><span class="kw">done</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="va">posts=$(</span><span class="fu">ls</span> -t ./posts<span class="va">)</span>     <span class="co"># chronological order!</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">for</span> <span class="ex">f</span> in <span class="va">$posts</span><span class="kw">;</span> <span class="kw">do</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>    <span class="va">file=</span><span class="st">&quot;./posts/&quot;</span><span class="va">$f</span>      <span class="co"># `ls` mangled our file paths</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>    <span class="bu">echo</span> <span class="st">&quot;generating post </span><span class="va">$file</span><span class="st">&quot;</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a>    <span class="va">html=$(</span><span class="ex">lowdown</span> <span class="st">&quot;</span><span class="va">$file</span><span class="st">&quot;</span><span class="va">)</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>    <span class="bu">echo</span> -e <span class="st">&quot;html&quot;</span> <span class="op">&gt;&gt;</span> docs/index.html</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="kw">done</span></span></code></pre></div>
 <h3 id="assets">Assets</h3>
 <p>Most static site generators recommend dropping image assets into the site source itself. That does have it’s merits, but I prefer hosting images separately:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="co"># strip file extension</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="va">ext=</span><span class="st">&quot;</span><span class="va">${1##</span>*.<span class="va">}</span><span class="st">&quot;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="co"># generate a random file name</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a><span class="va">id=$(</span> <span class="fu">cat</span> /dev/urandom <span class="kw">|</span> <span class="fu">tr</span> -dc <span class="st">&#39;a-zA-Z0-9&#39;</span> <span class="kw">|</span> <span class="ex">fold</span> -w 2 <span class="kw">|</span> <span class="fu">head</span> -n 1 <span class="va">)</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a><span class="va">id=</span><span class="st">&quot;</span><span class="va">$id</span><span class="st">.</span><span class="va">$ext</span><span class="st">&quot;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a><span class="co"># copy to my file host</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a><span class="fu">scp</span> -P 443 <span class="st">&quot;</span><span class="va">$1</span><span class="st">&quot;</span> emerald:files/<span class="st">&quot;</span><span class="va">$id</span><span class="st">&quot;</span> </span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a><span class="bu">echo</span> <span class="st">&quot;https://u.peppe.rs/</span><span class="va">$id</span><span class="st">&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># strip file extension</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="va">ext=</span><span class="st">&quot;</span><span class="va">${1##</span>*.<span class="va">}</span><span class="st">&quot;</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># generate a random file name</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="va">id=$(</span> <span class="fu">cat</span> /dev/urandom <span class="kw">|</span> <span class="fu">tr</span> -dc <span class="st">&#39;a-zA-Z0-9&#39;</span> <span class="kw">|</span> <span class="ex">fold</span> -w 2 <span class="kw">|</span> <span class="fu">head</span> -n 1 <span class="va">)</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="va">id=</span><span class="st">&quot;</span><span class="va">$id</span><span class="st">.</span><span class="va">$ext</span><span class="st">&quot;</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co"># copy to my file host</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="fu">scp</span> -P 443 <span class="st">&quot;</span><span class="va">$1</span><span class="st">&quot;</span> emerald:files/<span class="st">&quot;</span><span class="va">$id</span><span class="st">&quot;</span> </span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="bu">echo</span> <span class="st">&quot;https://u.peppe.rs/</span><span class="va">$id</span><span class="st">&quot;</span></span></code></pre></div>
 <h3 id="templating">Templating</h3>
 <p><a href="https://github.com/NerdyPepper/site/blob/master/generate.sh"><code>generate.sh</code></a> brings the above bits and pieces together (with some extra cruft to avoid javascript). It uses <code>sed</code> to produce nice titles from the file names (removes underscores, title-case), and <code>date(1)</code> to add the date to each post listing!</p>
 

@@ -1,5 +1,5 @@
-#! /usr/bin/env bash
-
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p eva pandoc esh
 
 title_wrapper() {
     # remove extension
@@ -110,7 +110,7 @@ for f in $posts; do
 
     id="${id%.*}"
     mkdir -p "docs/posts/$id"
-    esh -s /bin/bash \
+    esh  \
         -o "docs/posts/$id/index.html" \
         "./post.esh" \
         file="$file" \
@@ -123,7 +123,7 @@ done
 
 # generate rss feeds
 echo "generating RSS feeds ..."
-esh -s /bin/bash \
+esh  \
     -o "./docs/index.xml" \
     "rss.esh"
 
