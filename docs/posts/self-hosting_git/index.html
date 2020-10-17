@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/syntax.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1">
+    <meta content="#ffffff" name="theme-color">
+    <meta name="HandheldFriendly" content="true">
+    <meta property="og:title" content="Self-hosting Git">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="a static site {for, by, about} me ">
+    <meta property="og:url" content="https://peppe.rs">
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
+    <title>Self-hosting Git · peppe.rs</title>
+    <body>
+      <div class="posts">
+        <div class="post">
+          <a href="/" class="post-end-link">⟵ Back</a>
+          <a class="stats post-end-link" href="https://raw.githubusercontent.com/nerdypepper/site/master/posts/self-hosting_git.md
+">View Raw</a>
+          <div class="separator"></div>
+          <div class="date">
+            17/10 — 2020
+            <div class="stats">
+              <span class="stats-number">
+                87.90
+              </span>
+              <span class="stats-unit">cm</span>
+              &nbsp
+              <span class="stats-number">
+                5.4
+              </span>
+              <span class="stats-unit">min</span>
+            </div>
+          </div>
+          <h1>
+            Self-hosting Git
+          </h1>
+          <div class="post-text">
+            <p>Earlier this week, I began migrating my repositories from Github to <a href="https://git.zx2c4.com/">cgit</a>. If you care at all about big corporates turning open-source into a T-shirt farming service, this is the way to go.</p>
+<h3 id="offerings">Offerings</h3>
+<p>cgit is <em>very</em> bare bones. It is <a href="https://tools.ietf.org/html/rfc3875">cgi</a> web interface interface to git, and nothing more. You may browse repositories, view diffs, commit logs and even clone via http. If you are looking to replace Github with cgit, keep in mind that cgit does not handle issues or pull/merge requests. If people wish to contribute to your work, they would have to send you a patch via email.</p>
+<h3 id="setup">Setup</h3>
+<p>Installing cgit is fairly straightforward, if you would like to compile it from source:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="co"># fetch</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="fu">git</span> clone https://git.zx2c4.com <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> cgit</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="fu">git</span> submodule init</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="fu">git</span> submodule update</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="co"># install</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a><span class="fu">make</span> NO_LUA=1</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a><span class="fu">sudo</span> make install</span></code></pre></div>
+<p>This would drop the cgit cgi script (and the default css) into <code>/var/www/htdocs/cgit</code>. You may configure cgit by editing <code>/etc/cgitrc</code>. I specify the <code>NO_LUA</code> flag to compile without lua support, exclude that flag if you would like to extend cgit via lua scripts.</p>
+<h3 id="going-live">Going live</h3>
+<p>You might want to use, <a href="https://github.com/gnosek/fcgiwrap">fcgiwrap</a>, a <a href="http://www.nongnu.org/fastcgi">fastcgi</a> wrapper for <code>cgi</code> scripts,</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="fu">sudo</span> apt install fcgiwrap</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="fu">sudo</span> systemctl start fcgiwrap.socket</span></code></pre></div>
+<p>Expose the cgit cgi script to the web via <code>nginx</code>:</p>
+<pre><code># nginx.conf
+server {
+  listen 80;
+  server_name git.example.com;
+
+  # serve static files
+  location ~* ^.+\.(css|png|ico)$ {
+    root /var/www/htdocs/cgit;
+  }
+
+  location / {
+    fastcgi_pass  unix:/run/fcgiwrap.socket;
+    fastcgi_param SCRIPT_FILENAME /var/www/htdocs/cgit/cgit.cgi; # the default location of the cgit cgi script
+    fastcgi_param PATH_INFO       $uri;
+    fastcgi_param QUERY_STRING    $args;
+  }
+}</code></pre>
+<p>Point cgit to your git repositories:</p>
+<pre><code># /etc/cgitrc
+scan-path=/path/to/git/repos</code></pre>
+<p><strong><em>Note</em></strong>: <em><code>scan-path</code> works best if you stick it at the end of your <code>cgitrc</code></em>.</p>
+<p>You may now create remote repositories at <code>/path/to/git/repos</code>, via:</p>
+<pre><code>git init --bare</code></pre>
+<p>Add the remote to your local repository:</p>
+<pre><code>git remote set-url origin user@remote:/above/path
+git push origin master</code></pre>
+<h3 id="configuration">Configuration</h3>
+<p>cgit is fairly easy to configure, all configuration options can be found <a href="https://git.zx2c4.com/cgit/tree/cgitrc.5.txt">in the manual</a>, here are a couple of cool ones though:</p>
+<p><strong>enable-commit-graph</strong>: Generates a text based graphical representation of the commit history, similar to <code>git log --graph --oneline</code>.</p>
+<pre><code>| * |    Add support for configuration file
+* | |    simplify command parsing logic
+* | |    Refactor parsers
+* | |    Add basic tests
+* | |    Merge remote-tracking branch &#39;origin/master&#39; in...
+|\| |
+| * |    add installation instructions for nix
+| * |    switch to pancurses backendv0.2.2
+| * |    bump to v0.2.2
+* | |    Merge branch &#39;master&#39; into feature/larger-names...
+|\| |
+| * |    enable feature based compilation to support win...
+| * |    remove dependency on rustc v1.45, bump to v0.2....
+| * |      Merge branch &#39;feature/windows&#39; of https://git...
+| |\ \
+| | * |    add windows to github actions
+| | * |    switch to crossterm backend
+| | * |      Merge branch &#39;fix/duplicate-habits&#39;
+| | |\ \
+| | | * |    move duplicate check to command parsing blo...</code></pre>
+<p><strong>section-from-path</strong>: This option paired with <code>scan-path</code> will automatically generate sections in your cgit index page, from the path to each repo. For example, the directory structure used to generate sections on <a href="https://git.peppe.rs">my cgit instance</a> looks like this:</p>
+<pre><code>├── cli
+│   ├── dijo
+│   ├── eva
+│   ├── pista
+│   ├── taizen
+│   └── xcursorlocate
+├── config
+│   ├── dotfiles
+│   └── nixos
+├── fonts
+│   ├── curie
+│   └── scientifica
+├── languages
+│   └── lisk
+├── libs
+│   ├── cutlass
+│   └── fondant
+├── terminfo
+├── university
+│   └── furby
+└── web
+    └── isostatic</code></pre>
+<h3 id="ease-of-use">Ease of use</h3>
+<p>As I mentioned before, <code>cgit</code> is simply a view into your git repositories, you will have to manually create new repositories by entering your remote and using <code>git init --bare</code>. Here are a couple of scripts I wrote to perform actions on remotes, think of it as a smaller version of Github’s <code>gh</code> program.</p>
+<p>You may save these scripts as <code>git-script-name</code> and drop them in your <code>$PATH</code>, and git will automatically add an alias called <code>script-name</code>, callable via:</p>
+<pre><code>git script-name</code></pre>
+<h4 id="git-new-repo">git-new-repo</h4>
+<p>Creates a new repository on your remote, the first arg may be a path (section/repo-name) or just the repo name:</p>
+<pre><code>#! /usr/bin/env bash
+#
+# usage:
+# git new-repo section/repo-name
+# 
+# example:
+# git new-repo fonts/scientifica
+# creates: user@remote:fonts/scientifica
+
+if [ $# -eq 0 ]; then
+    echo &quot;requires an arg&quot;
+    exit 1
+fi
+
+ssh user@remote git init --bare &quot;$1&quot;;</code></pre>
+<h4 id="git-set-desc">git-set-desc</h4>
+<p>To set a one line repository description. It simply copies the local <code>.git/description</code>, into <code>remote/description</code>. <code>cgit</code> displays the contents of this file on the index page:</p>
+<pre><code>#! /usr/bin/env bash
+#
+# usage:
+# enter repo description into .git/description and run:
+# git set-desc 
+
+remote=$(git remote get-url --push origin)
+scp .git/description &quot;$remote/description&quot;</code></pre>
+
+          </div>
+          
+    <div class=intro>
+        Hi. 
+        <div class=hot-links>
+            <a href=https://peppe.rs/index.xml class=feed-button>Subscribe</a>
+            <a href=https://liberapay.com/nerdypepper/donate class=donate-button>Donate</a>
+        </div>
+        <p>I'm Akshay, I go by nerd or nerdypepper on the internet.</p>
+        <p>
+        I am a compsci undergrad, Rust programmer and an enthusiastic Vimmer.
+        I write <a href=https://git.peppe.rs>open-source stuff</a> to pass time. 
+        I also design fonts: 
+        <a href=https://git.peppe.rs/fonts/scientifica>scientifica</a>, 
+        <a href=https://git.peppe.rs/fonts/curie>curie</a>.
+        </p>
+        <p>Send me a mail at nerdy@peppe.rs or a message at nerdypepper@irc.rizon.net.</p>
+    </div>
+    
+          <a href="/" class="post-end-link">⟵ Back</a>
+          <a class="stats post-end-link" href="https://raw.githubusercontent.com/nerdypepper/site/master/posts/self-hosting_git.md
+">View Raw</a>
+        </div>
+      </div>
+    </body>
+</html>

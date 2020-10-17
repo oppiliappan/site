@@ -94,17 +94,17 @@ h(x)(y)(z) = g(y)(z) = k(z) = v</code></pre>
 <p>We will be using Attribute macros to convert a Rust function into a curried Rust function, which we should be able to call via: <code>function(arg1)(arg2)</code>.</p>
 <h3 id="definitions">Definitions</h3>
 <p>Being respectable programmers, we define the input to and the output from our proc-macro. Here’s a good non-trivial function to start out with:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">fn</span> add(x: <span class="dt">u32</span>, y: <span class="dt">u32</span>, z: <span class="dt">u32</span>) -&gt; <span class="dt">u32</span> <span class="op">{</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="kw">return</span> x + y + z;</span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">fn</span> add(x<span class="op">:</span> <span class="dt">u32</span><span class="op">,</span> y<span class="op">:</span> <span class="dt">u32</span><span class="op">,</span> z<span class="op">:</span> <span class="dt">u32</span>) <span class="op">-&gt;</span> <span class="dt">u32</span> <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>  <span class="kw">return</span> x <span class="op">+</span> y <span class="op">+</span> z<span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p>Hmm, what would our output look like? What should our proc-macro generate ideally? Well, if we understood currying correctly, we should accept an argument and return a function that accepts an argument and returns … you get the point. Something like this should do:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">fn</span> add_curried1(x: <span class="dt">u32</span>) -&gt; ? <span class="op">{</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>  <span class="kw">return</span> <span class="kw">fn</span> add_curried2 (y: <span class="dt">u32</span>) -&gt; ? <span class="op">{</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a>    <span class="kw">return</span> <span class="kw">fn</span> add_curried3 (z: <span class="dt">u32</span>) -&gt; <span class="dt">u32</span> <span class="op">{</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a>      <span class="kw">return</span> x + y + z;</span>
-<span id="cb5-5"><a href="#cb5-5"></a>    <span class="op">}</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a>  <span class="op">}</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">fn</span> add_curried1(x<span class="op">:</span> <span class="dt">u32</span>) <span class="op">-&gt;</span> <span class="op">?</span> <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>  <span class="kw">return</span> <span class="kw">fn</span> add_curried2 (y<span class="op">:</span> <span class="dt">u32</span>) <span class="op">-&gt;</span> <span class="op">?</span> <span class="op">{</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>    <span class="kw">return</span> <span class="kw">fn</span> add_curried3 (z<span class="op">:</span> <span class="dt">u32</span>) <span class="op">-&gt;</span> <span class="dt">u32</span> <span class="op">{</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>      <span class="kw">return</span> x <span class="op">+</span> y <span class="op">+</span> z<span class="op">;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>  <span class="op">}</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p>A couple of things to note:</p>
 <p><strong>Return types</strong><br />
 We have placed <code>?</code>s in place of return types. Let’s try to fix that. <code>add_curried3</code> returns the ‘value’, so <code>u32</code> is accurate. <code>add_curried2</code> returns <code>add_curried3</code>. What is the type of <code>add_curried3</code>? It is a function that takes in a <code>u32</code> and returns a <code>u32</code>. So a <code>fn(u32) -&gt; u32</code> will do right? No, I’ll explain why in the next point, but for now, we will make use of the <code>Fn</code> trait, our return type is <code>impl Fn(u32) -&gt; u32</code>. This basically tells the compiler that we will be returning something function-like, a.k.a, behaves like a <code>Fn</code>. Cool!</p>
@@ -117,9 +117,9 @@ We have placed <code>?</code>s in place of return types. Let’s try to fix that
 A function cannot access it’s environment. Our solution will not work. <code>add_curried3</code> attempts to access <code>x</code>, which is not allowed! A closure<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> however, can. If we are returning a closure, our return type must be <code>impl Fn</code>, and not <code>fn</code>. The difference between the <code>Fn</code> trait and function pointers is beyond the scope of this post.</p>
 <h3 id="refinement">Refinement</h3>
 <p>Armed with knowledge, we refine our expected output, this time, employing closures:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">fn</span> add(x: <span class="dt">u32</span>) -&gt; <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) -&gt; <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) -&gt; <span class="dt">u32</span> <span class="op">{</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>  <span class="kw">return</span> <span class="kw">move</span> |y| <span class="kw">move</span> |z| x + y + z;</span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">fn</span> add(x<span class="op">:</span> <span class="dt">u32</span>) <span class="op">-&gt;</span> <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) <span class="op">-&gt;</span> <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) <span class="op">-&gt;</span> <span class="dt">u32</span> <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>  <span class="kw">return</span> <span class="kw">move</span> <span class="op">|</span>y<span class="op">|</span> <span class="kw">move</span> <span class="op">|</span>z<span class="op">|</span> x <span class="op">+</span> y <span class="op">+</span> z<span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p>Alas, that does not compile either! It errors out with the following message:</p>
 <pre><code>error[E0562]: `impl Trait` not allowed outside of function
 and inherent method return types
@@ -130,15 +130,15 @@ and inherent method return types
 </code></pre>
 <p>You are allowed to return an <code>impl Fn</code> only inside a function. We are currently returning it from another return! Or at least, that was the most I could make out of the error message.</p>
 <p>We are going to have to cheat a bit to fix this issue; with type aliases and a convenient nightly feature <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb10-1"><a href="#cb10-1"></a><span class="at">#![</span>feature<span class="at">(</span>type_alias_impl_trait<span class="at">)]</span>  <span class="co">// allows us to use `impl Fn` in type aliases!</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="kw">type</span> T0 = <span class="dt">u32</span>;                 <span class="co">// the return value when zero args are to be applied</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="kw">type</span> T1 = <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) -&gt; T0;  <span class="co">// the return value when one arg is to be applied</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="kw">type</span> T2 = <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) -&gt; T1;  <span class="co">// the return value when two args are to be applied</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a></span>
-<span id="cb10-7"><a href="#cb10-7"></a><span class="kw">fn</span> add(x: <span class="dt">u32</span>) -&gt; T2 <span class="op">{</span></span>
-<span id="cb10-8"><a href="#cb10-8"></a>  <span class="kw">return</span> <span class="kw">move</span> |y| <span class="kw">move</span> |z| x + y + z;</span>
-<span id="cb10-9"><a href="#cb10-9"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="at">#![</span>feature<span class="at">(</span>type_alias_impl_trait<span class="at">)]</span>  <span class="co">// allows us to use `impl Fn` in type aliases!</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a><span class="kw">type</span> T0 <span class="op">=</span> <span class="dt">u32</span><span class="op">;</span>                 <span class="co">// the return value when zero args are to be applied</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a><span class="kw">type</span> T1 <span class="op">=</span> <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) <span class="op">-&gt;</span> T0<span class="op">;</span>  <span class="co">// the return value when one arg is to be applied</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a><span class="kw">type</span> T2 <span class="op">=</span> <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) <span class="op">-&gt;</span> T1<span class="op">;</span>  <span class="co">// the return value when two args are to be applied</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a><span class="kw">fn</span> add(x<span class="op">:</span> <span class="dt">u32</span>) <span class="op">-&gt;</span> T2 <span class="op">{</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a>  <span class="kw">return</span> <span class="kw">move</span> <span class="op">|</span>y<span class="op">|</span> <span class="kw">move</span> <span class="op">|</span>z<span class="op">|</span> x <span class="op">+</span> y <span class="op">+</span> z<span class="op">;</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p>Drop that into a cargo project, call <code>add(4)(5)(6)</code>, cross your fingers, and run <code>cargo +nightly run</code>. You should see a 15 unless you forgot to print it!</p>
 <h3 id="the-in-betweens">The In-Betweens</h3>
 <p>Let us write the magical bits that take us from function to curried function.</p>
@@ -172,19 +172,19 @@ proc-macro = true  # this is important!</code></pre>
 <p>We will be using an external <code>proc-macro2</code> crate as well as an internal <code>proc-macro</code> crate. Not confusing at all!</p>
 <h4 id="the-attribute-macro">The attribute macro</h4>
 <p>Drop this into <code>src/lib.rs</code>, to get the ball rolling.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">// src/lib.rs</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a></span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="kw">use</span> <span class="pp">proc_macro::</span>TokenStream;  <span class="co">// 1</span></span>
-<span id="cb13-4"><a href="#cb13-4"></a><span class="kw">use</span> <span class="pp">quote::</span>quote;</span>
-<span id="cb13-5"><a href="#cb13-5"></a><span class="kw">use</span> <span class="pp">syn::</span><span class="op">{</span>parse_macro_input, ItemFn<span class="op">}</span>;</span>
-<span id="cb13-6"><a href="#cb13-6"></a></span>
-<span id="cb13-7"><a href="#cb13-7"></a><span class="at">#[</span>proc_macro_attribute<span class="at">]</span>   <span class="co">// 2</span></span>
-<span id="cb13-8"><a href="#cb13-8"></a><span class="kw">pub</span> <span class="kw">fn</span> curry(_attr: TokenStream, item: TokenStream) -&gt; TokenStream <span class="op">{</span></span>
-<span id="cb13-9"><a href="#cb13-9"></a>  <span class="kw">let</span> parsed = <span class="pp">parse_macro_input!</span>(item <span class="kw">as</span> ItemFn);  <span class="co">// 3</span></span>
-<span id="cb13-10"><a href="#cb13-10"></a>  generate_curry(parsed).into()  <span class="co">// 4</span></span>
-<span id="cb13-11"><a href="#cb13-11"></a><span class="op">}</span></span>
-<span id="cb13-12"><a href="#cb13-12"></a></span>
-<span id="cb13-13"><a href="#cb13-13"></a><span class="kw">fn</span> generate_curry(parsed: ItemFn) -&gt; <span class="pp">proc_macro2::</span>TokenStream <span class="op">{}</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="co">// src/lib.rs</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">proc_macro::</span>TokenStream<span class="op">;</span>  <span class="co">// 1</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">quote::</span>quote<span class="op">;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">syn::</span><span class="op">{</span>parse_macro_input<span class="op">,</span> ItemFn<span class="op">};</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true"></a><span class="at">#[</span>proc_macro_attribute<span class="at">]</span>   <span class="co">// 2</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true"></a><span class="kw">pub</span> <span class="kw">fn</span> curry(_attr<span class="op">:</span> TokenStream<span class="op">,</span> item<span class="op">:</span> TokenStream) <span class="op">-&gt;</span> TokenStream <span class="op">{</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true"></a>  <span class="kw">let</span> parsed <span class="op">=</span> <span class="pp">parse_macro_input!</span>(item <span class="kw">as</span> ItemFn)<span class="op">;</span>  <span class="co">// 3</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true"></a>  generate_curry(parsed)<span class="op">.</span>into()  <span class="co">// 4</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true"></a><span class="kw">fn</span> generate_curry(parsed<span class="op">:</span> ItemFn) <span class="op">-&gt;</span> <span class="pp">proc_macro2::</span>TokenStream <span class="op">{}</span></span></code></pre></div>
 <p><strong>1. Imports</strong></p>
 <p>A <code>Tokenstream</code> holds (hopefully valid) Rust code, this is the type of our input and output. Note that we are importing this type from <code>proc_macro</code> and not <code>proc_macro2</code>.</p>
 <p><code>quote!</code> from the <code>quote</code> crate is a macro that allows us to quickly produce <code>TokenStream</code>s. Much like the LISP <code>quote</code> procedure, you can use the <code>quote!</code> macro for symbolic transformations.</p>
@@ -196,16 +196,16 @@ proc-macro = true  # this is important!</code></pre>
 <p><strong>4. Returning <code>TokenStream</code>s </strong></p>
 <p>We haven’t filled in <code>generate_curry</code> yet, but we can see that it returns a <code>proc_macro2::TokenStream</code> and not a <code>proc_macro::TokenStream</code>, so drop a <code>.into()</code> to convert it.</p>
 <p>Lets move on, and fill in <code>generate_curry</code>, I would suggest keeping the documentation for <a href="https://docs.rs/syn/1.0.19/syn/struct.ItemFn.html"><code>syn::ItemFn</code></a> and <a href="https://docs.rs/syn/1.0.19/syn/struct.Signature.html"><code>syn::Signature</code></a> open.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb14-1"><a href="#cb14-1"></a><span class="co">// src/lib.rs</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a></span>
-<span id="cb14-3"><a href="#cb14-3"></a><span class="kw">fn</span> generate_curry(parsed: ItemFn) -&gt; <span class="pp">proc_macro2::</span>TokenStream <span class="op">{</span></span>
-<span id="cb14-4"><a href="#cb14-4"></a>  <span class="kw">let</span> fn_body = parsed.block;      <span class="co">// function body</span></span>
-<span id="cb14-5"><a href="#cb14-5"></a>  <span class="kw">let</span> sig = parsed.sig;            <span class="co">// function signature</span></span>
-<span id="cb14-6"><a href="#cb14-6"></a>  <span class="kw">let</span> vis = parsed.vis;            <span class="co">// visibility, pub or not</span></span>
-<span id="cb14-7"><a href="#cb14-7"></a>  <span class="kw">let</span> fn_name = sig.ident;         <span class="co">// function name/identifier</span></span>
-<span id="cb14-8"><a href="#cb14-8"></a>  <span class="kw">let</span> fn_args = sig.inputs;        <span class="co">// comma separated args</span></span>
-<span id="cb14-9"><a href="#cb14-9"></a>  <span class="kw">let</span> fn_return_type = sig.output; <span class="co">// return type</span></span>
-<span id="cb14-10"><a href="#cb14-10"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="co">// src/lib.rs</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a><span class="kw">fn</span> generate_curry(parsed<span class="op">:</span> ItemFn) <span class="op">-&gt;</span> <span class="pp">proc_macro2::</span>TokenStream <span class="op">{</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a>  <span class="kw">let</span> fn_body <span class="op">=</span> parsed<span class="op">.</span>block<span class="op">;</span>      <span class="co">// function body</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a>  <span class="kw">let</span> sig <span class="op">=</span> parsed<span class="op">.</span>sig<span class="op">;</span>            <span class="co">// function signature</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a>  <span class="kw">let</span> vis <span class="op">=</span> parsed<span class="op">.</span>vis<span class="op">;</span>            <span class="co">// visibility, pub or not</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true"></a>  <span class="kw">let</span> fn_name <span class="op">=</span> sig<span class="op">.</span>ident<span class="op">;</span>         <span class="co">// function name/identifier</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true"></a>  <span class="kw">let</span> fn_args <span class="op">=</span> sig<span class="op">.</span>inputs<span class="op">;</span>        <span class="co">// comma separated args</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true"></a>  <span class="kw">let</span> fn_return_type <span class="op">=</span> sig<span class="op">.</span>output<span class="op">;</span> <span class="co">// return type</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p>We are simply extracting the bits of the function, we will be reusing the original function’s visibility and name. Take a look at what <code>syn::Signature</code> can tell us about a function:</p>
 <pre><code>                       .-- syn::Ident (ident)
                       /
@@ -217,220 +217,220 @@ syn::token::Fn --&#39;            /               \       (output)
 <p>Enough analysis, lets produce our first bit of Rust code.</p>
 <h4 id="function-body">Function Body</h4>
 <p>Recall that the body of a curried <code>add</code> should look like this:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">return</span> <span class="kw">move</span> |y| <span class="kw">move</span> |z| x + y + z;</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="kw">return</span> <span class="kw">move</span> <span class="op">|</span>y<span class="op">|</span> <span class="kw">move</span> <span class="op">|</span>z<span class="op">|</span> x <span class="op">+</span> y <span class="op">+</span> z<span class="op">;</span></span></code></pre></div>
 <p>And in general:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">return</span> <span class="kw">move</span> |arg2| <span class="kw">move</span> |arg3| ... |argN| &lt;function body here&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="kw">return</span> <span class="kw">move</span> <span class="op">|</span>arg2<span class="op">|</span> <span class="kw">move</span> <span class="op">|</span>arg3<span class="op">|</span> <span class="op">...</span> <span class="op">|</span>argN<span class="op">|</span> <span class="op">&lt;</span>function body here<span class="op">&gt;</span></span></code></pre></div>
 <p>We already have the function’s body, provided by <code>fn_body</code>, in our <code>generate_curry</code> function. All that’s left to add is the <code>move |arg2| move |arg3| ...</code> stuff, for which we need to extract the argument identifiers (doc: <a href="https://docs.rs/syn/1.0.18/syn/punctuated/struct.Punctuated.html">Punctuated</a>, <a href="https://docs.rs/syn/1.0.18/syn/enum.FnArg.html">FnArg</a>, <a href="https://docs.rs/syn/1.0.18/syn/struct.PatType.html">PatType</a>):</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb18-1"><a href="#cb18-1"></a><span class="co">// src/lib.rs</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="kw">use</span> <span class="pp">syn::punctuated::</span>Punctuated;</span>
-<span id="cb18-3"><a href="#cb18-3"></a><span class="kw">use</span> <span class="pp">syn::</span><span class="op">{</span>parse_macro_input, FnArg, Pat, ItemFn, Block<span class="op">}</span>;</span>
-<span id="cb18-4"><a href="#cb18-4"></a></span>
-<span id="cb18-5"><a href="#cb18-5"></a><span class="kw">fn</span> extract_arg_idents(fn_args: Punctuated&lt;FnArg, <span class="pp">syn::token::</span>Comma&gt;) -&gt; <span class="dt">Vec</span>&lt;<span class="dt">Box</span>&lt;Pat&gt;&gt; <span class="op">{</span> </span>
-<span id="cb18-6"><a href="#cb18-6"></a>  <span class="kw">return</span> fn_args.into_iter().map(extract_arg_pat).<span class="pp">collect::</span>&lt;<span class="dt">Vec</span>&lt;_&gt;&gt;();</span>
-<span id="cb18-7"><a href="#cb18-7"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="co">// src/lib.rs</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">syn::punctuated::</span>Punctuated<span class="op">;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">syn::</span><span class="op">{</span>parse_macro_input<span class="op">,</span> FnArg<span class="op">,</span> Pat<span class="op">,</span> ItemFn<span class="op">,</span> Block<span class="op">};</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true"></a><span class="kw">fn</span> extract_arg_idents(fn_args<span class="op">:</span> Punctuated<span class="op">&lt;</span>FnArg<span class="op">,</span> <span class="pp">syn::token::</span>Comma<span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">Box</span><span class="op">&lt;</span>Pat<span class="op">&gt;&gt;</span> <span class="op">{</span> </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true"></a>  <span class="kw">return</span> fn_args<span class="op">.</span>into_iter()<span class="op">.</span>map(extract_arg_pat)<span class="op">.</span><span class="pp">collect::</span><span class="op">&lt;</span><span class="dt">Vec</span><span class="op">&lt;</span>_<span class="op">&gt;&gt;</span>()<span class="op">;</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p>Alright, so we are iterating over function args (<code>Punctuated</code> is a collection that you can iterate over) and mapping an <code>extract_arg_pat</code> to every item. What’s <code>extract_arg_pat</code>?</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb19-1"><a href="#cb19-1"></a><span class="co">// src/lib.rs</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a></span>
-<span id="cb19-3"><a href="#cb19-3"></a><span class="kw">fn</span> extract_arg_pat(a: FnArg) -&gt; <span class="dt">Box</span>&lt;Pat&gt; <span class="op">{</span></span>
-<span id="cb19-4"><a href="#cb19-4"></a>  <span class="kw">match</span> a <span class="op">{</span></span>
-<span id="cb19-5"><a href="#cb19-5"></a>    <span class="pp">FnArg::</span>Typed(p) =&gt; p.pat,</span>
-<span id="cb19-6"><a href="#cb19-6"></a>    _ =&gt; <span class="pp">panic!</span>(<span class="st">&quot;Not supported on types with `self`!&quot;</span>),</span>
-<span id="cb19-7"><a href="#cb19-7"></a>  <span class="op">}</span></span>
-<span id="cb19-8"><a href="#cb19-8"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="co">// src/lib.rs</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true"></a><span class="kw">fn</span> extract_arg_pat(a<span class="op">:</span> FnArg) <span class="op">-&gt;</span> <span class="dt">Box</span><span class="op">&lt;</span>Pat<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true"></a>  <span class="kw">match</span> a <span class="op">{</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true"></a>    <span class="pp">FnArg::</span>Typed(p) <span class="op">=&gt;</span> p<span class="op">.</span>pat<span class="op">,</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true"></a>    _ <span class="op">=&gt;</span> <span class="pp">panic!</span>(<span class="st">&quot;Not supported on types with `self`!&quot;</span>)<span class="op">,</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true"></a>  <span class="op">}</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p><code>FnArg</code> is an enum type as you might have guessed. The <code>Typed</code> variant encompasses args that are written as <code>name: type</code> and the other variant, <code>Reciever</code> refers to <code>self</code> types. Ignore those for now, keep it simple.</p>
 <p>Every <code>FnArg::Typed</code> value contains a <code>pat</code>, which is in essence, the name of the argument. The type of the arg is accessible via <code>p.ty</code> (we will be using this later).</p>
 <p>With that done, we should be able to write the codegen for the function body:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb20-1"><a href="#cb20-1"></a><span class="co">// src/lib.rs</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a></span>
-<span id="cb20-3"><a href="#cb20-3"></a><span class="kw">fn</span> generate_body(fn_args: &amp;<span class="op">[</span><span class="dt">Box</span>&lt;Pat&gt;<span class="op">]</span>, body: <span class="dt">Box</span>&lt;Block&gt;) -&gt; <span class="pp">proc_macro2::</span>TokenStream <span class="op">{</span></span>
-<span id="cb20-4"><a href="#cb20-4"></a>  <span class="pp">quote!</span> <span class="op">{</span></span>
-<span id="cb20-5"><a href="#cb20-5"></a>    <span class="kw">return</span> #( <span class="kw">move</span> |#fn_args|  )* #body</span>
-<span id="cb20-6"><a href="#cb20-6"></a>  <span class="op">}</span></span>
-<span id="cb20-7"><a href="#cb20-7"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span class="co">// src/lib.rs</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true"></a><span class="kw">fn</span> generate_body(fn_args<span class="op">:</span> <span class="op">&amp;</span>[<span class="dt">Box</span><span class="op">&lt;</span>Pat<span class="op">&gt;</span>]<span class="op">,</span> body<span class="op">:</span> <span class="dt">Box</span><span class="op">&lt;</span>Block<span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="pp">proc_macro2::</span>TokenStream <span class="op">{</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true"></a>  <span class="pp">quote!</span> <span class="op">{</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true"></a>    <span class="kw">return</span> #( <span class="kw">move</span> <span class="op">|</span>#fn_args<span class="op">|</span>  )<span class="op">*</span> #body</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true"></a>  <span class="op">}</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p>That is some scary looking syntax! Allow me to explain. The <code>quote!{ ... }</code> returns a <code>proc_macro2::TokenStream</code>, if we wrote <code>quote!{ let x = 1 + 2; }</code>, it wouldn’t create a new variable <code>x</code> with value 3, it would literally produce a stream of tokens with that expression.</p>
 <p>The <code>#</code> enables variable interpolation. <code>#body</code> will look for <code>body</code> in the current scope, take its value, and insert it in the returned <code>TokenStream</code>. Kinda like quasi quoting in LISPs, you have written one.</p>
 <p>What about <code>#( move |#fn_args| )*</code>? That is repetition. <code>quote</code> iterates through <code>fn_args</code>, and drops a <code>move</code> behind each one, it then places pipes (<code>|</code>), around it.</p>
 <p>Let us test our first bit of codegen! Modify <code>generate_curry</code> like so:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb21-1"><a href="#cb21-1"></a><span class="co">// src/lib.rs</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a></span>
-<span id="cb21-3"><a href="#cb21-3"></a> <span class="kw">fn</span> generate_curry(parsed: ItemFn) -&gt; TokenStream <span class="op">{</span></span>
-<span id="cb21-4"><a href="#cb21-4"></a>   <span class="kw">let</span> fn_body = parsed.block;</span>
-<span id="cb21-5"><a href="#cb21-5"></a>   <span class="kw">let</span> sig = parsed.sig;</span>
-<span id="cb21-6"><a href="#cb21-6"></a>   <span class="kw">let</span> vis = parsed.vis;</span>
-<span id="cb21-7"><a href="#cb21-7"></a>   <span class="kw">let</span> fn_name = sig.ident;</span>
-<span id="cb21-8"><a href="#cb21-8"></a>   <span class="kw">let</span> fn_args = sig.inputs;</span>
-<span id="cb21-9"><a href="#cb21-9"></a>   <span class="kw">let</span> fn_return_type = sig.output;</span>
-<span id="cb21-10"><a href="#cb21-10"></a></span>
-<span id="cb21-11"><a href="#cb21-11"></a>+  <span class="kw">let</span> arg_idents = extract_arg_idents(fn_args.clone());</span>
-<span id="cb21-12"><a href="#cb21-12"></a>+  <span class="kw">let</span> first_ident = &amp;arg_idents.first().unwrap();</span>
-<span id="cb21-13"><a href="#cb21-13"></a></span>
-<span id="cb21-14"><a href="#cb21-14"></a>+  <span class="co">// remember, our curried body starts with the second argument!</span></span>
-<span id="cb21-15"><a href="#cb21-15"></a>+  <span class="kw">let</span> curried_body = generate_body(&amp;arg_idents<span class="op">[</span><span class="dv">1</span>..<span class="op">]</span>, fn_body.clone());</span>
-<span id="cb21-16"><a href="#cb21-16"></a>+  <span class="pp">println!</span>(<span class="st">&quot;{}&quot;</span>, curried_body);</span>
-<span id="cb21-17"><a href="#cb21-17"></a></span>
-<span id="cb21-18"><a href="#cb21-18"></a>   <span class="kw">return</span> <span class="pp">TokenStream::</span>new();</span>
-<span id="cb21-19"><a href="#cb21-19"></a> <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a><span class="co">// src/lib.rs</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true"></a> <span class="kw">fn</span> generate_curry(parsed<span class="op">:</span> ItemFn) <span class="op">-&gt;</span> TokenStream <span class="op">{</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true"></a>   <span class="kw">let</span> fn_body <span class="op">=</span> parsed<span class="op">.</span>block<span class="op">;</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true"></a>   <span class="kw">let</span> sig <span class="op">=</span> parsed<span class="op">.</span>sig<span class="op">;</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true"></a>   <span class="kw">let</span> vis <span class="op">=</span> parsed<span class="op">.</span>vis<span class="op">;</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true"></a>   <span class="kw">let</span> fn_name <span class="op">=</span> sig<span class="op">.</span>ident<span class="op">;</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true"></a>   <span class="kw">let</span> fn_args <span class="op">=</span> sig<span class="op">.</span>inputs<span class="op">;</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true"></a>   <span class="kw">let</span> fn_return_type <span class="op">=</span> sig<span class="op">.</span>output<span class="op">;</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true"></a><span class="op">+</span>  <span class="kw">let</span> arg_idents <span class="op">=</span> extract_arg_idents(fn_args<span class="op">.</span>clone())<span class="op">;</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true"></a><span class="op">+</span>  <span class="kw">let</span> first_ident <span class="op">=</span> <span class="op">&amp;</span>arg_idents<span class="op">.</span>first()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true"></a></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true"></a><span class="op">+</span>  <span class="co">// remember, our curried body starts with the second argument!</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true"></a><span class="op">+</span>  <span class="kw">let</span> curried_body <span class="op">=</span> generate_body(<span class="op">&amp;</span>arg_idents[<span class="dv">1</span><span class="op">..</span>]<span class="op">,</span> fn_body<span class="op">.</span>clone())<span class="op">;</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true"></a><span class="op">+</span>  <span class="pp">println!</span>(<span class="st">&quot;{}&quot;</span><span class="op">,</span> curried_body)<span class="op">;</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true"></a></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true"></a>   <span class="kw">return</span> <span class="pp">TokenStream::</span>new()<span class="op">;</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true"></a> <span class="op">}</span></span></code></pre></div>
 <p>Add a little test to <code>tests/</code>:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb22-1"><a href="#cb22-1"></a><span class="co">// tests/smoke.rs</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a></span>
-<span id="cb22-3"><a href="#cb22-3"></a><span class="at">#[</span><span class="pp">currying::</span>curry<span class="at">]</span></span>
-<span id="cb22-4"><a href="#cb22-4"></a><span class="kw">fn</span> add(x: <span class="dt">u32</span>, y: <span class="dt">u32</span>, z: <span class="dt">u32</span>) -&gt; <span class="dt">u32</span> <span class="op">{</span></span>
-<span id="cb22-5"><a href="#cb22-5"></a>  x + y + z</span>
-<span id="cb22-6"><a href="#cb22-6"></a><span class="op">}</span></span>
-<span id="cb22-7"><a href="#cb22-7"></a></span>
-<span id="cb22-8"><a href="#cb22-8"></a><span class="at">#[</span>test<span class="at">]</span></span>
-<span id="cb22-9"><a href="#cb22-9"></a><span class="kw">fn</span> works() <span class="op">{</span></span>
-<span id="cb22-10"><a href="#cb22-10"></a>  <span class="pp">assert!</span>(<span class="cn">true</span>);</span>
-<span id="cb22-11"><a href="#cb22-11"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span class="co">// tests/smoke.rs</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true"></a><span class="at">#[</span><span class="pp">currying::</span>curry<span class="at">]</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true"></a><span class="kw">fn</span> add(x<span class="op">:</span> <span class="dt">u32</span><span class="op">,</span> y<span class="op">:</span> <span class="dt">u32</span><span class="op">,</span> z<span class="op">:</span> <span class="dt">u32</span>) <span class="op">-&gt;</span> <span class="dt">u32</span> <span class="op">{</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true"></a>  x <span class="op">+</span> y <span class="op">+</span> z</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true"></a><span class="at">#[</span>test<span class="at">]</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true"></a><span class="kw">fn</span> works() <span class="op">{</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true"></a>  <span class="pp">assert!</span>(<span class="cn">true</span>)<span class="op">;</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p>You should find something like this in the output of <code>cargo test</code>:</p>
 <pre><code>return move | y | move | z | { x + y + z }</code></pre>
 <p>Glorious <code>println!</code> debugging!</p>
 <h4 id="function-signature">Function signature</h4>
 <p>This section gets into the more complicated bits of the macro, generating type aliases and the function signature. By the end of this section, we should have a full working auto-currying macro!</p>
 <p>Recall what our generated type aliases should look like, for our <code>add</code> function:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">type</span> T0 = <span class="dt">u32</span>;</span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="kw">type</span> T1 = <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) -&gt; T0;</span>
-<span id="cb24-3"><a href="#cb24-3"></a><span class="kw">type</span> T2 = <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) -&gt; T1;</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a><span class="kw">type</span> T0 <span class="op">=</span> <span class="dt">u32</span><span class="op">;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true"></a><span class="kw">type</span> T1 <span class="op">=</span> <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) <span class="op">-&gt;</span> T0<span class="op">;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true"></a><span class="kw">type</span> T2 <span class="op">=</span> <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) <span class="op">-&gt;</span> T1<span class="op">;</span></span></code></pre></div>
 <p>In general:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">type</span> T0 = &lt;<span class="kw">return</span> <span class="kw">type</span>&gt;;</span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="kw">type</span> T1 = <span class="kw">impl</span> <span class="bu">Fn</span>(&lt;<span class="kw">type</span> of arg N&gt;) -&gt; T0;</span>
-<span id="cb25-3"><a href="#cb25-3"></a><span class="kw">type</span> T2 = <span class="kw">impl</span> <span class="bu">Fn</span>(&lt;<span class="kw">type</span> of arg N - 1&gt;) -&gt; T1;</span>
-<span id="cb25-4"><a href="#cb25-4"></a>.</span>
-<span id="cb25-5"><a href="#cb25-5"></a>.</span>
-<span id="cb25-6"><a href="#cb25-6"></a>.</span>
-<span id="cb25-7"><a href="#cb25-7"></a><span class="kw">type</span> T(N-1) = <span class="kw">impl</span> <span class="bu">Fn</span>(&lt;<span class="kw">type</span> of arg 2&gt;) -&gt; T(N-2);</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true"></a><span class="kw">type</span> T0 <span class="op">=</span> <span class="op">&lt;</span><span class="kw">return</span> <span class="kw">type</span>&gt;<span class="op">;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true"></a><span class="kw">type</span> T1 <span class="op">=</span> <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="op">&lt;</span><span class="kw">type</span> of arg N&gt;) -&gt; T0<span class="op">;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true"></a><span class="kw">type</span> T2 <span class="op">=</span> <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="op">&lt;</span><span class="kw">type</span> of arg N - 1&gt;) -&gt; T1<span class="op">;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true"></a><span class="op">.</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true"></a><span class="op">.</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true"></a><span class="op">.</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true"></a><span class="kw">type</span> T(N-1) <span class="op">=</span> <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="op">&lt;</span><span class="kw">type</span> of arg 2&gt;) -&gt; T(N-2)<span class="op">;</span></span></code></pre></div>
 <p>To codegen that, we need the types of:</p>
 <ul>
 <li>all our inputs (arguments)</li>
 <li>the output (the return type)</li>
 </ul>
 <p>To fetch the types of all our inputs, we can simply reuse the bits we wrote to fetch the names of all our inputs! (doc: <a href="https://docs.rs/syn/1.0.18/syn/enum.Type.html">Type</a>)</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb26-1"><a href="#cb26-1"></a><span class="co">// src/lib.rs</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a></span>
-<span id="cb26-3"><a href="#cb26-3"></a><span class="kw">use</span> <span class="pp">syn::</span><span class="op">{</span>parse_macro_input, Block, FnArg, ItemFn, Pat, ReturnType, Type<span class="op">}</span>;</span>
-<span id="cb26-4"><a href="#cb26-4"></a></span>
-<span id="cb26-5"><a href="#cb26-5"></a><span class="kw">fn</span> extract_type(a: FnArg) -&gt; <span class="dt">Box</span>&lt;Type&gt; <span class="op">{</span></span>
-<span id="cb26-6"><a href="#cb26-6"></a>  <span class="kw">match</span> a <span class="op">{</span></span>
-<span id="cb26-7"><a href="#cb26-7"></a>    <span class="pp">FnArg::</span>Typed(p) =&gt; p.ty,  <span class="co">// notice `ty` instead of `pat`</span></span>
-<span id="cb26-8"><a href="#cb26-8"></a>      _ =&gt; <span class="pp">panic!</span>(<span class="st">&quot;Not supported on types with `self`!&quot;</span>),</span>
-<span id="cb26-9"><a href="#cb26-9"></a>  <span class="op">}</span></span>
-<span id="cb26-10"><a href="#cb26-10"></a><span class="op">}</span></span>
-<span id="cb26-11"><a href="#cb26-11"></a></span>
-<span id="cb26-12"><a href="#cb26-12"></a><span class="kw">fn</span> extract_arg_types(fn_args: Punctuated&lt;FnArg, <span class="pp">syn::token::</span>Comma&gt;) -&gt; <span class="dt">Vec</span>&lt;<span class="dt">Box</span>&lt;Type&gt;&gt; <span class="op">{</span></span>
-<span id="cb26-13"><a href="#cb26-13"></a>  <span class="kw">return</span> fn_args.into_iter().map(extract_type).<span class="pp">collect::</span>&lt;<span class="dt">Vec</span>&lt;_&gt;&gt;();</span>
-<span id="cb26-14"><a href="#cb26-14"></a></span>
-<span id="cb26-15"><a href="#cb26-15"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a><span class="co">// src/lib.rs</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">syn::</span><span class="op">{</span>parse_macro_input<span class="op">,</span> Block<span class="op">,</span> FnArg<span class="op">,</span> ItemFn<span class="op">,</span> Pat<span class="op">,</span> ReturnType<span class="op">,</span> Type<span class="op">};</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true"></a><span class="kw">fn</span> extract_type(a<span class="op">:</span> FnArg) <span class="op">-&gt;</span> <span class="dt">Box</span><span class="op">&lt;</span>Type<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true"></a>  <span class="kw">match</span> a <span class="op">{</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true"></a>    <span class="pp">FnArg::</span>Typed(p) <span class="op">=&gt;</span> p<span class="op">.</span>ty<span class="op">,</span>  <span class="co">// notice `ty` instead of `pat`</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true"></a>      _ <span class="op">=&gt;</span> <span class="pp">panic!</span>(<span class="st">&quot;Not supported on types with `self`!&quot;</span>)<span class="op">,</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true"></a>  <span class="op">}</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true"></a></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true"></a><span class="kw">fn</span> extract_arg_types(fn_args<span class="op">:</span> Punctuated<span class="op">&lt;</span>FnArg<span class="op">,</span> <span class="pp">syn::token::</span>Comma<span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">Box</span><span class="op">&lt;</span>Type<span class="op">&gt;&gt;</span> <span class="op">{</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true"></a>  <span class="kw">return</span> fn_args<span class="op">.</span>into_iter()<span class="op">.</span>map(extract_type)<span class="op">.</span><span class="pp">collect::</span><span class="op">&lt;</span><span class="dt">Vec</span><span class="op">&lt;</span>_<span class="op">&gt;&gt;</span>()<span class="op">;</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true"></a></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p>A good reader would have looked at the docs for output member of the <code>syn::Signature</code> struct. It has the type <code>syn::ReturnType</code>. So there is no extraction to do here right? There are actually a couple of things we have to ensure here:</p>
 <ol type="1">
 <li><p>We need to ensure that the function returns! A function that does not return is pointless in this case, and I will tell you why, in the <a href="#notes">Notes</a> section.</p></li>
 <li><p>A <code>ReturnType</code> encloses the arrow of the return as well, we need to get rid of that. Recall:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb27-1"><a href="#cb27-1"></a><span class="kw">type</span> T0 = <span class="dt">u32</span></span>
-<span id="cb27-2"><a href="#cb27-2"></a><span class="co">// and not</span></span>
-<span id="cb27-3"><a href="#cb27-3"></a><span class="kw">type</span> T0 = -&gt; <span class="dt">u32</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb27"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true"></a><span class="kw">type</span> T0 <span class="op">=</span> <span class="dt">u32</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true"></a><span class="co">// and not</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true"></a><span class="kw">type</span> T0 <span class="op">=</span> <span class="op">-&gt;</span> <span class="dt">u32</span></span></code></pre></div></li>
 </ol>
 <p>Here is the snippet that handles extraction of the return type (doc: <a href="https://docs.rs/syn/1.0.19/syn/enum.ReturnType.html">syn::ReturnType</a>):</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb28-1"><a href="#cb28-1"></a><span class="co">// src/lib.rs</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a></span>
-<span id="cb28-3"><a href="#cb28-3"></a><span class="kw">fn</span> extract_return_type(a: ReturnType) -&gt; <span class="dt">Box</span>&lt;Type&gt; <span class="op">{</span></span>
-<span id="cb28-4"><a href="#cb28-4"></a>  <span class="kw">match</span> a <span class="op">{</span></span>
-<span id="cb28-5"><a href="#cb28-5"></a>    <span class="pp">ReturnType::</span>Type(_, p) =&gt; p,</span>
-<span id="cb28-6"><a href="#cb28-6"></a>    _ =&gt; <span class="pp">panic!</span>(<span class="st">&quot;Not supported on functions without return types!&quot;</span>),</span>
-<span id="cb28-7"><a href="#cb28-7"></a>  <span class="op">}</span></span>
-<span id="cb28-8"><a href="#cb28-8"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true"></a><span class="co">// src/lib.rs</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true"></a><span class="kw">fn</span> extract_return_type(a<span class="op">:</span> ReturnType) <span class="op">-&gt;</span> <span class="dt">Box</span><span class="op">&lt;</span>Type<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true"></a>  <span class="kw">match</span> a <span class="op">{</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true"></a>    <span class="pp">ReturnType::</span>Type(_<span class="op">,</span> p) <span class="op">=&gt;</span> p<span class="op">,</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true"></a>    _ <span class="op">=&gt;</span> <span class="pp">panic!</span>(<span class="st">&quot;Not supported on functions without return types!&quot;</span>)<span class="op">,</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true"></a>  <span class="op">}</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p>You might notice that we are making extensive use of the <code>panic!</code> macro. Well, that is because it is a good idea to quit on receiving an unsatisfactory <code>TokenStream</code>.</p>
 <p>With all our types ready, we can get on with generating type aliases:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb29-1"><a href="#cb29-1"></a><span class="co">// src/lib.rs</span></span>
-<span id="cb29-2"><a href="#cb29-2"></a></span>
-<span id="cb29-3"><a href="#cb29-3"></a><span class="kw">use</span> <span class="pp">quote::</span><span class="op">{</span>quote, format_ident<span class="op">}</span>;</span>
-<span id="cb29-4"><a href="#cb29-4"></a></span>
-<span id="cb29-5"><a href="#cb29-5"></a><span class="kw">fn</span> generate_type_aliases(</span>
-<span id="cb29-6"><a href="#cb29-6"></a>  fn_arg_types: &amp;<span class="op">[</span><span class="dt">Box</span>&lt;Type&gt;<span class="op">]</span>,</span>
-<span id="cb29-7"><a href="#cb29-7"></a>  fn_return_type: <span class="dt">Box</span>&lt;Type&gt;,</span>
-<span id="cb29-8"><a href="#cb29-8"></a>  fn_name: &amp;<span class="pp">syn::</span>Ident,</span>
-<span id="cb29-9"><a href="#cb29-9"></a>) -&gt; <span class="dt">Vec</span>&lt;<span class="pp">proc_macro2::</span>TokenStream&gt; <span class="op">{</span>    <span class="co">// 1</span></span>
-<span id="cb29-10"><a href="#cb29-10"></a></span>
-<span id="cb29-11"><a href="#cb29-11"></a>  <span class="kw">let</span> type_t0 = <span class="pp">format_ident!</span>(<span class="st">&quot;_{}_T0&quot;</span>, fn_name);    <span class="co">// 2</span></span>
-<span id="cb29-12"><a href="#cb29-12"></a>  <span class="kw">let</span> <span class="kw">mut</span> type_aliases = <span class="pp">vec!</span><span class="op">[</span><span class="pp">quote!</span> <span class="op">{</span> <span class="kw">type</span> #type_t0 = #fn_return_type  <span class="op">}]</span>;</span>
-<span id="cb29-13"><a href="#cb29-13"></a></span>
-<span id="cb29-14"><a href="#cb29-14"></a>  <span class="co">// 3</span></span>
-<span id="cb29-15"><a href="#cb29-15"></a>  <span class="kw">for</span> (i, t) <span class="kw">in</span> (<span class="dv">1</span>..).zip(fn_arg_types.into_iter().rev()) <span class="op">{</span></span>
-<span id="cb29-16"><a href="#cb29-16"></a>    <span class="kw">let</span> p = <span class="pp">format_ident!</span>(<span class="st">&quot;_{}_{}&quot;</span>, fn_name, <span class="pp">format!</span>(<span class="st">&quot;T{}&quot;</span>, i - <span class="dv">1</span>));</span>
-<span id="cb29-17"><a href="#cb29-17"></a>    <span class="kw">let</span> n = <span class="pp">format_ident!</span>(<span class="st">&quot;_{}_{}&quot;</span>, fn_name, <span class="pp">format!</span>(<span class="st">&quot;T{}&quot;</span>, i));</span>
-<span id="cb29-18"><a href="#cb29-18"></a></span>
-<span id="cb29-19"><a href="#cb29-19"></a>    type_aliases.push(<span class="pp">quote!</span> <span class="op">{</span></span>
-<span id="cb29-20"><a href="#cb29-20"></a>        <span class="kw">type</span> #n = <span class="kw">impl</span> <span class="bu">Fn</span>(#t) -&gt; #p</span>
-<span id="cb29-21"><a href="#cb29-21"></a>    <span class="op">}</span>);</span>
-<span id="cb29-22"><a href="#cb29-22"></a>  <span class="op">}</span></span>
-<span id="cb29-23"><a href="#cb29-23"></a></span>
-<span id="cb29-24"><a href="#cb29-24"></a>  <span class="kw">return</span> type_aliases;</span>
-<span id="cb29-25"><a href="#cb29-25"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true"></a><span class="co">// src/lib.rs</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">quote::</span><span class="op">{</span>quote<span class="op">,</span> format_ident<span class="op">};</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true"></a><span class="kw">fn</span> generate_type_aliases(</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true"></a>  fn_arg_types<span class="op">:</span> <span class="op">&amp;</span>[<span class="dt">Box</span><span class="op">&lt;</span>Type<span class="op">&gt;</span>]<span class="op">,</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true"></a>  fn_return_type<span class="op">:</span> <span class="dt">Box</span><span class="op">&lt;</span>Type<span class="op">&gt;,</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true"></a>  fn_name<span class="op">:</span> <span class="op">&amp;</span><span class="pp">syn::</span>Ident<span class="op">,</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true"></a>) <span class="op">-&gt;</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="pp">proc_macro2::</span>TokenStream<span class="op">&gt;</span> <span class="op">{</span>    <span class="co">// 1</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true"></a>  <span class="kw">let</span> type_t0 <span class="op">=</span> <span class="pp">format_ident!</span>(<span class="st">&quot;_{}_T0&quot;</span><span class="op">,</span> fn_name)<span class="op">;</span>    <span class="co">// 2</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true"></a>  <span class="kw">let</span> <span class="kw">mut</span> type_aliases <span class="op">=</span> <span class="pp">vec!</span>[<span class="pp">quote!</span> <span class="op">{</span> <span class="kw">type</span> #type_t0 <span class="op">=</span> #fn_return_type  <span class="op">}</span>]<span class="op">;</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true"></a></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true"></a>  <span class="co">// 3</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true"></a>  <span class="kw">for</span> (i<span class="op">,</span> t) <span class="kw">in</span> (<span class="dv">1</span><span class="op">..</span>)<span class="op">.</span>zip(fn_arg_types<span class="op">.</span>into_iter()<span class="op">.</span>rev()) <span class="op">{</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true"></a>    <span class="kw">let</span> p <span class="op">=</span> <span class="pp">format_ident!</span>(<span class="st">&quot;_{}_{}&quot;</span><span class="op">,</span> fn_name<span class="op">,</span> <span class="pp">format!</span>(<span class="st">&quot;T{}&quot;</span><span class="op">,</span> i <span class="op">-</span> <span class="dv">1</span>))<span class="op">;</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true"></a>    <span class="kw">let</span> n <span class="op">=</span> <span class="pp">format_ident!</span>(<span class="st">&quot;_{}_{}&quot;</span><span class="op">,</span> fn_name<span class="op">,</span> <span class="pp">format!</span>(<span class="st">&quot;T{}&quot;</span><span class="op">,</span> i))<span class="op">;</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true"></a></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true"></a>    type_aliases<span class="op">.</span>push(<span class="pp">quote!</span> <span class="op">{</span></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true"></a>        <span class="kw">type</span> #n <span class="op">=</span> <span class="kw">impl</span> <span class="bu">Fn</span>(#t) <span class="op">-&gt;</span> #p</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true"></a>    <span class="op">}</span>)<span class="op">;</span></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true"></a>  <span class="op">}</span></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true"></a></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true"></a>  <span class="kw">return</span> type_aliases<span class="op">;</span></span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p><strong>1. The return value</strong><br />
 We are returning a <code>Vec&lt;proc_macro2::TokenStream&gt;</code>, i. e., a list of <code>TokenStream</code>s, where each item is a type alias.</p>
 <p><strong>2. Format identifier?</strong><br />
 I’ve got some explanation to do on this line. Clearly, we are trying to write the first type alias, and initialize our <code>TokenStream</code> vector with <code>T0</code>, because it is different from the others:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">type</span> T0 = something</span>
-<span id="cb30-2"><a href="#cb30-2"></a><span class="co">// the others are of the form</span></span>
-<span id="cb30-3"><a href="#cb30-3"></a><span class="kw">type</span> Tr = <span class="kw">impl</span> <span class="bu">Fn</span>(something) -&gt; something</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true"></a><span class="kw">type</span> T0 <span class="op">=</span> something</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true"></a><span class="co">// the others are of the form</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true"></a><span class="kw">type</span> Tr <span class="op">=</span> <span class="kw">impl</span> <span class="bu">Fn</span>(something) <span class="op">-&gt;</span> something</span></code></pre></div>
 <p><code>format_ident!</code> is similar to <code>format!</code>. Instead of returning a formatted string, it returns a <code>syn::Ident</code>. Therefore, <code>type_t0</code> is actually an identifier for, in the case of our <code>add</code> function, <code>_add_T0</code>. Why is this formatting important? Namespacing.</p>
 <p>Picture this, we have two functions, <code>add</code> and <code>subtract</code>, that we wish to curry with our macro:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb31-1"><a href="#cb31-1"></a><span class="at">#[</span>curry<span class="at">]</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a><span class="kw">fn</span> add(...) -&gt; <span class="dt">u32</span> <span class="op">{</span> ... <span class="op">}</span></span>
-<span id="cb31-3"><a href="#cb31-3"></a></span>
-<span id="cb31-4"><a href="#cb31-4"></a><span class="at">#[</span>curry<span class="at">]</span></span>
-<span id="cb31-5"><a href="#cb31-5"></a><span class="kw">fn</span> sub(...) -&gt; <span class="dt">u32</span> <span class="op">{</span> ... <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true"></a><span class="at">#[</span>curry<span class="at">]</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true"></a><span class="kw">fn</span> add(<span class="op">...</span>) <span class="op">-&gt;</span> <span class="dt">u32</span> <span class="op">{</span> <span class="op">...</span> <span class="op">}</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true"></a><span class="at">#[</span>curry<span class="at">]</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true"></a><span class="kw">fn</span> sub(<span class="op">...</span>) <span class="op">-&gt;</span> <span class="dt">u32</span> <span class="op">{</span> <span class="op">...</span> <span class="op">}</span></span></code></pre></div>
 <p>Here is the same but with macros expanded:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw">type</span> T0 = <span class="dt">u32</span>;</span>
-<span id="cb32-2"><a href="#cb32-2"></a><span class="kw">type</span> T1 = <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) -&gt; T0;</span>
-<span id="cb32-3"><a href="#cb32-3"></a><span class="kw">fn</span> add( ... ) -&gt; T1 <span class="op">{</span> ... <span class="op">}</span></span>
-<span id="cb32-4"><a href="#cb32-4"></a></span>
-<span id="cb32-5"><a href="#cb32-5"></a><span class="kw">type</span> T0 = <span class="dt">u32</span>;</span>
-<span id="cb32-6"><a href="#cb32-6"></a><span class="kw">type</span> T1 = <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) -&gt; T0;</span>
-<span id="cb32-7"><a href="#cb32-7"></a><span class="kw">fn</span> sub( ... ) -&gt; T1 <span class="op">{</span> ... <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true"></a><span class="kw">type</span> T0 <span class="op">=</span> <span class="dt">u32</span><span class="op">;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true"></a><span class="kw">type</span> T1 <span class="op">=</span> <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) <span class="op">-&gt;</span> T0<span class="op">;</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true"></a><span class="kw">fn</span> add( <span class="op">...</span> ) <span class="op">-&gt;</span> T1 <span class="op">{</span> <span class="op">...</span> <span class="op">}</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true"></a><span class="kw">type</span> T0 <span class="op">=</span> <span class="dt">u32</span><span class="op">;</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true"></a><span class="kw">type</span> T1 <span class="op">=</span> <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) <span class="op">-&gt;</span> T0<span class="op">;</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true"></a><span class="kw">fn</span> sub( <span class="op">...</span> ) <span class="op">-&gt;</span> T1 <span class="op">{</span> <span class="op">...</span> <span class="op">}</span></span></code></pre></div>
 <p>We end up with two definitions of <code>T0</code>! Now, if we do the little <code>format_ident!</code> dance we did up there:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">type</span> _add_T0 = <span class="dt">u32</span>;</span>
-<span id="cb33-2"><a href="#cb33-2"></a><span class="kw">type</span> _add_T1 = <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) -&gt; _add_T0;</span>
-<span id="cb33-3"><a href="#cb33-3"></a><span class="kw">fn</span> add( ... ) -&gt; _add_T1 <span class="op">{</span> ... <span class="op">}</span></span>
-<span id="cb33-4"><a href="#cb33-4"></a></span>
-<span id="cb33-5"><a href="#cb33-5"></a><span class="kw">type</span> _sub_T0 = <span class="dt">u32</span>;</span>
-<span id="cb33-6"><a href="#cb33-6"></a><span class="kw">type</span> _sub_T1 = <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) -&gt; _sub_T0;</span>
-<span id="cb33-7"><a href="#cb33-7"></a><span class="kw">fn</span> sub( ... ) -&gt; _sub_T1 <span class="op">{</span> ... <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true"></a><span class="kw">type</span> _add_T0 <span class="op">=</span> <span class="dt">u32</span><span class="op">;</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true"></a><span class="kw">type</span> _add_T1 <span class="op">=</span> <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) <span class="op">-&gt;</span> _add_T0<span class="op">;</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true"></a><span class="kw">fn</span> add( <span class="op">...</span> ) <span class="op">-&gt;</span> _add_T1 <span class="op">{</span> <span class="op">...</span> <span class="op">}</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true"></a><span class="kw">type</span> _sub_T0 <span class="op">=</span> <span class="dt">u32</span><span class="op">;</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true"></a><span class="kw">type</span> _sub_T1 <span class="op">=</span> <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) <span class="op">-&gt;</span> _sub_T0<span class="op">;</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true"></a><span class="kw">fn</span> sub( <span class="op">...</span> ) <span class="op">-&gt;</span> _sub_T1 <span class="op">{</span> <span class="op">...</span> <span class="op">}</span></span></code></pre></div>
 <p>Voilà! The type aliases don’t tread on each other. Remember to import <code>format_ident</code> from the <code>quote</code> crate.</p>
 <p><strong>3. The TokenStream Vector</strong></p>
 <p>We iterate over our types in reverse order (<code>T0</code> is the last return, <code>T1</code> is the second last, so on), assign a number to each iteration with <code>zip</code>, generate type names with <code>format_ident</code>, push a <code>TokenStream</code> with the help of <code>quote</code> and variable interpolation.</p>
 <p>If you are wondering why we used <code>(1..).zip()</code> instead of <code>.enumerate()</code>, it’s because we wanted to start counting from 1 instead of 0 (we are already done with <code>T0</code>!).</p>
 <h4 id="getting-it-together">Getting it together</h4>
 <p>I promised we’d have a fully working macro by the end of last section. I lied, we have to tie everything together in our <code>generate_curry</code> function:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb34-1"><a href="#cb34-1"></a><span class="co">// src/lib.rs</span></span>
-<span id="cb34-2"><a href="#cb34-2"></a></span>
-<span id="cb34-3"><a href="#cb34-3"></a> <span class="kw">fn</span> generate_curry(parsed: ItemFn) -&gt; <span class="pp">proc_macro2::</span>TokenStream <span class="op">{</span></span>
-<span id="cb34-4"><a href="#cb34-4"></a>   <span class="kw">let</span> fn_body = parsed.block;</span>
-<span id="cb34-5"><a href="#cb34-5"></a>   <span class="kw">let</span> sig = parsed.sig;</span>
-<span id="cb34-6"><a href="#cb34-6"></a>   <span class="kw">let</span> vis = parsed.vis;</span>
-<span id="cb34-7"><a href="#cb34-7"></a>   <span class="kw">let</span> fn_name = sig.ident;</span>
-<span id="cb34-8"><a href="#cb34-8"></a>   <span class="kw">let</span> fn_args = sig.inputs;</span>
-<span id="cb34-9"><a href="#cb34-9"></a>   <span class="kw">let</span> fn_return_type = sig.output;</span>
-<span id="cb34-10"><a href="#cb34-10"></a></span>
-<span id="cb34-11"><a href="#cb34-11"></a>   <span class="kw">let</span> arg_idents = extract_arg_idents(fn_args.clone());</span>
-<span id="cb34-12"><a href="#cb34-12"></a>   <span class="kw">let</span> first_ident = &amp;arg_idents.first().unwrap();</span>
-<span id="cb34-13"><a href="#cb34-13"></a>   <span class="kw">let</span> curried_body = generate_body(&amp;arg_idents<span class="op">[</span><span class="dv">1</span>..<span class="op">]</span>, fn_body.clone());</span>
-<span id="cb34-14"><a href="#cb34-14"></a></span>
-<span id="cb34-15"><a href="#cb34-15"></a>+  <span class="kw">let</span> arg_types = extract_arg_types(fn_args.clone());</span>
-<span id="cb34-16"><a href="#cb34-16"></a>+  <span class="kw">let</span> first_type = &amp;arg_types.first().unwrap();</span>
-<span id="cb34-17"><a href="#cb34-17"></a>+  <span class="kw">let</span> type_aliases = generate_type_aliases(</span>
-<span id="cb34-18"><a href="#cb34-18"></a>+      &amp;arg_types<span class="op">[</span><span class="dv">1</span>..<span class="op">]</span>,</span>
-<span id="cb34-19"><a href="#cb34-19"></a>+      extract_return_type(fn_return_type),</span>
-<span id="cb34-20"><a href="#cb34-20"></a>+      &amp;fn_name,</span>
-<span id="cb34-21"><a href="#cb34-21"></a>+  );</span>
-<span id="cb34-22"><a href="#cb34-22"></a></span>
-<span id="cb34-23"><a href="#cb34-23"></a>+  <span class="kw">let</span> return_type = <span class="pp">format_ident!</span>(<span class="st">&quot;_{}_{}&quot;</span>, &amp;fn_name, <span class="pp">format!</span>(<span class="st">&quot;T{}&quot;</span>, type_aliases.len() - <span class="dv">1</span>));</span>
-<span id="cb34-24"><a href="#cb34-24"></a></span>
-<span id="cb34-25"><a href="#cb34-25"></a>+  <span class="kw">return</span> <span class="pp">quote!</span> <span class="op">{</span></span>
-<span id="cb34-26"><a href="#cb34-26"></a>+      #(#type_aliases);* ;</span>
-<span id="cb34-27"><a href="#cb34-27"></a>+      #vis <span class="kw">fn</span> #fn_name (#first_ident: #first_type) -&gt; #return_type <span class="op">{</span></span>
-<span id="cb34-28"><a href="#cb34-28"></a>+          #curried_body ;</span>
-<span id="cb34-29"><a href="#cb34-29"></a>+      <span class="op">}</span></span>
-<span id="cb34-30"><a href="#cb34-30"></a>+  <span class="op">}</span>;</span>
-<span id="cb34-31"><a href="#cb34-31"></a> <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true"></a><span class="co">// src/lib.rs</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true"></a> <span class="kw">fn</span> generate_curry(parsed<span class="op">:</span> ItemFn) <span class="op">-&gt;</span> <span class="pp">proc_macro2::</span>TokenStream <span class="op">{</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true"></a>   <span class="kw">let</span> fn_body <span class="op">=</span> parsed<span class="op">.</span>block<span class="op">;</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true"></a>   <span class="kw">let</span> sig <span class="op">=</span> parsed<span class="op">.</span>sig<span class="op">;</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true"></a>   <span class="kw">let</span> vis <span class="op">=</span> parsed<span class="op">.</span>vis<span class="op">;</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true"></a>   <span class="kw">let</span> fn_name <span class="op">=</span> sig<span class="op">.</span>ident<span class="op">;</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true"></a>   <span class="kw">let</span> fn_args <span class="op">=</span> sig<span class="op">.</span>inputs<span class="op">;</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true"></a>   <span class="kw">let</span> fn_return_type <span class="op">=</span> sig<span class="op">.</span>output<span class="op">;</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true"></a></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true"></a>   <span class="kw">let</span> arg_idents <span class="op">=</span> extract_arg_idents(fn_args<span class="op">.</span>clone())<span class="op">;</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true"></a>   <span class="kw">let</span> first_ident <span class="op">=</span> <span class="op">&amp;</span>arg_idents<span class="op">.</span>first()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true"></a>   <span class="kw">let</span> curried_body <span class="op">=</span> generate_body(<span class="op">&amp;</span>arg_idents[<span class="dv">1</span><span class="op">..</span>]<span class="op">,</span> fn_body<span class="op">.</span>clone())<span class="op">;</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true"></a></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true"></a><span class="op">+</span>  <span class="kw">let</span> arg_types <span class="op">=</span> extract_arg_types(fn_args<span class="op">.</span>clone())<span class="op">;</span></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true"></a><span class="op">+</span>  <span class="kw">let</span> first_type <span class="op">=</span> <span class="op">&amp;</span>arg_types<span class="op">.</span>first()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true"></a><span class="op">+</span>  <span class="kw">let</span> type_aliases <span class="op">=</span> generate_type_aliases(</span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true"></a><span class="op">+</span>      <span class="op">&amp;</span>arg_types[<span class="dv">1</span><span class="op">..</span>]<span class="op">,</span></span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true"></a><span class="op">+</span>      extract_return_type(fn_return_type)<span class="op">,</span></span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true"></a><span class="op">+</span>      <span class="op">&amp;</span>fn_name<span class="op">,</span></span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true"></a><span class="op">+</span>  )<span class="op">;</span></span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true"></a></span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true"></a><span class="op">+</span>  <span class="kw">let</span> return_type <span class="op">=</span> <span class="pp">format_ident!</span>(<span class="st">&quot;_{}_{}&quot;</span><span class="op">,</span> <span class="op">&amp;</span>fn_name<span class="op">,</span> <span class="pp">format!</span>(<span class="st">&quot;T{}&quot;</span><span class="op">,</span> type_aliases<span class="op">.</span>len() <span class="op">-</span> <span class="dv">1</span>))<span class="op">;</span></span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true"></a></span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true"></a><span class="op">+</span>  <span class="kw">return</span> <span class="pp">quote!</span> <span class="op">{</span></span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true"></a><span class="op">+</span>      #(#type_aliases)<span class="op">;*</span> <span class="op">;</span></span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true"></a><span class="op">+</span>      #vis <span class="kw">fn</span> #fn_name (#first_ident<span class="op">:</span> #first_type) <span class="op">-&gt;</span> #return_type <span class="op">{</span></span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true"></a><span class="op">+</span>          #curried_body <span class="op">;</span></span>
+<span id="cb34-29"><a href="#cb34-29" aria-hidden="true"></a><span class="op">+</span>      <span class="op">}</span></span>
+<span id="cb34-30"><a href="#cb34-30" aria-hidden="true"></a><span class="op">+</span>  <span class="op">};</span></span>
+<span id="cb34-31"><a href="#cb34-31" aria-hidden="true"></a> <span class="op">}</span></span></code></pre></div>
 <p>Most of the additions are self explanatory, I’ll go through the return statement with you. We are returning a <code>quote!{ ... }</code>, so a <code>proc_macro2::TokenStream</code>. We are iterating through the <code>type_aliases</code> variable, which you might recall, is a <code>Vec&lt;TokenStream&gt;</code>. You might notice the sneaky semicolon before the <code>*</code>. This basically tells <code>quote</code>, to insert an item, then a semicolon, and then the next one, another semicolon, and so on. The semicolon is a separator. We need to manually insert another semicolon at the end of it all, <code>quote</code> doesn’t insert a separator at the end of the iteration.</p>
 <p>We retain the visibility and name of our original function. Our curried function takes as args, just the first argument of our original function. The return type of our curried function is actually, the last type alias we create. If you think back to our manually curried <code>add</code> function, we returned <code>T2</code>, which was in fact, the last type alias we created.</p>
 <p>I am sure, at this point, you are itching to test this out, but before that, let me introduce you to some good methods of debugging proc-macro code.</p>
@@ -462,57 +462,57 @@ fn main() {
 <p>Writing proc-macros without <code>cargo-expand</code> is tantamount to driving a vehicle without rear view mirrors! Keep an eye on what is going on behind your back.</p>
 <p>Now, your macro won’t always compile, you might just recieve the bee movie script as an error. <code>cargo-expand</code> will not work in such cases. I would suggest printing out your variables to inspect them. <code>TokenStream</code> implements <code>Display</code> as well as <code>Debug</code>. We don’t always have to be respectable programmers. Just print it.</p>
 <p>Enough of that, lets get testing:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb37-1"><a href="#cb37-1"></a><span class="co">// tests/smoke.rs</span></span>
-<span id="cb37-2"><a href="#cb37-2"></a></span>
-<span id="cb37-3"><a href="#cb37-3"></a><span class="at">#![</span>feature<span class="at">(</span>type_alias_impl_trait<span class="at">)]</span></span>
-<span id="cb37-4"><a href="#cb37-4"></a></span>
-<span id="cb37-5"><a href="#cb37-5"></a><span class="at">#[</span><span class="pp">crate_name::</span>curry<span class="at">]</span></span>
-<span id="cb37-6"><a href="#cb37-6"></a><span class="kw">fn</span> add(x: <span class="dt">u32</span>, y: <span class="dt">u32</span>, z: <span class="dt">u32</span>) -&gt; <span class="dt">u32</span> <span class="op">{</span></span>
-<span id="cb37-7"><a href="#cb37-7"></a>   x + y + z</span>
-<span id="cb37-8"><a href="#cb37-8"></a><span class="op">}</span></span>
-<span id="cb37-9"><a href="#cb37-9"></a></span>
-<span id="cb37-10"><a href="#cb37-10"></a><span class="at">#[</span>test<span class="at">]</span></span>
-<span id="cb37-11"><a href="#cb37-11"></a><span class="kw">fn</span> works() <span class="op">{</span></span>
-<span id="cb37-12"><a href="#cb37-12"></a>  <span class="pp">assert_eq!</span>(<span class="dv">15</span>, add(<span class="dv">4</span>)(<span class="dv">5</span>)(<span class="dv">6</span>));</span>
-<span id="cb37-13"><a href="#cb37-13"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true"></a><span class="co">// tests/smoke.rs</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true"></a><span class="at">#![</span>feature<span class="at">(</span>type_alias_impl_trait<span class="at">)]</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true"></a><span class="at">#[</span><span class="pp">crate_name::</span>curry<span class="at">]</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true"></a><span class="kw">fn</span> add(x<span class="op">:</span> <span class="dt">u32</span><span class="op">,</span> y<span class="op">:</span> <span class="dt">u32</span><span class="op">,</span> z<span class="op">:</span> <span class="dt">u32</span>) <span class="op">-&gt;</span> <span class="dt">u32</span> <span class="op">{</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true"></a>   x <span class="op">+</span> y <span class="op">+</span> z</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true"></a></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true"></a><span class="at">#[</span>test<span class="at">]</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true"></a><span class="kw">fn</span> works() <span class="op">{</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true"></a>  <span class="pp">assert_eq!</span>(<span class="dv">15</span><span class="op">,</span> add(<span class="dv">4</span>)(<span class="dv">5</span>)(<span class="dv">6</span>))<span class="op">;</span></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p>Run <code>cargo +nightly test</code>. You should see a pleasing message:</p>
 <pre><code>running 1 test
 test tests::works ... ok</code></pre>
 <p>Take a look at the expansion for our curry macro, via <code>cargo +nightly expand --tests smoke</code>:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb39-1"><a href="#cb39-1"></a><span class="kw">type</span> _add_T0 = <span class="dt">u32</span>;</span>
-<span id="cb39-2"><a href="#cb39-2"></a><span class="kw">type</span> _add_T1 = <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) -&gt; _add_T0;</span>
-<span id="cb39-3"><a href="#cb39-3"></a><span class="kw">type</span> _add_T2 = <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) -&gt; _add_T1;</span>
-<span id="cb39-4"><a href="#cb39-4"></a><span class="kw">fn</span> add(x: <span class="dt">u32</span>) -&gt; _add_T2 <span class="op">{</span></span>
-<span id="cb39-5"><a href="#cb39-5"></a>  <span class="kw">return</span> (<span class="kw">move</span> |y| <span class="op">{</span></span>
-<span id="cb39-6"><a href="#cb39-6"></a>    <span class="kw">move</span> |z| <span class="op">{</span></span>
-<span id="cb39-7"><a href="#cb39-7"></a>      <span class="kw">return</span> x + y + z;</span>
-<span id="cb39-8"><a href="#cb39-8"></a>    <span class="op">}</span></span>
-<span id="cb39-9"><a href="#cb39-9"></a>  <span class="op">}</span>);</span>
-<span id="cb39-10"><a href="#cb39-10"></a><span class="op">}</span></span>
-<span id="cb39-11"><a href="#cb39-11"></a></span>
-<span id="cb39-12"><a href="#cb39-12"></a><span class="co">// a bunch of other stuff generated by #[test] and assert_eq!</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true"></a><span class="kw">type</span> _add_T0 <span class="op">=</span> <span class="dt">u32</span><span class="op">;</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true"></a><span class="kw">type</span> _add_T1 <span class="op">=</span> <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) <span class="op">-&gt;</span> _add_T0<span class="op">;</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true"></a><span class="kw">type</span> _add_T2 <span class="op">=</span> <span class="kw">impl</span> <span class="bu">Fn</span>(<span class="dt">u32</span>) <span class="op">-&gt;</span> _add_T1<span class="op">;</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true"></a><span class="kw">fn</span> add(x<span class="op">:</span> <span class="dt">u32</span>) <span class="op">-&gt;</span> _add_T2 <span class="op">{</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true"></a>  <span class="kw">return</span> (<span class="kw">move</span> <span class="op">|</span>y<span class="op">|</span> <span class="op">{</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true"></a>    <span class="kw">move</span> <span class="op">|</span>z<span class="op">|</span> <span class="op">{</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true"></a>      <span class="kw">return</span> x <span class="op">+</span> y <span class="op">+</span> z<span class="op">;</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true"></a>  <span class="op">}</span>)<span class="op">;</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true"></a></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true"></a><span class="co">// a bunch of other stuff generated by #[test] and assert_eq!</span></span></code></pre></div>
 <p>A sight for sore eyes.</p>
 <p>Here is a more complex example that generates ten multiples of the first ten natural numbers:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb40-1"><a href="#cb40-1"></a><span class="at">#[</span>curry<span class="at">]</span></span>
-<span id="cb40-2"><a href="#cb40-2"></a><span class="kw">fn</span> product(x: <span class="dt">u32</span>, y: <span class="dt">u32</span>) -&gt; <span class="dt">u32</span> <span class="op">{</span></span>
-<span id="cb40-3"><a href="#cb40-3"></a>  x * y</span>
-<span id="cb40-4"><a href="#cb40-4"></a><span class="op">}</span></span>
-<span id="cb40-5"><a href="#cb40-5"></a></span>
-<span id="cb40-6"><a href="#cb40-6"></a><span class="kw">fn</span> multiples() -&gt; <span class="dt">Vec</span>&lt;<span class="dt">Vec</span>&lt;<span class="dt">u32</span>&gt;&gt;<span class="op">{</span></span>
-<span id="cb40-7"><a href="#cb40-7"></a>  <span class="kw">let</span> v = (<span class="dv">1</span>..=<span class="dv">10</span>).map(product);</span>
-<span id="cb40-8"><a href="#cb40-8"></a>  <span class="kw">return</span> (<span class="dv">1</span>..=<span class="dv">10</span>)</span>
-<span id="cb40-9"><a href="#cb40-9"></a>      .map(|x| v.clone().map(|f| f(x)).collect())</span>
-<span id="cb40-10"><a href="#cb40-10"></a>      .collect();</span>
-<span id="cb40-11"><a href="#cb40-11"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true"></a><span class="at">#[</span>curry<span class="at">]</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true"></a><span class="kw">fn</span> product(x<span class="op">:</span> <span class="dt">u32</span><span class="op">,</span> y<span class="op">:</span> <span class="dt">u32</span>) <span class="op">-&gt;</span> <span class="dt">u32</span> <span class="op">{</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true"></a>  x <span class="op">*</span> y</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true"></a><span class="kw">fn</span> multiples() <span class="op">-&gt;</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">u32</span><span class="op">&gt;&gt;{</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true"></a>  <span class="kw">let</span> v <span class="op">=</span> (<span class="dv">1</span><span class="op">..=</span><span class="dv">10</span>)<span class="op">.</span>map(product)<span class="op">;</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true"></a>  <span class="kw">return</span> (<span class="dv">1</span><span class="op">..=</span><span class="dv">10</span>)</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true"></a>      <span class="op">.</span>map(<span class="op">|</span>x<span class="op">|</span> v<span class="op">.</span>clone()<span class="op">.</span>map(<span class="op">|</span>f<span class="op">|</span> f(x))<span class="op">.</span>collect())</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true"></a>      <span class="op">.</span>collect()<span class="op">;</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <h3 id="notes">Notes</h3>
 <p>I didn’t quite explain why we use <code>move |arg|</code> in our closure. This is because we want to take ownership of the variable supplied to us. Take a look at this example:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb41-1"><a href="#cb41-1"></a><span class="kw">let</span> v = add(<span class="dv">5</span>);</span>
-<span id="cb41-2"><a href="#cb41-2"></a><span class="kw">let</span> g;</span>
-<span id="cb41-3"><a href="#cb41-3"></a><span class="op">{</span></span>
-<span id="cb41-4"><a href="#cb41-4"></a>  <span class="kw">let</span> x = <span class="dv">5</span>;</span>
-<span id="cb41-5"><a href="#cb41-5"></a>  g = v(x);</span>
-<span id="cb41-6"><a href="#cb41-6"></a><span class="op">}</span></span>
-<span id="cb41-7"><a href="#cb41-7"></a><span class="pp">println!</span>(<span class="st">&quot;{}&quot;</span>, g(<span class="dv">2</span>));</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true"></a><span class="kw">let</span> v <span class="op">=</span> add(<span class="dv">5</span>)<span class="op">;</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true"></a><span class="kw">let</span> g<span class="op">;</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true"></a><span class="op">{</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true"></a>  <span class="kw">let</span> x <span class="op">=</span> <span class="dv">5</span><span class="op">;</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true"></a>  g <span class="op">=</span> v(x)<span class="op">;</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true"></a><span class="pp">println!</span>(<span class="st">&quot;{}&quot;</span><span class="op">,</span> g(<span class="dv">2</span>))<span class="op">;</span></span></code></pre></div>
 <p>Variable <code>x</code> goes out of scope before <code>g</code> can return a concrete value. If we take ownership of <code>x</code> by <code>move</code>ing it into our closure, we can expect this to work reliably. In fact, rustc understands this, and forces you to use <code>move</code>.</p>
 <p>This usage of <code>move</code> is exactly why <strong>a curried function without a return is useless</strong>. Every variable we pass to our curried function gets moved into its local scope. Playing with these variables cannot cause a change outside this scope. Returning is our only method of interaction with anything beyond this function.</p>
 <h3 id="conclusion">Conclusion</h3>
@@ -538,7 +538,10 @@ test tests::works ... ok</code></pre>
         <p>I'm Akshay, I go by nerd or nerdypepper on the internet.</p>
         <p>
         I am a compsci undergrad, Rust programmer and an enthusiastic Vimmer.
-        I write open-source stuff to pass time. I also design fonts: scientifica, curie.
+        I write <a href=https://git.peppe.rs>open-source stuff</a> to pass time. 
+        I also design fonts: 
+        <a href=https://git.peppe.rs/fonts/scientifica>scientifica</a>, 
+        <a href=https://git.peppe.rs/fonts/curie>curie</a>.
         </p>
         <p>Send me a mail at nerdy@peppe.rs or a message at nerdypepper@irc.rizon.net.</p>
     </div>
