@@ -13,9 +13,9 @@
       <copyright>Creative Commons BY-NC-SA 4.0</copyright>
       <item>
 <title>Self-hosting Git</title>
-<description>&lt;p&gt;Earlier this week, I began migrating my repositories from Github to &lt;a href="https://git.zx2c4.com/"&gt;cgit&lt;/a&gt;. If you care at all about big corporates turning open-source into a T-shirt farming service, this is the way to go.&lt;/p&gt;
+<description>&lt;p&gt;Earlier this week, I began migrating my repositories from Github to &lt;a href="https://git.zx2c4.com/cgit/about/"&gt;cgit&lt;/a&gt;. If you care at all about big corporates turning open-source into a T-shirt farming service, this is the way to go.&lt;/p&gt;
 &lt;h3 id="offerings"&gt;Offerings&lt;/h3&gt;
-&lt;p&gt;cgit is &lt;em&gt;very&lt;/em&gt; bare bones. It is &lt;a href="https://tools.ietf.org/html/rfc3875"&gt;cgi&lt;/a&gt; web interface interface to git, and nothing more. You may browse repositories, view diffs, commit logs and even clone via http. If you are looking to replace Github with cgit, keep in mind that cgit does not handle issues or pull/merge requests. If people wish to contribute to your work, they would have to send you a patch via email.&lt;/p&gt;
+&lt;p&gt;cgit is &lt;em&gt;very&lt;/em&gt; bare bones. It is &lt;a href="https://tools.ietf.org/html/rfc3875"&gt;cgi-based&lt;/a&gt; web interface to git, and nothing more. You may browse repositories, view diffs, commit logs and even clone via http. If you are looking to replace Github with cgit, keep in mind that cgit does not handle issues or pull/merge requests. If people wish to contribute to your work, they would have to send you a patch via email.&lt;/p&gt;
 &lt;h3 id="setup"&gt;Setup&lt;/h3&gt;
 &lt;p&gt;Installing cgit is fairly straightforward, if you would like to compile it from source:&lt;/p&gt;
 &lt;div class="sourceCode" id="cb1"&gt;&lt;pre class="sourceCode sh"&gt;&lt;code class="sourceCode bash"&gt;&lt;span id="cb1-1"&gt;&lt;a href="#cb1-1" aria-hidden="true"&gt;&lt;/a&gt;&lt;span class="co"&gt;# fetch&lt;/span&gt;&lt;/span&gt;

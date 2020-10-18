@@ -1,12 +1,12 @@
 Earlier this week, I began migrating my repositories from
-Github to [cgit](https://git.zx2c4.com/). If you care at
+Github to [cgit](https://git.zx2c4.com/cgit/about/). If you care at
 all about big corporates turning open-source into a T-shirt
 farming service, this is the way to go.
 
 ### Offerings
 
 cgit is *very* bare bones. It is
-[cgi](https://tools.ietf.org/html/rfc3875) web interface
+[cgi-based](https://tools.ietf.org/html/rfc3875) web
 interface to git, and nothing more. You may browse
 repositories, view diffs, commit logs and even clone via
 http. If you are looking to replace Github with cgit, keep
